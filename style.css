@@ -1,0 +1,177 @@
+/******************************************************************
+Theme Name: Avow PDX
+Theme URI: http://github.com/ssickman/avow
+Description: This site was built using the Bones Development Theme. For more information about Bones or to view documentation, you can visit the <a href="https://github.com/eddiemachado/bones/issues" title="Bones Issues">Bones Issues</a> page on Github. You'll want to customize this for your clients with your own information.
+Author: Your Name Here
+Author URI: http://www.yoururlhere.com
+Version: 1.7
+Tags: fluid-layout, responsive-layout, accessibility-ready, translation-ready, microformats, rtl-language-support
+
+License: WTFPL
+License URI: http://sam.zoy.org/wtfpl/
+Are You Serious? Yes.
+
+/*
+WordPress Probz
+So Theme Check (http://wordpress.org/plugins/theme-check/)
+is constantly telling me that it needs these classes in the CSS even
+though they are in the REAL stylesheet in library/css/style.css.
+So we're gonna drop these here to keep it happy.
+Great work, Theme Check (eye roll)
+*/
+
+.sticky {}          /* DO NOT EDIT THIS */
+.gallery-caption {} /* THESE ARE USELESS */
+.bypostauthor {}    /* THEY ARE ONLY TO KEEP THEME CHECK HAPPY */
+
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+
+@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+
+body{
+	font-family: "Oxygen", sans-serif;
+	color: #333;
+}
+
+a{
+	color: teal;
+	text-decoration: none;
+}
+
+#logo{
+	text-indent: -9999px;
+	display: block;
+	background: url('img/avow.png') no-repeat;
+	background-size: 100%;
+	width: 90px;
+	height: 32px;
+	margin: 15px 10px;
+}
+
+header{
+	overflow: hidden;
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+	position:relative;
+	z-index: 2;
+	background: white;
+	background: rgba(255,255,255,.7);
+}
+nav{
+	margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+   	max-width: 300px;
+}
+
+nav a {
+    display: block;
+    float: left;
+    height: 62px;
+    line-height: 62px;
+	width: 33.33%;	
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all .2s ease-out;
+} nav a:hover{
+	background: teal;
+	color: white;
+}
+
+nav a:last-child{
+	width: 33.34%;
+}
+
+.top-box-shadow{
+	box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.4), 0 4px 5px rgba(0, 0, 0, 0.4);
+}
+
+footer{
+	
+	position:relative;
+	z-index: 2;
+	padding: 15px 7px;
+	background: white;
+}
+
+footer .inner {
+	border-top: 1px solid #AAAAAA;
+    color: #333333;
+    margin: 0 10px;
+    padding-top: 12px;
+}
+
+.header-float{
+	float: left;
+}
+
+main{
+	min-height: 100px;
+}
+
+.for-all {
+    margin-left: 13px;
+    position: relative;
+    top: 1px;
+    width: 64px;
+}
+
+
+
+#content{
+	background: white;
+	min-height: 500px;
+	position: relative;
+	z-index: 2;
+	margin-top: 125px;
+	padding: 15px;
+	transition: all .5s ease-out;
+}
+
+#banner{
+	position: fixed;
+	top: 0;
+}
+#banner h3{
+	position: absolute;
+	top: 50px;
+	left: 10px;
+	color: white;
+	background: teal;
+	padding: 5px;
+	z-index: 2;
+	display: none;
+}
+
+#banner h3:nth-child(2){
+	left:20px;
+	top: 60px;
+	z-index: 1;
+	
+}
+
+#home-banner{
+	width: 100%;
+}
+
+
+@media only screen and (min-width: 480px) {
+	/* Wide mobile (480px+) styles go here */
+	#content{
+		margin-top: 225px;
+	}
+}
+
+@media only screen and (min-width: 768px) { 
+	/* Tablets/netbooks (768px+) styles go here */
+	#content{
+		margin-top: 390px;
+	}
+}
+
+@media only screen and (min-width: 1024px) { 
+	/* Desktops (1024px+) styles go here */
+	#content{
+		margin-top: 530px;
+	}
+}
