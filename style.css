@@ -18,6 +18,10 @@ is constantly telling me that it needs these classes in the CSS even
 though they are in the REAL stylesheet in library/css/style.css.
 So we're gonna drop these here to keep it happy.
 Great work, Theme Check (eye roll)
+
+teal #008080
+teal shadow #005556;
+
 */
 
 .sticky {}          /* DO NOT EDIT THIS */
@@ -26,7 +30,7 @@ Great work, Theme Check (eye roll)
 
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
-@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Oxygen:400,700,300|Trocchi:400);
 
 body{
 	font-family: "Oxygen", sans-serif;
@@ -51,10 +55,9 @@ a{
 header{
 	overflow: hidden;
 	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
-	position:relative;
-	z-index: 2;
+	z-index: 5;
 	background: white;
-	background: rgba(255,255,255,.7);
+	background: rgba(255,255,255,1.8);
 }
 nav{
 	margin: 0 auto;
@@ -119,46 +122,103 @@ main{
 
 
 #content{
-	background: white;
-	min-height: 500px;
+	background: #F0F0F0;
+	min-height: 600px;
 	position: relative;
 	z-index: 2;
-	margin-top: 125px;
-	padding: 15px;
+	margin-top: 260px;
 	transition: all .5s ease-out;
+	
+}
+
+.fixed{
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
 
 #banner{
-	position: fixed;
-	top: 0;
-}
-#banner h3{
-	position: absolute;
-	top: 50px;
-	left: 10px;
-	color: white;
-	background: teal;
-	padding: 5px;
-	z-index: 2;
-	display: none;
+	top:63px;
 }
 
-#banner h3:nth-child(2){
-	left:20px;
-	top: 60px;
-	z-index: 1;
-	
+.banner-text, .banner-button{
+	position: absolute;
+	bottom: 35%;
+	left: 10%;
 }
+
+.banner-text span{
+	position: relative;
+	display: block;
+	
+} .banner-text span:last-child{
+	top: 5px;
+	left:20px;
+	padding-right: 20px;
+} .banner-text span, .banner-button{
+	background: teal;
+	color: white;
+	font-weight: bold;
+	padding: 7px 12px;
+	font-size: 19px;
+}
+
+.button-shadow{
+	box-shadow: 1px 0px #005556, 0px 1px #016c6c,
+          2px 1px #005556, 1px 2px #016c6c,
+          3px 2px #005556, 2px 3px #016c6c,
+          4px 3px #005556, 3px 4px #016c6c,
+          5px 4px #005556, 4px 5px #016c6c,
+          6px 5px #005556, 5px 6px #016c6c;
+}
+
+.banner-button{
+	left:55%;
+	bottom: 42%;
+}
+	
 
 #home-banner{
 	width: 100%;
 }
 
+#packages{
+	display:-webkit-flex;
+	display: flex;
+} #packages > li{
+	width: 100%;
+	margin: 0 1.25%;
+} #packages > li h2 {
+    border-bottom: 2px solid;
+    color: #008080;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 10px 0;
+    text-align: center;
+    font-family: "Trocchi", georgia, serif;
+} #packages > li:nth-child(2) h2{
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+ul.features li{
+	margin-bottom: 10px;
+	font-size: 13px;
+} ul.features li:before{
+	content:" \2713";
+	margin-right: 7px;
+} ul.features li.extra{
+	color:teal;
+}
+
+
+
 
 @media only screen and (min-width: 480px) {
 	/* Wide mobile (480px+) styles go here */
 	#content{
-		margin-top: 225px;
+		margin-top: 275px;
 	}
 }
 

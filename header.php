@@ -29,7 +29,7 @@
 		<div class="wrapper">
 
 			<!-- header -->
-			<header class="header clear" role="banner">
+			<header class="header clear fixed" role="banner">
 
 					<!-- logo -->
 					<a href="<?php echo home_url(); ?>" id="logo" class="header-float">
