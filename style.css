@@ -54,11 +54,12 @@ a{
 
 header{
 	overflow: hidden;
-	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+	
 	z-index: 5;
 	background: white;
 	background: rgba(255,255,255,1.8);
 }
+
 nav{
 	margin: 0 auto;
     overflow: hidden;
@@ -86,7 +87,12 @@ nav a:last-child{
 }
 
 .top-box-shadow{
-	box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.4), 0 4px 5px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.4);
+} .bottom-box-shadow{
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+}
+.no-box-shadow{
+	box-shadow: none;
 }
 
 footer{
@@ -98,7 +104,7 @@ footer{
 }
 
 footer .inner {
-	border-top: 1px solid #AAAAAA;
+	/* border-top: 1px solid #AAAAAA; */
     color: #333333;
     margin: 0 10px;
     padding-top: 12px;
