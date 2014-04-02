@@ -1,42 +1,51 @@
 (function ($, root, undefined) {
+	var absolute = false;
+	var absoluteCss = {
+		position: 'absolute',
+		top: '469px'
+	};
 	
+	var fixedCss = {
+		position: 'fixed',
+		top: '0'
+	};
+	
+	
+
 	$(function () {
-		var triggerPoint = getTriggerPoint();
-		var absolute = false;
-		var absoluteCss = {
-			position: 'absolute',
-			top: triggerPoint + 'px'
-		};
-		
-		var fixedCss = {
-			position: 'fixed',
-			top: '0'
-		};
-		
-		$( window ).scroll(function(e) {
-			if (!absolute && $(this).scrollTop() >= triggerPoint) {
-				$('header').css(absoluteCss);
-				$('.top-box-shadow, .bottom-box-shadow').addClass('no-box-shadow');
-				
-				absolute = !absolute;
-				
-			} else if (absolute && $(this).scrollTop() < triggerPoint) {
-				$('header').css(fixedCss);
-				$('.top-box-shadow, .bottom-box-shadow').removeClass('no-box-shadow');
-				
-				absolute = !absolute;
-			}
-		});
-		
-		'use strict';
-		
-		// DOM ready, take it away
+		var scrollPoint = getScrollPoint();
+					
+		$( window )
+			.on('scroll', function(e) {
+
+				if (!absolute && $(this).scrollTop() >= scrollPoint) {
+					$('header').css(absoluteCss);
+					$('.top-box-shadow, .bottom-box-shadow').addClass('no-box-shadow');
+					
+					absolute = !absolute;
+					
+				} else if (absolute && $(this).scrollTop() < scrollPoint) {
+					$('header').css(fixedCss);
+					$('.top-box-shadow, .bottom-box-shadow').removeClass('no-box-shadow');
+					
+					absolute = !absolute;
+				}
+			})
+			.on('resize', function(
+			
+			){
+				scrollPoint = getScrollPoint();
+			});
 		
 	});
 
-	function getTriggerPoint()
+	function getScrollPoint()
 	{
-		return parseInt($('#content').css('marginTop')) - parseInt($('header').css('height'));
+		var position = parseInt($('#content').css('marginTop')) - parseInt($('header').css('height'));
+
+		absoluteCss.top = position + 'px';
+
+		return position;
 	}
 	
 })(jQuery, this);
