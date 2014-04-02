@@ -85,12 +85,14 @@ nav a {
 nav a:last-child{
 	width: 33.34%;
 }
+/*
 
 .top-box-shadow{
 	box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.4);
 } .bottom-box-shadow{
 	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
 }
+*/
 .no-box-shadow{
 	box-shadow: none;
 }

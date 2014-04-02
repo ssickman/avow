@@ -5,7 +5,7 @@
 		var absolute = false;
 		var absoluteCss = {
 			position: 'absolute',
-			top: '456px'
+			top: triggerPoint + 'px'
 		};
 		
 		var fixedCss = {
@@ -33,10 +33,11 @@
 		// DOM ready, take it away
 		
 	});
+
+	function getTriggerPoint()
+	{
+		return parseInt($('#content').css('marginTop')) - parseInt($('header').css('height'));
+	}
 	
 })(jQuery, this);
 
-function getTriggerPoint()
-{
-	return 463;
-}
