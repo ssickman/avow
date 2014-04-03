@@ -2,8 +2,9 @@
 			<footer class="footer" role="contentinfo">
 				<div class="inner">
 					<p class="copyright">
-						&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?> <img class="for-all" src="wp-content/themes/avow/img/for-all.png">
+						&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?> 
 					</p>
+					<span class="for-all"><span class="heart">&#x2764;</span> for all</span>
 				</div>
 			</footer>
 			<!-- /footer -->

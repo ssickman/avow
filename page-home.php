@@ -8,15 +8,15 @@ Template Name: Homepage Template
 	<main role="main">
 		<section id="banner" class="fixed">
 			<h3 class="banner-text">
-				<span>Get hitched</span>
-				<span>on the quick</span>
+				<span>Get hitched on the quick</span>
+				<a class="button banner-button button-shadow" href="/book">book now ></a>
 			</h3>
-			<a class="button banner-button button-shadow" href="/book">book now ></a>
 			<img id="home-banner" src="wp-content/themes/avow/img/homepage.jpg">
 		</section>
 		
-		<section id="content" class="top-box-shadow">
-			<ul id="packages">
+		<section id="packages" class="top-box-shadow">
+			<h1>Packages</h1>
+			<ul id="">
 				<li>
 					<h2>The Hawthorne</h2>
 					<ul class="features">

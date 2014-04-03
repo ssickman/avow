@@ -30,8 +30,6 @@ teal shadow #005556;
 
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
-@import url(http://fonts.googleapis.com/css?family=Oxygen:400,700,300|Trocchi:400);
-
 body{
 	font-family: "Oxygen", sans-serif;
 	color: #333;
@@ -120,23 +118,13 @@ main{
 	min-height: 100px;
 }
 
-.for-all {
-    margin-left: 13px;
-    position: relative;
-    top: 1px;
-    width: 64px;
-}
-
-
-
-#content{
-	background: #F0F0F0;
+#packages{
+	background: #F9F9F9;
 	min-height: 600px;
 	position: relative;
 	z-index: 2;
 	margin-top: 260px;
-	transition: all .5s ease-out;
-	
+	/* transition: all .5s ease-out; */
 }
 
 .fixed{
@@ -149,20 +137,22 @@ main{
 	top:63px;
 }
 
-.banner-text, .banner-button{
+.banner-text{
 	position: absolute;
-	bottom: 35%;
+	bottom: 20%;
 	left: 10%;
 }
 
-.banner-text span{
+.banner-text span, .banner-text a{
 	position: relative;
 	display: block;
+	float: left;
 	
-} .banner-text span:last-child{
+} .banner-text span:last-child, .banner-text a:last-child{
 	top: 5px;
 	left:20px;
 	padding-right: 20px;
+	clear: both;
 } .banner-text span, .banner-button{
 	background: teal;
 	color: white;
@@ -180,34 +170,45 @@ main{
           6px 5px #005556, 5px 6px #016c6c;
 }
 
-.banner-button{
-	left:55%;
-	bottom: 42%;
-}
-	
-
 #home-banner{
 	width: 100%;
 }
 
+
 #packages{
+	overflow: hidden;
+}
+#packages h1{
+	font-size: 24px;
+	text-align: center;
+	margin: 20px 0 10px;
+	color: #666;
+	font-family:"Trocchi",georgia,serif
+}
+
+#packages > ul{
 	display:-webkit-flex;
 	display: flex;
-} #packages > li{
-	width: 100%;
-	margin: 0 1.25%;
-} #packages > li h2 {
+	display: block;
+} #packages > ul > li{
+	/* width: 100%; */
+	 margin: 0 5%;
+} #packages > ul > li h2 {
     border-bottom: 2px solid;
-    color: #008080;
-    font-size: 15px;
+    
+    color: #666;
+    font-size: 16px;
     font-weight: bold;
     margin: 10px 0;
     padding: 10px 0;
-    text-align: center;
-    font-family: "Trocchi", georgia, serif;
-} #packages > li:nth-child(2) h2{
-	padding-left: 2px;
+    text-align: left;
+    font-family: "Revalia", "Trocchi", georgia, serif;
+   /*  text-shadow: 4px 4px 3px #016c6c; */
+} #packages > ul > li:nth-child(2) h2{
+	/*
+padding-left: 2px;
 	padding-right: 2px;
+*/
 }
 
 ul.features li{
@@ -221,25 +222,46 @@ ul.features li{
 }
 
 
+.footer{
+	font-size: 18px;
+
+}
+.copyright{
+	float: left;
+}
+.for-all{
+	margin-left: 10px;
+	float: right;
+	position: relative;
+	top: -16px;
+} .heart{
+	color: #D4AF37;
+    font-size: 200%;
+    font-weight: normal;
+    position: relative;
+    top: 4px;
+}
+
+
 
 
 @media only screen and (min-width: 480px) {
 	/* Wide mobile (480px+) styles go here */
-	#content{
+	#packages{
 		margin-top: 275px;
 	}
 }
 
 @media only screen and (min-width: 768px) { 
 	/* Tablets/netbooks (768px+) styles go here */
-	#content{
+	#packages{
 		margin-top: 390px;
 	}
 }
 
 @media only screen and (min-width: 1024px) { 
 	/* Desktops (1024px+) styles go here */
-	#content{
+	#packages{
 		margin-top: 530px;
 	}
 }

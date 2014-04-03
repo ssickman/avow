@@ -91,13 +91,19 @@ function html5blank_nav()
 function html5blank_header_scripts()
 {
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
-
-    	wp_register_script('conditionizr', 'http://cdnjs.cloudflare.com/ajax/libs/conditionizr.js/4.0.0/conditionizr.js', array(), '4.0.0'); // Conditionizr
+    	wp_register_script('conditionizr', 'http://cdnjs.cloudflare.com/ajax/libs/conditionizr.js/4.1.0/conditionizr.js', array(), '4.1.0'); // Conditionizr
         wp_enqueue_script('conditionizr'); // Enqueue it!
+/*
 
         wp_register_script('modernizr', 'http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js', array(), '2.6.2'); // Modernizr
         wp_enqueue_script('modernizr'); // Enqueue it!
-
+*/
+		wp_deregister_script('jquery');
+        wp_register_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', array(), '1.11.0'); // Custom scripts
+        wp_enqueue_script('jquery'); // Enqueue it!
+        
+        wp_deregister_script('comment-reply');
+        
         wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
         wp_enqueue_script('html5blankscripts'); // Enqueue it!
     }
@@ -116,7 +122,7 @@ function html5blank_conditional_scripts()
 function html5blank_styles()
 {
     wp_register_style('normalize', get_template_directory_uri() . '/normalize.css', array(), '1.0', 'all');
-    wp_enqueue_style('normalize'); // Enqueue it!
+    //wp_enqueue_style('normalize'); // Enqueue it!
 
     wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
     wp_enqueue_style('html5blank'); // Enqueue it!
@@ -334,6 +340,80 @@ function html5blankcomments($comment, $args, $depth)
 	</div>
 	<?php endif; ?>
 <?php }
+
+ add_action( 'template_redirect', 'relative_url' );
+
+  function relative_url() {
+    // Don't do anything if:
+    // - In feed
+    // - In sitemap by WordPress SEO plugin
+    if ( is_feed() || get_query_var( 'sitemap' ) )
+      return;
+    $filters = array(
+      'post_link',       // Normal post link
+      'post_type_link',  // Custom post type link
+      'page_link',       // Page link
+      'attachment_link', // Attachment link
+      'get_shortlink',   // Shortlink
+      'post_type_archive_link',    // Post type archive link
+      'get_pagenum_link',          // Paginated link
+      'get_comments_pagenum_link', // Paginated comment link
+      'term_link',   // Term link, including category, tag
+      'search_link', // Search link
+      'day_link',   // Date archive link
+      'month_link',
+      'year_link',
+
+      // site location
+      'option_siteurl',
+      'blog_option_siteurl',
+      'option_home',
+      'admin_url',
+      'home_url',
+      'includes_url',
+      'site_url',
+      'site_option_siteurl',
+      'network_home_url',
+      'network_site_url',
+
+      // debug only filters
+      'get_the_author_url',
+      'get_comment_link',
+      'wp_get_attachment_image_src',
+      'wp_get_attachment_thumb_url',
+      'wp_get_attachment_url',
+      'wp_login_url',
+      'wp_logout_url',
+      'wp_lostpassword_url',
+      'get_stylesheet_uri',
+      // 'get_stylesheet_directory_uri',
+      // 'plugins_url',
+      // 'plugin_dir_url',
+      // 'stylesheet_directory_uri',
+      // 'get_template_directory_uri',
+      // 'template_directory_uri',
+      'get_locale_stylesheet_uri',
+      'script_loader_src', // plugin scripts url
+      'style_loader_src', // plugin styles url
+      'get_theme_root_uri'
+      // 'home_url'
+    );
+
+    foreach ( $filters as $filter ) {
+      //add_filter( $filter, 'wp_make_link_relative' );
+      add_filter( $filter, 'conditionalRelativeUrl' );
+    }
+    home_url($path = '', $scheme = null);
+  }
+  
+  function conditionalRelativeUrl($link) {
+  	
+  	if (strpos($link, 'cloudflare') === false) {
+  		return wp_make_link_relative($link);
+  	} else {
+  		return $link;
+  	}
+  }
 
 /*------------------------------------*\
 	Actions + Filters + ShortCodes

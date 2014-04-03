@@ -1,4 +1,9 @@
 (function ($, root, undefined) {
+	
+	 isMobile = function() {
+	  return ('ontouchstart' in window)
+	}();
+	
 	var absolute = false;
 	var absoluteCss = {
 		position: 'absolute',
@@ -9,22 +14,24 @@
 		position: 'fixed',
 		top: '0'
 	};
-	
-	
-
+		
 	$(function () {
+		setContentMargin();
+		
+		console.log($('#home-banner').css('height'));
+		
 		var scrollPoint = getScrollPoint();
-					
+							
 		$( window )
 			.on('scroll', function(e) {
 
-				if (!absolute && $(this).scrollTop() >= scrollPoint) {
+				if (!isMobile && !absolute && $(this).scrollTop() >= scrollPoint) {
 					$('header').css(absoluteCss);
 					$('.top-box-shadow, .bottom-box-shadow').addClass('no-box-shadow');
 					
 					absolute = !absolute;
 					
-				} else if (absolute && $(this).scrollTop() < scrollPoint) {
+				} else if (!isMobile && absolute && $(this).scrollTop() < scrollPoint) {
 					$('header').css(fixedCss);
 					$('.top-box-shadow, .bottom-box-shadow').removeClass('no-box-shadow');
 					
@@ -34,14 +41,20 @@
 			.on('resize', function(
 			
 			){
-				scrollPoint = getScrollPoint();
+				setContentMargin();
+				scrollPoint = getScrollPoint(parseInt($('#home-banner').css('height')));
 			});
 		
 	});
-
-	function getScrollPoint()
+	
+	function setContentMargin()
 	{
-		var position = parseInt($('#content').css('marginTop')) - parseInt($('header').css('height'));
+		$('#packages').css('marginTop', parseInt($('#home-banner').css('height')) + parseInt($('header').css('height')) + 'px');
+	}
+	
+	function getScrollPoint()
+	{	
+		var position = parseInt($('#home-banner').css('height'));
 
 		absoluteCss.top = position + 'px';
 
