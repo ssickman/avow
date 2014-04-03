@@ -19,6 +19,12 @@ Template Name: Homepage Template
 			<ul id="">
 				<li>
 					<h2>The Hawthorne</h2>
+					<h3>600</h3>
+					
+					<p>
+						Our standard package. Includes everything you need to ensure your special day is one to remember.
+					</p>
+					
 					<ul class="features">
 						<li>60 minutes of chapel time</li>
 						<li>Officiant</li>
@@ -29,6 +35,10 @@ Template Name: Homepage Template
 				</li>	
 				<li>
 					<h2>The Morrison</h2>
+					<h3>900</h3>
+					<p>
+						When you need just a little more. Double the amount of prints. And an assload more flowers!
+					</p>
 					<ul class="features">
 						<li>60 minutes of chapel time</li>
 						<li>Officiant</li>
@@ -40,6 +50,10 @@ Template Name: Homepage Template
 				</li>	
 				<li>
 					<h2>The Marquam</h2>
+					<h3>1100</h3>
+					<p>
+						The bees knees. Seriously, if you got any more, you'd divorce just to do it again.
+					</p>
 					<ul class="features">
 						<li>90 minutes of chapel time</li>
 						<li>Officiant</li>

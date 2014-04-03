@@ -59,7 +59,7 @@ header{
 }
 
 nav{
-	margin: 0 auto;
+	margin: 14px 0 0 auto;
     overflow: hidden;
     text-align: center;
    	max-width: 300px;
@@ -68,9 +68,9 @@ nav{
 nav a {
     display: block;
     float: left;
-    height: 61px;
-    line-height: 61px;
-	width: 33.33%;	
+    padding: 10px 1%;
+    margin: 0 1%;
+	width: 29%;	
     font-size: 12px;
     text-transform: uppercase;
     font-weight: bold;
@@ -81,31 +81,21 @@ nav a {
 }
 
 nav a:last-child{
-	width: 33.34%;
 }
-/*
 
-.top-box-shadow{
-	box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.4);
-} .bottom-box-shadow{
-	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
-}
-*/
-.no-box-shadow{
-	box-shadow: none;
-}
 
 footer{
 	
 	position:relative;
 	z-index: 2;
-	padding: 15px 7px;
+	padding: 25px 7px;
 	background: white;
+	border-top: 2px solid #EEEEEE;
 }
 
 footer .inner {
-	/* border-top: 1px solid #AAAAAA; */
-    color: #333333;
+	overflow: hidden;
+    color: #888;
     margin: 0 10px;
     padding-top: 12px;
 }
@@ -119,7 +109,7 @@ main{
 }
 
 #packages{
-	background: #F9F9F9;
+	background: #efefef;
 	min-height: 600px;
 	position: relative;
 	z-index: 2;
@@ -177,48 +167,72 @@ main{
 
 #packages{
 	overflow: hidden;
-}
-#packages h1{
-	font-size: 24px;
-	text-align: center;
-	margin: 20px 0 10px;
 	color: #666;
-	font-family:"Trocchi",georgia,serif
+}
+
+#packages h1 {
+    font-family: "Trocchi",georgia,serif;
+    font-size: 30px;
+    margin: 18px auto;
+    text-align: center;
+    width: 76%;
 }
 
 #packages > ul{
+	
 	display:-webkit-flex;
 	display: flex;
 	display: block;
 } #packages > ul > li{
-	/* width: 100%; */
-	 margin: 0 5%;
-} #packages > ul > li h2 {
-    border-bottom: 2px solid;
-    
-    color: #666;
-    font-size: 16px;
+    padding: 23px 5%;
+} #packages > ul > li:nth-child(odd){
+	background: white;
+} #packages > ul > li > h2 {
+    font-size: 18px;
     font-weight: bold;
-    margin: 10px 0;
-    padding: 10px 0;
+    margin: 0 0 10px 0;
     text-align: left;
     font-family: "Revalia", "Trocchi", georgia, serif;
-   /*  text-shadow: 4px 4px 3px #016c6c; */
-} #packages > ul > li:nth-child(2) h2{
-	/*
-padding-left: 2px;
-	padding-right: 2px;
-*/
+    float: left;
+} #packages > ul > li > h3 {
+	float: right;
+	font-weight: bold;
+	font-size: 20px;
+	color: #666;
+	position: relative;
+	top: -2px;
+} #packages > ul > li > h3:before{
+	content: "$";
+	position: relative;
+	top: -5px;
+	font-size: 71%;
+	margin-right: 2px;
+} #packages > ul > li > p {
+	clear: both;
+	margin: 0 0 15px 0;
+	font-size: 14px;
+	line-height: 110%;
+	color: #999;
+	font-style: italic;
+	max-width: 80%;
+    min-width: 285px;
 }
 
-ul.features li{
+ul.features{
+	clear: both;
+} ul.features li{
 	margin-bottom: 10px;
-	font-size: 13px;
+	font-size: 16px;
+} ul.features li:last-child{
+	margin-bottom: 0
 } ul.features li:before{
 	content:" \2713";
 	margin-right: 7px;
+	color: #008080;
+	font-weight: 900;
 } ul.features li.extra{
 	color:teal;
+	font-weight: bolder;
 }
 
 
