@@ -35,12 +35,13 @@
 			.on('scroll', function(e) {
 
 				if (!isMobile && !absolute && $(this).scrollTop() >= scrollPoint) {
-					$('header').css(absoluteCss);
-					
+					//$('header').css(absoluteCss);
+					$('header').addClass('scrolled');
 					absolute = !absolute;
 					
 				} else if (!isMobile && absolute && $(this).scrollTop() < scrollPoint) {
-					$('header').css(fixedCss);
+					//$('header').css(fixedCss);
+					$('header').removeClass('scrolled');
 					
 					absolute = !absolute;
 				}
@@ -60,10 +61,13 @@
 	
 	function getScrollPoint()
 	{	
-		var position = parseInt($(bannerEle).css('height'));
+	
+		var offset = parseInt($('.scrolled.reference').css('height'));
+
+		var position = parseInt($(bannerEle).css('height')) + offset;
 
 		absoluteCss.top = position + 'px';
-
+console.log(position);
 		return position;
 	}
 	

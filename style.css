@@ -51,11 +51,20 @@ a{
 }
 
 header{
-	overflow: hidden;
-	
+	overflow: hidden;	
 	z-index: 50;
 	background: white;
-	background: rgba(255,255,255,1.8);
+	transition: all .1s ease-out;
+	height: 63px;
+}
+
+.scrolled{
+	height: 30px;
+	box-shadow: 0px 2px 2px rgba(0,0,0,.3);
+}
+
+.scrolled.reference{
+	display: none;
 }
 
 nav{
@@ -115,7 +124,7 @@ main{
 }
 
 #banner{
-	top:63px;
+	top:30px;
 	max-height: 500px;
 	overflow: hidden;
 	background: url('img/homepage.jpg');
