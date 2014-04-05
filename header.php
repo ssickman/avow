@@ -43,9 +43,9 @@ conditionizr.config({
 					<!-- nav -->
 					<nav class="nav" role="navigation">
 						<?php //html5blank_nav(); ?>
-						<a href="space">Space</a>
-						<a href="packages">Packages</a>
-						<a href="Blog">Blog</a>
+						<a href="#venue">Venue</a>
+						<a href="#packages">Packages</a>
+						<a href="/blog">Blog</a>
 					</nav>
 					<!-- /nav -->
 				<section style="display:none;">

@@ -53,7 +53,7 @@ a{
 header{
 	overflow: hidden;
 	
-	z-index: 5;
+	z-index: 50;
 	background: white;
 	background: rgba(255,255,255,1.8);
 }
@@ -85,12 +85,11 @@ nav a:last-child{
 
 
 footer{
-	
 	position:relative;
 	z-index: 2;
 	padding: 25px 7px;
 	background: white;
-	border-top: 2px solid #EEEEEE;
+	border-top: 3px solid #f5f5f5
 }
 
 footer .inner {
@@ -108,14 +107,6 @@ main{
 	min-height: 100px;
 }
 
-#packages{
-	background: #efefef;
-	min-height: 600px;
-	position: relative;
-	z-index: 2;
-	margin-top: 260px;
-	/* transition: all .5s ease-out; */
-}
 
 .fixed{
 	position: fixed;
@@ -125,6 +116,10 @@ main{
 
 #banner{
 	top:63px;
+	max-height: 500px;
+	overflow: hidden;
+	background: url('img/homepage.jpg');
+	background-size: 100%;
 }
 
 .banner-text{
@@ -160,23 +155,34 @@ main{
           6px 5px #005556, 5px 6px #016c6c;
 }
 
+section {
+	background: white;
+	position: relative;
+	overflow: hidden;
+	color: #666;
+} section > h1:first-child {
+    font-family: "Trocchi",georgia,serif;
+    font-size: 30px;
+    margin: 0 auto;
+    padding: 18px 0;
+    text-align: center;
+    background: #f7f7f7;
+} section > h1:first-child:before, section > h1:first-child:after{
+	content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+	text-decoration: line-through;
+	margin: 0 10px;
+}
+
+
 #home-banner{
 	width: 100%;
+	opacity: 0;
 }
 
 
 #packages{
-	overflow: hidden;
-	color: #666;
 }
 
-#packages h1 {
-    font-family: "Trocchi",georgia,serif;
-    font-size: 30px;
-    margin: 18px auto;
-    text-align: center;
-    width: 76%;
-}
 
 #packages > ul{
 	
@@ -200,7 +206,6 @@ main{
 	font-size: 20px;
 	color: #666;
 	position: relative;
-	top: -2px;
 } #packages > ul > li > h3:before{
 	content: "$";
 	position: relative;
@@ -258,24 +263,28 @@ ul.features{
 
 
 
+main.homepage > section:nth-child(2) {
+	z-index: 10;
+	margin-top: 260px;
+}
 
 @media only screen and (min-width: 480px) {
 	/* Wide mobile (480px+) styles go here */
-	#packages{
+	main.homepage > section:nth-child(2){
 		margin-top: 275px;
 	}
 }
 
 @media only screen and (min-width: 768px) { 
 	/* Tablets/netbooks (768px+) styles go here */
-	#packages{
+	main.homepage > section:nth-child(2){
 		margin-top: 390px;
 	}
 }
 
 @media only screen and (min-width: 1024px) { 
 	/* Desktops (1024px+) styles go here */
-	#packages{
+	main.homepage > section:nth-child(2){
 		margin-top: 530px;
 	}
 }

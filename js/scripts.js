@@ -1,8 +1,10 @@
 (function ($, root, undefined) {
 	
-	 isMobile = function() {
+	var isMobile = function() {
 	  return ('ontouchstart' in window)
 	}();
+	
+	var bannerEle = '#banner';
 	
 	var absolute = false;
 	var absoluteCss = {
@@ -16,10 +18,17 @@
 	};
 		
 	$(function () {
+		$('nav a[href^=#]').on('click', function(e){
+			e.preventDefault();
+			
+			$.scrollTo( $(this).attr('href'), 850, { 'axis':'y' } );
+			
+		});
+		
 		setContentMargin();
-		
-		console.log($('#home-banner').css('height'));
-		
+		console.log($(bannerEle).css('height'));
+		console.log($('#banner').css('height'));
+
 		var scrollPoint = getScrollPoint();
 							
 		$( window )
@@ -27,34 +36,31 @@
 
 				if (!isMobile && !absolute && $(this).scrollTop() >= scrollPoint) {
 					$('header').css(absoluteCss);
-					$('.top-box-shadow, .bottom-box-shadow').addClass('no-box-shadow');
 					
 					absolute = !absolute;
 					
 				} else if (!isMobile && absolute && $(this).scrollTop() < scrollPoint) {
 					$('header').css(fixedCss);
-					$('.top-box-shadow, .bottom-box-shadow').removeClass('no-box-shadow');
 					
 					absolute = !absolute;
 				}
 			})
-			.on('resize', function(
-			
-			){
+			.on('resize', function() {
 				setContentMargin();
-				scrollPoint = getScrollPoint(parseInt($('#home-banner').css('height')));
+				scrollPoint = getScrollPoint(parseInt($(bannerEle).css('height')));
+				
 			});
 		
 	});
 	
 	function setContentMargin()
 	{
-		$('#packages').css('marginTop', parseInt($('#home-banner').css('height')) + parseInt($('header').css('height')) + 'px');
+		$('main.homepage > section:nth-child(2)').css('marginTop', parseInt($(bannerEle).css('height')) + parseInt($('header').css('height')) + 'px');
 	}
 	
 	function getScrollPoint()
 	{	
-		var position = parseInt($('#home-banner').css('height'));
+		var position = parseInt($(bannerEle).css('height'));
 
 		absoluteCss.top = position + 'px';
 
