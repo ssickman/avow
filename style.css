@@ -151,6 +151,7 @@ main{
 	overflow: hidden;
 	background: url('img/homepage.jpg');
 	background-size: 100%;
+	z-index: -1;
 }
 
 .banner-text{
@@ -296,7 +297,7 @@ ul.features{
 
 main.homepage > section:nth-child(2) {
 	z-index: 10;
-	margin-top: 260px;
+	margin-top: 216px;
 }
 
 @media only screen and (min-width: 480px) {

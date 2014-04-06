@@ -28,13 +28,13 @@ conditionizr.config({
 	<body <?php body_class(); ?>>
 
 		<!-- wrapper -->
-		<div class="wrapper">
+		<div class="wrapper" id="top">
 
 			<!-- header -->
 			<header class="header clear fixed bottom-box-shadow" role="banner">
 
 					<!-- logo -->
-					<a href="<?php echo home_url(); ?>" id="logo" class="header-float">avow</a>
+					<a href="<?php echo home_url() ?>" id="logo" class="header-float <?php echo is_front_page() ? 'scrollto' : '' ?>">avow</a>
 					
 					<!-- /logo -->
 

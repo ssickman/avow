@@ -61,11 +61,13 @@ if (function_exists('add_theme_support'))
     load_theme_textdomain('html5blank', get_template_directory() . '/languages');
 }
 
-$siteEnvironment = strpos($_SERVER['HTTP_HOST'], 'local.avow') !== false ? 'test' : 'production'; 
+$stripeSettings  = get_option('stripe_settings'); 
+$siteEnvironment = get_stripe_key('stripe_environment');
 
 function get_stripe_key($stripeKeyIndex) {
-	$secretKey = get_option('stripe_settings'); 
-	return @$secretKey[$stripeKeyIndex];
+	global $stripeSettings;
+
+	return @$stripeSettings[$stripeKeyIndex];
 }
 
 

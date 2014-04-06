@@ -5,44 +5,38 @@
 	}();
 	
 	var bannerEle = '#banner';
+	var bannerOverlap = 30;
 	
 	var absolute = false;
-	var absoluteCss = {
-		position: 'absolute',
-		top: '469px'
-	};
-	
-	var fixedCss = {
-		position: 'fixed',
-		top: '0'
-	};
-		
+			
 	$(function () {
 		$('nav a[href^=#]').on('click', function(e){
 			e.preventDefault();
 			
-			$.scrollTo( $(this).attr('href'), 850, { 'axis':'y' } );
+			$.scrollTo( $(this).attr('href'), 850, { 'axis':'y', offset: {top: -23} } );
+			
+		});
+		
+		$('#logo.scrollto').on('click', function(e){
+			e.preventDefault();
+			
+			$.scrollTo( 0, 850, { 'axis':'y', offset: {top: -23} } );
 			
 		});
 		
 		setContentMargin();
-		console.log($(bannerEle).css('height'));
-		console.log($('#banner').css('height'));
-
+		
 		var scrollPoint = getScrollPoint();
 							
 		$( window )
 			.on('scroll', function(e) {
 
-				if (!isMobile && !absolute && $(this).scrollTop() >= scrollPoint) {
-					//$('header').css(absoluteCss);
+				if (!absolute && $(this).scrollTop() >= scrollPoint) {
 					$('header').addClass('scrolled');
 					absolute = !absolute;
 					
-				} else if (!isMobile && absolute && $(this).scrollTop() < scrollPoint) {
-					//$('header').css(fixedCss);
+				} else if (absolute && $(this).scrollTop() < scrollPoint) {
 					$('header').removeClass('scrolled');
-					
 					absolute = !absolute;
 				}
 			})
@@ -56,18 +50,17 @@
 	
 	function setContentMargin()
 	{
-		$('main.homepage > section:nth-child(2)').css('marginTop', parseInt($(bannerEle).css('height')) + parseInt($('header').css('height')) + 'px');
+		$('main.homepage > section:nth-child(2)').css('marginTop', (parseInt($(bannerEle).css('height')) + parseInt($('header').css('height')) - bannerOverlap) + 'px');
 	}
 	
 	function getScrollPoint()
 	{	
 	
 		var offset = parseInt($('.scrolled.reference').css('height'));
+		offset = 0;
+		
+		var position = parseInt($(bannerEle).css('height')) - offset;
 
-		var position = parseInt($(bannerEle).css('height')) + offset;
-
-		absoluteCss.top = position + 'px';
-console.log(position);
 		return position;
 	}
 	
