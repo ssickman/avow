@@ -40,35 +40,49 @@ a{
 	text-decoration: none;
 }
 
-#logo{
-	text-indent: -9999px;
-	display: block;
-	background: url('img/avow.png') no-repeat;
-	background-size: 100%;
-	width: 90px;
-	height: 32px;
-	margin: 15px 10px;
+#logo {
+    color: #444444;
+    display: block;
+    font-family: Oxygen;
+    font-size: 30px;
+    margin: 0px 10px;
+    height: 100%;
+    line-height: 200%;
+    text-transform: lowercase;
+    transition: all .1s ease-out;
+    min-width: 90px;
+}
+
+#logo:before, #logo:after{
+	position: relative;
+	top: .06em;
+	top: .06rem;
+} #logo:before{
+	content: "{";
+} #logo:after{
+		content: "}";
 }
 
 header{
 	overflow: hidden;	
 	z-index: 50;
 	background: white;
-	transition: all .1s ease-out;
+	transition: all .2s ease-out;
 	height: 63px;
 }
 
 .scrolled{
 	height: 30px;
 	box-shadow: 0px 2px 2px rgba(0,0,0,.3);
-}
-
-.scrolled.reference{
+} .scrolled.reference{
 	display: none;
+} .scrolled #logo {
+	font-size: 15px;
 }
 
 nav{
-	margin: 14px 0 0 auto;
+	margin: 0px 0 0 auto;
+	height: 100%;
     overflow: hidden;
     text-align: center;
    	max-width: 300px;
@@ -77,21 +91,29 @@ nav{
 nav a {
     display: block;
     float: left;
-    padding: 10px 1%;
-    margin: 0 1%;
-	width: 29%;	
+	height: 100%;
+	width: 33.33%;	
     font-size: 12px;
     text-transform: uppercase;
     font-weight: bold;
     transition: all .2s ease-out;
+    position: relative;
 } nav a:hover{
 	background: teal;
 	color: white;
+} nav a span {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 13px;
 }
 
 nav a:last-child{
+	width: 33.34%;
 }
-
 
 footer{
 	position:relative;

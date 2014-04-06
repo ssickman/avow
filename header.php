@@ -34,18 +34,16 @@ conditionizr.config({
 			<header class="header clear fixed bottom-box-shadow" role="banner">
 
 					<!-- logo -->
-					<a href="<?php echo home_url(); ?>" id="logo" class="header-float">
-						<?php bloginfo('name'); ?>
-					</a>
+					<a href="<?php echo home_url(); ?>" id="logo" class="header-float">avow</a>
 					
 					<!-- /logo -->
 
 					<!-- nav -->
 					<nav class="nav" role="navigation">
 						<?php //html5blank_nav(); ?>
-						<a href="#venue">Venue</a>
-						<a href="#packages">Packages</a>
-						<a href="/blog">Blog</a>
+						<a href="#venue"><span>Venue</span></a>
+						<a href="#packages"><span>Packages</span></a>
+						<a href="/blog"><span>Blog</span></a>
 					</nav>
 					<!-- /nav -->
 				<section style="display:none;">
