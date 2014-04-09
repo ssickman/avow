@@ -54,7 +54,7 @@ Template Name: Homepage Template
 						<form method="post" action="/backend" class="select-package">
 							<input type="submit" name="package_title" value="Select <?php echo $p->post_title ?>" class="button-1 select-package">
 							<input type="hidden" name="package_id" value="<?php echo $post->ID ?>" >
-							<input type="hidden" name="nonce" value="<?php starting_nonce(false) ?>" >
+							<input type="hidden" name="nonce" value="<?php wp_create_nonce('package') ?>" >
 							<input type="hidden" name="action" value="<?php echo $startingAction ?>" >
 						</form>	
 					</li>	
