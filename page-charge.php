@@ -6,17 +6,15 @@ Template Name: Charge Template
 ?>
 <?php
 require_once('stripe-php-1.12.0/lib/Stripe.php');
+$stripeKeyIndex = "stripe_{$siteEnvironment}_secret_key";
 
-// Set your secret key: remember to change this to your live secret key in production
-// See your keys here https://manage.stripe.com/account
-Stripe::setApiKey("sk_test_ldTLUc9Ci4IsnOcbQET9CU1T");
+$secretKey = get_stripe_key($stripeKeyIndex);
+
+Stripe::setApiKey($secretKey);
 
 // Get the credit card details submitted by the form
 $token = @$_POST['stripeToken'];
 
-$stripeKeyIndex = "stripe_{$siteEnvironment}_secret_key";
-
-$secretKey = get_stripe_key($stripeKeyIndex);
 
 // Create the charge on Stripe's servers - this will charge the user's card
 try {

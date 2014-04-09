@@ -64,6 +64,8 @@ if (function_exists('add_theme_support'))
 $stripeSettings  = get_option('stripe_settings'); 
 $siteEnvironment = get_stripe_key('stripe_environment');
 
+$startingAction = 'package';
+
 function get_stripe_key($stripeKeyIndex) {
 	global $stripeSettings;
 
@@ -85,6 +87,20 @@ function package_format_features($string) {
 	}
 	
 	return $out;
+}
+
+add_action('wp_print_scripts', 'starting_nonce');
+function starting_nonce($js = true)
+{
+	global $startingAction;
+	$nonce = wp_create_nonce($startingAction);
+	
+	if (!$js) {
+		echo $nonce;
+		return;
+	}
+		
+	echo '<script> var startingNonce = "'.$nonce.'";</script>';
 }
 
 // Load HTML5 Blank scripts (header.php)

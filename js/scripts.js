@@ -24,6 +24,23 @@
 			
 		});
 		
+		$('form.select-package').on('submit', function(e){
+			e.preventDefault();
+			
+			$.ajax({
+	            type: "POST",
+	            url: $(this).attr('action'),
+	            data: $(this).serialize(),
+	            dataType: "json",
+	            success: function(data) {
+	                console.log(data);
+	            },
+	            error: function(){
+	                  console.log('error');
+	            }
+	        });
+		})
+		
 		setContentMargin();
 		
 		var scrollPoint = getScrollPoint();

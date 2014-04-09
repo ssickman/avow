@@ -23,6 +23,8 @@ Template Name: Homepage Template
 			</section>
 			
 			<section id="packages" class="top-box-shadow">
+				
+				
 				<h1>Packages</h1>
 				<?php
 					$packages = get_posts(array(
@@ -49,9 +51,16 @@ Template Name: Homepage Template
 						<ul class="features">
 							<?php echo package_format_features($m['package_features'][0]) ?>
 						</ul>
+						<form method="post" action="/backend" class="select-package">
+							<input type="submit" name="package_title" value="Select <?php echo $p->post_title ?>" class="button-1 select-package">
+							<input type="hidden" name="package_id" value="<?php echo $post->ID ?>" >
+							<input type="hidden" name="nonce" value="<?php starting_nonce(false) ?>" >
+							<input type="hidden" name="action" value="<?php echo $startingAction ?>" >
+						</form>	
 					</li>	
+						
 				<?php endforeach; ?>
-				</ul>		
+				</ul>
 			</section>
 			<section id="payment">
 				<h1>Payment</h1>
@@ -64,7 +73,7 @@ Template Name: Homepage Template
 						data-amount="2000"
 						data-name="Demo Site"
 						data-description="2 widgets ($20.00)"
-						data-image="/128x128.png">
+						data-image="/wp-content/themes/avow/img/avow.png">
 						</script>
 					</form>
 			</section>
