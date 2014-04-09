@@ -96,8 +96,8 @@ function starting_nonce($js = true)
 	$nonce = wp_create_nonce($startingAction);
 	
 	if (!$js) {
-		echo $nonce;
-		return;
+		//echo $nonce;
+		//return;
 	}
 		
 	echo '<script> var startingNonce = "'.$nonce.'";</script>';

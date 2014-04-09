@@ -48,11 +48,11 @@
 		$( window )
 			.on('scroll', function(e) {
 
-				if (!absolute && $(this).scrollTop() >= scrollPoint) {
+				if (!absolute && $(this).scrollTop() >= scrollPoint - bannerOverlap) {
 					$('header').addClass('scrolled');
 					absolute = !absolute;
 					
-				} else if (absolute && $(this).scrollTop() < scrollPoint) {
+				} else if (absolute && $(this).scrollTop() < scrollPoint - bannerOverlap) {
 					$('header').removeClass('scrolled');
 					absolute = !absolute;
 				}
@@ -67,7 +67,7 @@
 	
 	function setContentMargin()
 	{
-		$('main.homepage > section:nth-child(2)').css('marginTop', (parseInt($(bannerEle).css('height')) + parseInt($('header').css('height')) - bannerOverlap) + 'px');
+		$('main.homepage > section:nth-child(2)').css('marginTop', (parseInt($(bannerEle).css('height')) + parseInt($(bannerEle).css('top'))) + 'px');
 	}
 	
 	function getScrollPoint()
