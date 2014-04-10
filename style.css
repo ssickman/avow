@@ -187,6 +187,15 @@ main{
           6px 5px #005556, 5px 6px #016c6c;
 }
 
+.padding-standard{
+	padding-left: 5% !important;
+	padding-right: 5% !important;
+}
+.margin-standard{
+	margin-left: 5% !important;
+	margin-right: 5% !important;
+}
+
 section {
 	background: white;
 	position: relative;
@@ -199,6 +208,7 @@ section {
     padding: 18px 0;
     text-align: center;
     background: #f7f7f7;
+    transition: all .3s ease-out;
 } section > h1:first-child:before, section > h1:first-child:after{
 	content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
 	text-decoration: line-through;
@@ -211,6 +221,20 @@ section {
 	opacity: 0;
 }
 
+#venue .row{
+	margin: 25px 0 50px;
+	overflow: hidden;
+} #venue h2{
+	font-size: 20px;
+	font-family: "Trocchi",georgia,serif;
+	margin-bottom: 20px;
+	text-align: center;
+} #venue div.img-container {
+	border: 25px solid #F7F7F7;
+} #venue img{
+	width: 100%;
+	
+}
 
 #packages{
 }
@@ -222,7 +246,7 @@ section {
 	display: flex;
 	display: block;
 } #packages > ul > li{
-    padding: 23px 5%;
+    padding: 23px 0;
 } #packages > ul > li:nth-child(odd){
 	background: white;
 } #packages > ul > li > h2 {
@@ -343,12 +367,42 @@ main.homepage > section:nth-child(2) {
 	main.homepage > section:nth-child(2){
 		margin-top: 275px;
 	}
+	
+	section > h1:first-child {
+		font-size: 42px;
+	}
+	
+	#venue h2{
+		font-size: 28px;
+	}
 }
 
 @media only screen and (min-width: 768px) { 
 	/* Tablets/netbooks (768px+) styles go here */
 	main.homepage > section:nth-child(2){
 		margin-top: 390px;
+	}
+	
+	#venue > div{
+		margin-top: 50px;
+	} #venue h2{
+		clear: both;
+		margin-top: 75px;
+		text-align: left;
+		font-size: 30px;
+		
+	}   #venue h2.l{
+		text-align: right;
+	}
+	
+	.l{
+		float: left;
+	}  .r{
+		float:right;
+	} div.l, div.r{
+		width: 60%;
+	} h2.l, h2.r {
+		width: 30%;
 	}
 }
 

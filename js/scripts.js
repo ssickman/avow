@@ -13,7 +13,7 @@
 		$('nav a[href^=#]').on('click', function(e){
 			e.preventDefault();
 			var location = $(this).attr('href');
-			$.scrollTo( location, 850, { 'axis':'y', offset: {top: -23} } );
+			$.scrollTo( location, 500, { 'axis':'y', offset: {top: -23} } );
 			
 			ga('send', 'pageview', location.replace('#', '/'));
 		});
@@ -21,7 +21,7 @@
 		$('#logo.scrollto').on('click', function(e){
 			e.preventDefault();
 			
-			$.scrollTo( 0, 850, { 'axis':'y', offset: {top: -23} } );
+			$.scrollTo( 0, 500, { 'axis':'y', offset: {top: -23} } );
 			
 			ga('send', 'pageview', '/');
 			

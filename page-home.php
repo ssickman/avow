@@ -15,11 +15,18 @@ Template Name: Homepage Template
 		</section>
 		<section id="content-wrap">
 			<section id="venue">
-				<h1>Venue</h1>
-				heyo				 
-				 
-				 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<h1>The Venue</h1>
 				
+				<div class="margin-standard">
+					<div class="row">
+						<h2 class="half r">Portland's Premier Micro Wedding Venue</h2>
+						<div class="img-container half l"><img class="" src="wp-content/themes/avow/img/venue-1.jpg"></div>
+					</div>
+					<div class="row">					
+						<h2 class="half l">Elegant Design for Your Special Day</h2>
+						<div class="img-container half r"><img class="" src="wp-content/themes/avow/img/venue-2.jpg"></div>
+					</div>
+				</div>
 			</section>
 			
 			<section id="packages" class="top-box-shadow">
@@ -40,7 +47,7 @@ Template Name: Homepage Template
 					foreach ($packages as $p): 
 					$m = get_post_meta($p->ID); //print_r($meta); die();
 				?>
-					<li>
+					<li class="padding-standard">
 						<h2><?php echo $p->post_title ?></h2>
 						<h3><?php echo $m['package_price'][0] ?></h3>
 						
@@ -73,7 +80,7 @@ Template Name: Homepage Template
 						data-amount="2000"
 						data-name="Demo Site"
 						data-description="2 widgets ($20.00)"
-						data-image="/wp-content/themes/avow/img/avow.png">
+						data-image="//avowpdx.com/wp-content/themes/avow/img/avow-stripe.jpg">
 						</script>
 					</form>
 			</section>
