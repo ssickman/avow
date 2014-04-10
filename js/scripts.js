@@ -30,7 +30,7 @@
 		$('.flash a').on('click', function(e){
 			e.preventDefault();
 			console.log($(this).parent());
-			$(this).parent().css('display', 'none');//.fadeOut(1000);
+			$(this).parent().css('display', 'none').fadeOut(1000);
 		});
 		
 		$('form.select-package').on('submit', function(e){

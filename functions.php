@@ -65,7 +65,7 @@ function showFlash()
 				<script>
 					(function ($, root, undefined) {
 						$(function () {		
-							$('.flash').delay(3000).fadeOut(1000);	
+							$('.flash').delay(10000).fadeOut(1000);	
 						});
 					})(jQuery, this);		
 					
