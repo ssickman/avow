@@ -92,7 +92,7 @@ nav a {
     display: block;
     float: left;
 	height: 100%;
-	width: 33.33%;	
+	width: 33%;	
     font-size: 12px;
     text-transform: uppercase;
     font-weight: bold;
@@ -113,6 +113,8 @@ nav a {
 
 nav a:last-child{
 	width: 33.34%;
+} nav a.home-scroll{
+	display: none;
 }
 
 footer{
@@ -226,11 +228,13 @@ section {
 #venue .row{
 	margin: 25px 0 50px;
 	overflow: hidden;
-} #venue h2{
+} section h2{
 	font-size: 20px;
 	font-family: "Trocchi",georgia,serif;
-	margin-bottom: 20px;
+	margin: 20px 0;
 	text-align: center;
+} #venue h2 {
+	margin-top: 0;
 } #venue div.img-container {
 	border: 25px solid #F7F7F7;
 } #venue img{
@@ -391,6 +395,7 @@ THE SOFTWARE.
   padding: 8px 12px;
   text-align: center;
   text-shadow: 0 1px 0 #eee;
+  outline: 0;
   /* width: 150px;  */
 } .clean-gray:hover {
     background-color: #dddddd;
@@ -430,6 +435,7 @@ THE SOFTWARE.
   padding: 7px 12px 8px ;
   text-align: center;
   text-shadow: 0 -1px 0 #4c9021;
+  outline: 0;
  /*  width: 150px;  */
 } .cupid-green:hover {
     background-color: #76b347;
@@ -471,7 +477,7 @@ main.homepage > section:nth-child(2) {
 		font-size: 42px;
 	}
 	
-	#venue h2{
+	section h2{
 		font-size: 28px;
 	}
 	
@@ -499,6 +505,14 @@ main.homepage > section:nth-child(2) {
 	} #logo{
 		font-size: 40px;
 	}
+	
+	nav {
+		max-width: 350px;
+	} nav a, nav a:last-child{
+		width: 25%;	
+	} nav a.home-scroll{
+		display: block;
+	}
 		
 	.scrolled{
 		height: 46px;
@@ -512,13 +526,14 @@ main.homepage > section:nth-child(2) {
 	
 	#venue > div{
 		margin-top: 50px;
+	} section h2{
+		font-size: 30px;
+		line-height: 125%;
 	} #venue h2{
 		clear: both;
 		margin-top: 75px;
 		text-align: left;
-		font-size: 30px;
-		line-height: 125%;
-	}   #venue h2.l{
+	}   section h2.l{
 		text-align: right;
 	}
 	
@@ -545,7 +560,7 @@ main.homepage > section:nth-child(2) {
 	}
 	
 	#packages > ul > li > p {
-		max-width: 100%;
+		max-width: 90%;
 		min-width: 0%;
 	}
 }

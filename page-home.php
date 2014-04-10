@@ -9,7 +9,7 @@ Template Name: Homepage Template
 		<section id="banner" class="fixed">
 			<h3 class="banner-text">
 				<span>Get hitched on the quick</span>
-				<a class="button banner-button button-shadow" href="/book">book now ></a>
+				<a class="button banner-button button-shadow" href="#availability">book now ></a>
 			</h3>
 			<img id="home-banner" src="wp-content/themes/avow/img/homepage.jpg">
 		</section>
@@ -29,9 +29,14 @@ Template Name: Homepage Template
 				</div>
 			</section>
 			
-			<section id="packages" class="top-box-shadow">
-				
-				
+			<section id="availability">
+				<h1>Availability</h1>
+				<div class="margin-standard">
+					<h2>Book Your Time Now</h2>
+				</div>
+			</section>
+			
+			<section id="packages" class="top-box-shadow">	
 				<h1>Packages</h1>
 				<?php
 					$packages = get_posts(array(
@@ -59,12 +64,12 @@ Template Name: Homepage Template
 							<?php echo package_format_features($m['package_features'][0]) ?>
 						</ul>
 						<form method="post" action="/backend" class="select-package">
-							<input type="submit" name="package_title" value="Select <?php echo $p->post_title ?>" 
+							<input type="submit" name="package_title" value="Choose <?php echo $p->post_title ?>" 
 								class="select-package <?php echo $_SESSION['package_name'] == $p->post_title ? 'cupid-green' : 'clean-gray' ?>"
 								data-selected-package-title="<?php echo $p->post_title ?> Selected" 
-								data-package-title="Select <?php echo $p->post_title ?>">
+								data-package-title="Choose <?php echo $p->post_title ?>">
 							<input type="hidden" name="package_name" value="<?php echo $p->post_title ?>" >
-							<input type="hidden" name="package_id" value="<?php echo $post->ID ?>" >
+							<input type="hidden" name="package_id" value="<?php echo $p->ID ?>" >
 							<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('package') ?>" >
 							<input type="hidden" name="action" value="<?php echo $startingAction ?>" >
 						</form>	
@@ -73,20 +78,22 @@ Template Name: Homepage Template
 				<?php endforeach; ?>
 				</ul>
 			</section>
+			
 			<section id="payment">
 				<h1>Payment</h1>
 				<?php //wp_stripe_form(); ?>
-				
-				<form action="/charge" method="POST">
-					<script
-						src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-						data-key="<?php echo get_stripe_key("stripe_{$siteEnvironment}_public_key") ?>"
-						data-amount="2000"
-						data-name="Demo Site"
-						data-description="2 widgets ($20.00)"
-						data-image="//avowpdx.com/wp-content/themes/avow/img/avow-stripe.jpg">
-						</script>
-					</form>
+				<div class="margin-standard">
+					<form action="/charge" method="POST">
+						<script
+							src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+							data-key="<?php echo get_stripe_key("stripe_{$siteEnvironment}_public_key") ?>"
+							data-amount="2000"
+							data-name="Avow"
+							data-description="Wedding Package - $600.00"
+							data-image="//avowpdx.com/wp-content/themes/avow/img/avow-stripe.jpg">
+							</script>
+						</form>
+					</div>
 			</section>
 		</section>
 	</main>

@@ -34,13 +34,14 @@ conditionizr.config({
 			<header class="header clear fixed bottom-box-shadow" role="banner">
 
 					<!-- logo -->
-					<a href="<?php echo home_url() ?>" id="logo" class="header-float <?php echo is_front_page() ? 'scrollto' : '' ?>">avow</a>
+					<a href="<?php echo home_url() ?>" id="logo" class="header-float <?php echo is_front_page() ? 'home-scroll' : '' ?>">avow</a>
 					
 					<!-- /logo -->
 
 					<!-- nav -->
 					<nav class="nav" role="navigation">
 						<?php //html5blank_nav(); ?>
+						<a href="<?php echo home_url() ?>dd" class="home-scroll"><span>Home</span></a>
 						<a href="#venue"><span>Venue</span></a>
 						<a href="#packages"><span>Packages</span></a>
 						<a href="/blog"><span>Blog</span></a>

@@ -8,15 +8,19 @@
 /*------------------------------------*\
 	External Modules/Files
 \*------------------------------------*/
+require_once('custom_post_type_package.php');
+require_once('stripe_settings.php');
 
-// Load any external files you have here
+/*------------------------------------*\
+	External Modules/Files
+\*------------------------------------*/
+class MissingPackageId extends Exception{}
+class BadNonce extends Exception{}
 
 /*------------------------------------*\
 	Theme Support
 \*------------------------------------*/
 
-require_once('custom_post_type_package.php');
-require_once('stripe_settings.php');
 
 if (!isset($content_width))
 {

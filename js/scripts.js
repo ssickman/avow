@@ -10,7 +10,7 @@
 	var absolute = false;
 			
 	$(function () {
-		$('nav a[href^=#]').on('click', function(e){
+		$('nav a[href^=#], .banner-button').on('click', function(e){
 			e.preventDefault();
 			var location = $(this).attr('href');
 			$.scrollTo( location, 500, { 'axis':'y', offset: {top: -1 * parseInt($('.scrolled.reference').css('height')) } } );
@@ -18,7 +18,7 @@
 			ga('send', 'pageview', location.replace('#', '/'));
 		});
 		
-		$('#logo.scrollto').on('click', function(e){
+		$('.home-scroll').on('click', function(e){
 			e.preventDefault();
 			
 			$.scrollTo( 0, 500, { 'axis':'y', offset: {top: -1 * parseInt($('.scrolled.reference').css('height')) } } );
