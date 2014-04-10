@@ -158,6 +158,7 @@ main{
 	position: absolute;
 	bottom: 20%;
 	left: 10%;
+	z-index: 2;
 }
 
 .banner-text span, .banner-text a{
@@ -176,6 +177,7 @@ main{
 	font-weight: bold;
 	padding: 7px 12px;
 	font-size: 19px;
+	transition: all .7s ease-out;
 }
 
 .button-shadow{
@@ -250,11 +252,11 @@ section {
 } #packages > ul > li:nth-child(odd){
 	background: white;
 } #packages > ul > li > h2 {
-    font-size: 18px;
+    font-size: 23px;
     font-weight: bold;
     margin: 0 0 10px 0;
     text-align: left;
-    font-family: "Revalia", "Trocchi", georgia, serif;
+    font-family: "Trocchi", georgia, serif;
     float: left;
 } #packages > ul > li > h3 {
 	float: right;
@@ -375,12 +377,40 @@ main.homepage > section:nth-child(2) {
 	#venue h2{
 		font-size: 28px;
 	}
+	
+	.scrolled{
+		height: 40px;
+	} .scrolled #logo {
+		font-size: 20px;
+	}
+	
+	nav a {
+		font-size: 15px;
+	} nav a span {
+		height: 15px;
+	}
 }
 
 @media only screen and (min-width: 768px) { 
 	/* Tablets/netbooks (768px+) styles go here */
 	main.homepage > section:nth-child(2){
 		margin-top: 390px;
+	}
+	
+	header{
+		height: 80px;
+	} #logo{
+		font-size: 40px;
+	}
+		
+	.scrolled{
+		height: 46px;
+	} .scrolled #logo {
+		font-size: 23px;
+	}	
+		
+	.banner-text span, .banner-button{
+		font-size: 30px;
 	}
 	
 	#venue > div{
@@ -390,7 +420,7 @@ main.homepage > section:nth-child(2) {
 		margin-top: 75px;
 		text-align: left;
 		font-size: 30px;
-		
+		line-height: 125%;
 	}   #venue h2.l{
 		text-align: right;
 	}
