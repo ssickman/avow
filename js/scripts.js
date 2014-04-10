@@ -48,11 +48,7 @@
 	                	;
 	                });
 	                
-	                $form.find('input[type=submit]')
-	                	.removeClass('clean-gray')
-	                	.addClass('cupid-green')
-	                	.attr('value', $form.find('input[type=submit]').attr('data-selected-package-title'))
-	                ;
+	                selectPackage($form.find('input[type=submit]'));
 	            },
 	            error: function(){
 	                  console.log('error');
@@ -61,6 +57,7 @@
 		})
 		
 		setContentMargin();
+		selectPackage($('.select-package.cupid-green'));
 		
 		var scrollPoint = getScrollPoint();
 							
@@ -83,6 +80,13 @@
 			});
 		
 	});
+	
+	function selectPackage($ele) {
+		$ele.removeClass('clean-gray')
+	    	.addClass('cupid-green')
+	    	.attr('value', $ele.attr('data-selected-package-title'))
+	    ;
+	}
 	
 	function setContentMargin()
 	{

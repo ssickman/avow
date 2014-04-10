@@ -24,6 +24,9 @@ switch ($action) {
 		break;
 	case 'package':
 		$nextAction = 'charge';
+		
+		$_SESSION['package_id']   = $_POST['package_id'];
+		$_SESSION['package_name'] = $_POST['package_name'];
 		break;
 		
 	default:
