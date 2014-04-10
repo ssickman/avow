@@ -31,7 +31,7 @@ conditionizr.config({
 		<div class="wrapper" id="top">
 
 			<!-- header -->
-			<header class="header clear fixed bottom-box-shadow" role="banner">
+			<header class="header clear fixed bottom-box-shadow top-header" role="banner">
 
 					<!-- logo -->
 					<a href="<?php echo home_url() ?>" id="logo" class="header-float <?php echo is_front_page() ? 'home-scroll' : '' ?>">avow</a>
@@ -43,8 +43,8 @@ conditionizr.config({
 						<?php //html5blank_nav(); ?>
 						<a href="<?php echo home_url() ?>dd" class="home-scroll"><span>Home</span></a>
 						<a href="#venue"><span>Venue</span></a>
+						<a href="#availability"><span>Schedule</span></a>
 						<a href="#packages"><span>Packages</span></a>
-						<a href="/blog"><span>Blog</span></a>
 					</nav>
 					<!-- /nav -->
 				<section style="display:none;">

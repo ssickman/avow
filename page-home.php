@@ -16,7 +16,6 @@ Template Name: Homepage Template
 		<section id="content-wrap">
 			<section id="venue">
 				<h1>The Venue</h1>
-				
 				<div class="margin-standard">
 					<div class="row">
 						<h2 class="half r">Portland's Premier Micro Wedding Venue</h2>

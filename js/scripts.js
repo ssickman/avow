@@ -27,6 +27,12 @@
 			
 		});
 		
+		$('.flash a').on('click', function(e){
+			e.preventDefault();
+			console.log($(this).parent());
+			$(this).parent().css('display', 'none');//.fadeOut(1000);
+		});
+		
 		$('form.select-package').on('submit', function(e){
 			e.preventDefault();
 			var $form = $(this);
@@ -65,11 +71,11 @@
 			.on('scroll', function(e) {
 
 				if (!absolute && $(this).scrollTop() >= scrollPoint - bannerOverlap) {
-					$('header').addClass('scrolled');
+					$('.top-header').addClass('scrolled');
 					absolute = !absolute;
 					
 				} else if (absolute && $(this).scrollTop() < scrollPoint - bannerOverlap) {
-					$('header').removeClass('scrolled');
+					$('.top-header').removeClass('scrolled');
 					absolute = !absolute;
 				}
 			})
