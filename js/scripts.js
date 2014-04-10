@@ -13,7 +13,7 @@
 		$('nav a[href^=#]').on('click', function(e){
 			e.preventDefault();
 			var location = $(this).attr('href');
-			$.scrollTo( location, 500, { 'axis':'y', offset: {top: -23} } );
+			$.scrollTo( location, 500, { 'axis':'y', offset: {top: -1 * parseInt($('.scrolled.reference').css('height')) } } );
 			
 			ga('send', 'pageview', location.replace('#', '/'));
 		});
@@ -21,7 +21,7 @@
 		$('#logo.scrollto').on('click', function(e){
 			e.preventDefault();
 			
-			$.scrollTo( 0, 500, { 'axis':'y', offset: {top: -23} } );
+			$.scrollTo( 0, 500, { 'axis':'y', offset: {top: -1 * parseInt($('.scrolled.reference').css('height')) } } );
 			
 			ga('send', 'pageview', '/');
 			
@@ -29,14 +29,30 @@
 		
 		$('form.select-package').on('submit', function(e){
 			e.preventDefault();
-			
+			var $form = $(this);
 			$.ajax({
 	            type: "POST",
 	            url: $(this).attr('action'),
 	            data: $(this).serialize(),
 	            dataType: "json",
 	            success: function(data) {
+	                console.log($form.find('input[type=submit]'));
+	                
 	                console.log(data);
+
+	                $('form input[type=submit]').each(function(ele, i){
+	                	$(this)
+	                		.removeClass('cupid-green')
+	                		.addClass('clean-gray')
+	                		.attr('value', $(this).attr('data-package-title'))
+	                	;
+	                });
+	                
+	                $form.find('input[type=submit]')
+	                	.removeClass('clean-gray')
+	                	.addClass('cupid-green')
+	                	.attr('value', $form.find('input[type=submit]').attr('data-selected-package-title'))
+	                ;
 	            },
 	            error: function(){
 	                  console.log('error');

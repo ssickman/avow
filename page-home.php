@@ -59,7 +59,7 @@ Template Name: Homepage Template
 							<?php echo package_format_features($m['package_features'][0]) ?>
 						</ul>
 						<form method="post" action="/backend" class="select-package">
-							<input type="submit" name="package_title" value="Select <?php echo $p->post_title ?>" class="button-1 select-package">
+							<input type="submit" name="package_title" value="Select <?php echo $p->post_title ?>" class="clean-gray select-package" data-selected-package-title="<?php echo $p->post_title ?> Selected" data-package-title="Select <?php echo $p->post_title ?>">
 							<input type="hidden" name="package_id" value="<?php echo $post->ID ?>" >
 							<input type="hidden" name="nonce" value="<?php wp_create_nonce('package') ?>" >
 							<input type="hidden" name="action" value="<?php echo $startingAction ?>" >
