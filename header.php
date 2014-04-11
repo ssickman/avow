@@ -43,15 +43,15 @@ conditionizr.config({
 						<?php //html5blank_nav(); ?>
 						<a href="<?php echo home_url() ?>dd" class="home-scroll"><span>Home</span></a>
 						<a href="#venue"><span>Venue</span></a>
-						<a href="#availability"><span>Schedule</span></a>
-						<a href="#packages"><span>Packages</span></a>
+						<a href="#reserve"><span>Schedule</span></a>
+						<a href="#package"><span>Packages</span></a>
 					</nav>
 					<!-- /nav -->
 			</header>
-			<nav id="checkout-steps">
-				<a href="#pakage-select" data-before="Select Package" data-after="Package Selected">Select Package</a>
-				<a href="#date-chooser" data-before="Choose Date" data-after="Date Chosen">Choose Date</a>
-				<a href="#pay" data-before="Pay" data-after="Paid">Pay!</a>
+			<nav id="checkout-steps" class="<?php echo !showStepBar() ? 'hidden' : '' ?>">
+			<?php foreach (array('package' => 'package', 'reserve' => 'date', 'charge' => 'pay') as $action => $stepName): ?>
+				<a href="#<?php echo $action ?>" class="<?php echo $action ?> <?php echo stepCompleted($action) ? 'done' : '' ?>"><?php echo ucfirst($stepName) ?></a>
+			<?php endforeach; ?>
 			</nav>
 			<div class="scrolled reference">&nbsp;</div>
 			<!-- /header -->

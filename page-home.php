@@ -9,7 +9,7 @@ Template Name: Homepage Template
 		<section id="banner" class="fixed">
 			<h3 class="banner-text">
 				<span>Get hitched on the quick</span>
-				<a class="button banner-button button-shadow" href="#availability">book now ></a>
+				<a class="button banner-button button-shadow" href="#reserve">book now ></a>
 			</h3>
 			<img id="home-banner" src="wp-content/themes/avow/img/homepage.jpg">
 		</section>
@@ -28,14 +28,24 @@ Template Name: Homepage Template
 				</div>
 			</section>
 			
-			<section id="availability">
+			<section id="reserve">
 				<h1>Availability</h1>
 				<div class="margin-standard">
-					<h2>Book Your Time Now</h2>
+					<h2>Reserve Your Time Now</h2>
+					<form method="post" action="/backend" class="reserve-date">
+						<input type="submit" name="reserve_date" value="Reserve Your Date" 
+							class="<?php echo stepCompleted('reserve') ? 'cupid-green' : 'clean-gray' ?>"
+							data-selected-title="Date Reserved" 
+							data-title="Reserve Your Date">
+							
+						<input type="hidden" name="date" value="2014-05-28 19:00:00" >
+						<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('reserve') ?>" >
+						<input type="hidden" name="action" value="reserve" >
+					</form>	
 				</div>
 			</section>
 			
-			<section id="packages" class="top-box-shadow">	
+			<section id="package" class="top-box-shadow">	
 				<h1>Packages</h1>
 				<?php
 					$packages = get_posts(array(
@@ -65,12 +75,12 @@ Template Name: Homepage Template
 						<form method="post" action="/backend" class="select-package">
 							<input type="submit" name="package_title" value="Choose <?php echo $p->post_title ?>" 
 								class="select-package <?php echo $_SESSION['package_name'] == $p->post_title ? 'cupid-green' : 'clean-gray' ?>"
-								data-selected-package-title="<?php echo $p->post_title ?> Selected" 
-								data-package-title="Choose <?php echo $p->post_title ?>">
+								data-selected-title="<?php echo $p->post_title ?> Selected" 
+								data-title="Choose <?php echo $p->post_title ?>">
 							<input type="hidden" name="package_name" value="<?php echo $p->post_title ?>" >
 							<input type="hidden" name="package_id" value="<?php echo $p->ID ?>" >
 							<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('package') ?>" >
-							<input type="hidden" name="action" value="<?php echo $startingAction ?>" >
+							<input type="hidden" name="action" value="package" >
 						</form>	
 					</li>	
 						

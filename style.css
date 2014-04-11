@@ -80,6 +80,7 @@ a{
 	font-size: 15px;
 } header.scrolled + #checkout-steps{
 	top:30px;
+	background: rgba(240,240,240, .85);
 }
 
 .nav{
@@ -120,17 +121,49 @@ a{
 }
 
 #checkout-steps{
-	background: rgba(240,240,240, .9);
-    display: flex;
+	background: rgba(240,240,240, 1);
+	display:-webkit-flex;
+	display: flex;
     position: fixed;
     top: 60px;
     width: 100%;
-    z-index: 22;
+    z-index: 50;
     padding: 10px 0;
     transition: all .2s ease-out;
+    overflow: hidden;
+} #checkout-steps.hidden {
+	height: 0 !important;
+	padding: 0 !important;
 } #checkout-steps a{
 	width: 100%;
 	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	color: #aaa;
+	transition: all .2s ease-out;
+} #checkout-steps a:not(.done):before{
+	content:"\25ef";
+	margin-right: 3px;
+	position: relative; 
+	top: -2px;
+} #checkout-steps a.done{
+	color: #63A62F;
+} #checkout-steps a.done:before{
+	content:"\2713";
+	margin-right: 3px;	
+} #checkout-steps > a:last-child{
+	cursor: default;
+} #checkout-steps > a.done + a.done + a{
+	cursor: pointer;
+	color: #33aaff;
+}
+
+#payment{
+	display: none;
+}
+
+#content-wrap > section:nth-child(even) {
+/* 	background: #f9f9f9; */
 }
 
 footer{
@@ -138,7 +171,7 @@ footer{
 	z-index: 2;
 	padding: 25px 7px;
 	background: white;
-	border-top: 3px solid #f5f5f5
+	border-top: 4px solid #f5f5f5
 }
 
 footer .inner {
@@ -258,39 +291,43 @@ section {
 	
 }
 
-#packages{
+#reserve > div {
+	margin-bottom: 50px;
+}
+
+#package{
 }
 
 
-#packages > ul{
+#package > ul{
 	
 	display:-webkit-flex;
 	display: flex;
 	display: block;
-} #packages > ul > li{
+} #package > ul > li{
     padding: 23px 0;
-} #packages > ul > li:nth-child(odd){
+} #package > ul > li:nth-child(odd){
 	background: white;
-} #packages > ul > li > h2 {
+} #package > ul > li > h2 {
     font-size: 23px;
     font-weight: bold;
     margin: 0 0 10px 0;
     text-align: left;
     font-family: "Trocchi", georgia, serif;
     float: left;
-} #packages > ul > li > h3 {
+} #package > ul > li > h3 {
 	float: right;
 	font-weight: bold;
 	font-size: 20px;
 	color: #666;
 	position: relative;
-} #packages > ul > li > h3:before{
+} #package > ul > li > h3:before{
 	content: "$";
 	position: relative;
 	top: -5px;
 	font-size: 71%;
 	margin-right: 2px;
-} #packages > ul > li > p {
+} #package > ul > li > p {
 	clear: both;
 	margin: 0 0 15px 0;
 	font-size: 15px;
@@ -537,6 +574,10 @@ main.homepage > section:nth-child(2) {
 		left: 12%;
 		right: 12%;
 	}
+	
+	#checkout-steps a{
+		font-size: 17px;
+	}
 }
 
 @media only screen and (min-width: 768px) { 
@@ -559,6 +600,10 @@ main.homepage > section:nth-child(2) {
 		width: 25%;	
 	} .nav a.home-scroll{
 		display: block;
+	}
+	
+	#checkout-steps a{
+		font-size: 19px;
 	}
 		
 	.scrolled{
@@ -596,19 +641,19 @@ main.homepage > section:nth-child(2) {
 		width: 30%;
 	}
 	
-	#packages > ul{		
+	#package > ul{		
 		display:-webkit-flex;
 		display: flex;
 		margin: 50px 0;
-	} #packages > ul > li.padding-standard{
+	} #package > ul > li.padding-standard{
 		padding-left: 2% !important;
 		padding-right: 2% !important;
-	} #packages > ul > li:nth-child(2) {
+	} #package > ul > li:nth-child(2) {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
 	
-	#packages > ul > li > p {
+	#package > ul > li > p {
 		max-width: 90%;
 		min-width: 0%;
 	}

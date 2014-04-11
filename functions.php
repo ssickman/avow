@@ -33,15 +33,23 @@ $phone = '304.933.9016';
 $email = 'info@avowpdx.com';
 $tryAgain = "<br><br>Please try again or give us a call at {$phone}";
 
-
-
-
-
-$startingAction = 'package';
+//$startingAction = 'package';
 
 function get_stripe_key($stripeKeyIndex) {
 	global $stripeSettings;
 	return @$stripeSettings[$stripeKeyIndex];
+}
+
+function stepCompleted($step) {
+	return !empty($_SESSION['completed_steps'][$step]);
+}
+
+function completeStep($step) {
+	$_SESSION['completed_steps'][$step] = true;
+} 
+
+function showStepBar() { 
+	return !empty($_SESSION['completed_steps']);
 }
 
 //add_action('init', function() { addFlash("You haven't selected a package"); }, 90);
@@ -87,20 +95,6 @@ function package_format_features($string) {
 	return $out;
 }
 
-add_action('wp_print_scripts', 'starting_nonce');
-function starting_nonce($js = true)
-{
-	global $startingAction;
-	$nonce = wp_create_nonce($startingAction);
-	
-	if (!$js) {
-		//echo $nonce;
-		//return;
-	}
-		
-	echo '<script> var startingNonce = "'.$nonce.'";</script>';
-}
-
 add_action('init', 'myStartSession', 1);
 add_action('wp_logout', 'myEndSession');
 add_action('wp_login', 'myEndSession');
@@ -108,7 +102,9 @@ add_action('wp_login', 'myEndSession');
 function myStartSession() {
     if(!session_id()) {
         session_start();
-    }
+    } 
+    
+	//$_SESSION = array();    
 }
 
 function myEndSession() {

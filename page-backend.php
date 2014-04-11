@@ -6,7 +6,7 @@ Template Name: Backend Template
 ?>
 <?php
 $errors = array(
-	'book'    => "We had an issue booking your date.{$tryAgain}",
+	'reserve'    => "We had an issue reserving your date.{$tryAgain}",
 	'package' => "We had an issue selecting your package{$tryAgain}",
 );
 
@@ -17,7 +17,7 @@ $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_
 
 
 if ($siteEnvironment == 'test') {
-	$action = $startingAction;	
+
 }
 
 $verified = @wp_verify_nonce($_POST['nonce'], $action);
@@ -26,14 +26,10 @@ $success = false;
 if ($verified && 1==1) {
 	
 	switch ($action) {
-		case 'book':
-			$nextAction = 'package';
+		case 'reserve':
 			
-	
-	
 			break;
 		case 'package':
-			$nextAction = 'charge';
 			
 			$_SESSION['package_id']   = $_POST['package_id'];
 			$_SESSION['package_name'] = $_POST['package_name'];
@@ -41,6 +37,8 @@ if ($verified && 1==1) {
 			
 		default:
 	}
+	
+	completeStep($action);
 	$success = true;
 	
 } else {
@@ -55,7 +53,6 @@ if ($verified && 1==1) {
 	}
 }
 $data = json_encode(array_merge($data, array(
-	'nonce' => array('value' => wp_create_nonce($nextAction), 'action' => $nextAction),
 	'status' => $success ? 'ok' : 'error',	
 )));
 

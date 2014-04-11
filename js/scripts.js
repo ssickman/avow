@@ -10,10 +10,11 @@
 	var absolute = false;
 			
 	$(function () {
-		$('.nav a[href^=#], .banner-button').on('click', function(e){
+		$('.nav a[href^=#], .banner-button, #checkout-steps a').on('click', function(e){
 			e.preventDefault();
 			var location = $(this).attr('href');
-			$.scrollTo( location, 500, { 'axis':'y', offset: {top: -1 * parseInt($('.scrolled.reference').css('height')) } } );
+			var offset = -1 * ( parseInt($('.scrolled.reference').css('height')) /* + parseInt($('#checkout-steps').css('height')) */ );
+			$.scrollTo(location, 500, { axis: 'y', offset: {top:  offset} });
 			
 			ga('send', 'pageview', location.replace('#', '/'));
 		});
@@ -32,9 +33,13 @@
 			$(this).parent().css('display', 'none').fadeOut(1000);
 		});
 		
-		$('form.select-package').on('submit', function(e){
+		$('form.select-package, form.reserve-date').on('submit', function(e){
 			e.preventDefault();
 			var $form = $(this);
+			
+			//do not allow payment while options are changing
+			$('#checkout-steps > a.done + a.done + a').unbind();
+			
 			$.ajax({
 	            type: "POST",
 	            url: $(this).attr('action'),
@@ -44,15 +49,29 @@
 	                console.log(data);
 					
 					if (data.status == 'ok') {
-		                $('form input[type=submit]').each(function(ele, i){
-		                	$(this)
-		                		.removeClass('cupid-green')
-		                		.addClass('clean-gray')
-		                		.attr('value', $(this).attr('data-package-title'))
-		                	;
-		                });
-						                
+		                
+		                if ($form.hasClass('select-package')) {
+			                $('form.select-package input[type=submit]').each(function(ele, i){
+			                	$(this)
+			                		.removeClass('cupid-green')
+			                		.addClass('clean-gray')
+			                		.attr('value', $(this).attr('data-title'))
+			                	;
+			                });
+		                }
+		                
+		                $('#checkout-steps')
+		                	.removeClass('hidden')
+		                	.slideDown(700)
+		                		.find('a.' + $form.find('input[name=action]')
+		                			.val())
+		                			.addClass('done')
+		                ;
+		               
 		                selectPackage($form.find('input[type=submit]'));
+		                
+		                bindPayment();
+		                
 	               	} else {
 	               		addFlash(data.flash.errorMessage, data.flash.errorClass);
 	               	}
@@ -65,20 +84,15 @@
 		
 		setContentMargin();
 		selectPackage($('.select-package.cupid-green'));
+		selectPackage($('form.reserve-date .cupid-green'));
+		bindPayment();
 		
 		var scrollPoint = getScrollPoint();
-							
+		shrinkHeader(scrollPoint);
+						
 		$( window )
 			.on('scroll', function(e) {
-
-				if (!absolute && $(this).scrollTop() >= scrollPoint - bannerOverlap) {
-					$('.top-header').addClass('scrolled');
-					absolute = !absolute;
-					
-				} else if (absolute && $(this).scrollTop() < scrollPoint - bannerOverlap) {
-					$('.top-header').removeClass('scrolled');
-					absolute = !absolute;
-				}
+				shrinkHeader(scrollPoint);
 			})
 			.on('resize', function() {
 				setContentMargin();
@@ -91,10 +105,30 @@
 		
 	});
 	
-	function selectPackage($ele) {
+	function bindPayment()
+	{
+		$('#checkout-steps > a.done + a.done + a').bind('click', function(e){
+        	$('.stripe-button-el').trigger('click');
+        });
+	}
+	
+	function shrinkHeader(scrollPoint)
+	{
+		if (!absolute && $(this).scrollTop() >= scrollPoint - bannerOverlap) {
+			$('.top-header').addClass('scrolled');
+			absolute = !absolute;
+			
+		} else if (absolute && $(this).scrollTop() < scrollPoint - bannerOverlap) {
+			$('.top-header').removeClass('scrolled');
+			absolute = !absolute;
+		}
+	}
+	
+	function selectPackage($ele) 
+	{
 		$ele.removeClass('clean-gray')
 	    	.addClass('cupid-green')
-	    	.attr('value', $ele.attr('data-selected-package-title'))
+	    	.attr('value', $ele.attr('data-selected-title'))
 	    ;
 	}
 	
@@ -116,7 +150,8 @@
 	
 })(jQuery, this);
 
-function addFlash(errorMessage, errorClass) {
+function addFlash(errorMessage, errorClass) 
+{
 	jQuery('.flash').addClass(errorClass).find('div').html(errorMessage);
 	controlFlash();
 }
