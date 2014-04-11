@@ -78,9 +78,11 @@ a{
 	display: none;
 } .scrolled #logo {
 	font-size: 15px;
+} header.scrolled + #checkout-steps{
+	top:30px;
 }
 
-nav{
+.nav{
 	margin: 0px 0 0 auto;
 	height: 100%;
     overflow: hidden;
@@ -88,7 +90,7 @@ nav{
    	max-width: 300px;
 }
 
-nav a {
+.nav a {
     display: block;
     float: left;
 	height: 100%;
@@ -98,10 +100,10 @@ nav a {
     font-weight: bold;
     transition: all .2s ease-out;
     position: relative;
-} nav a:hover{
+} .nav a:hover{
 	background: teal;
 	color: white;
-} nav a span {
+} .nav a span {
 	position: absolute;
 	margin: auto;
 	top: 0;
@@ -111,10 +113,24 @@ nav a {
 	height: 13px;
 }
 
-nav a:last-child{
+.nav a:last-child{
 	width: 33.34%;
-} nav a.home-scroll{
+} .nav a.home-scroll{
 	display: none;
+}
+
+#checkout-steps{
+	background: rgba(240,240,240, .9);
+    display: flex;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    z-index: 22;
+    padding: 10px 0;
+    transition: all .2s ease-out;
+} #checkout-steps a{
+	width: 100%;
+	text-align: center;
 }
 
 footer{
@@ -277,10 +293,9 @@ section {
 } #packages > ul > li > p {
 	clear: both;
 	margin: 0 0 15px 0;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 110%;
-	color: #999;
-	font-style: italic;
+	color: #777;
 	max-width: 80%;
     min-width: 285px;
 }
@@ -463,6 +478,7 @@ input.select-package{
 }
 
 .flash{
+
 	background: #FFFFFF;
     position: fixed;
     left: 10%;
@@ -506,11 +522,13 @@ main.homepage > section:nth-child(2) {
 		height: 40px;
 	} .scrolled #logo {
 		font-size: 20px;
+	} header.scrolled + #checkout-steps{
+		top: 40px;
 	}
 	
-	nav a {
+	.nav a {
 		font-size: 15px;
-	} nav a span {
+	} .nav a span {
 		height: 15px;
 	}
 	
@@ -531,13 +549,15 @@ main.homepage > section:nth-child(2) {
 		height: 80px;
 	} #logo{
 		font-size: 40px;
+	} #checkout-steps{
+		top: 80px;
 	}
 	
-	nav {
+	.nav {
 		max-width: 350px;
-	} nav a, nav a:last-child{
+	} .nav a, .nav a:last-child{
 		width: 25%;	
-	} nav a.home-scroll{
+	} .nav a.home-scroll{
 		display: block;
 	}
 		
@@ -545,7 +565,9 @@ main.homepage > section:nth-child(2) {
 		height: 46px;
 	} .scrolled #logo {
 		font-size: 23px;
-	}	
+	} header.scrolled + #checkout-steps{
+		top: 46px;
+	}
 		
 	.banner-text span, .banner-button{
 		font-size: 30px;

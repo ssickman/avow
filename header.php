@@ -47,10 +47,12 @@ conditionizr.config({
 						<a href="#packages"><span>Packages</span></a>
 					</nav>
 					<!-- /nav -->
-				<section style="display:none;">
-					112 SE 12th&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;St 304.933.9016 
-				</section>
 			</header>
+			<nav id="checkout-steps">
+				<a href="#pakage-select" data-before="Select Package" data-after="Package Selected">Select Package</a>
+				<a href="#date-chooser" data-before="Choose Date" data-after="Date Chosen">Choose Date</a>
+				<a href="#pay" data-before="Pay" data-after="Paid">Pay!</a>
+			</nav>
 			<div class="scrolled reference">&nbsp;</div>
 			<!-- /header -->
 			

@@ -26,16 +26,21 @@ if (!isset($content_width))
 {
     $content_width = 900;
 }
-
-
 $stripeSettings  = get_option('stripe_settings'); 
-$siteEnvironment = get_stripe_key('stripe_environment');
+
+$siteEnvironment = get_stripe_key('stripe_environment'); 
+$phone = '304.933.9016';
+$email = 'info@avowpdx.com';
+$tryAgain = "<br><br>Please try again or give us a call at {$phone}";
+
+
+
+
 
 $startingAction = 'package';
 
 function get_stripe_key($stripeKeyIndex) {
 	global $stripeSettings;
-
 	return @$stripeSettings[$stripeKeyIndex];
 }
 
@@ -51,32 +56,20 @@ function addFlash($message, $class = 'warning')
 add_action('init', 'showFlash', 100);
 function showFlash()
 { 
-	if (!empty($_SESSION['flash']['message']) && !empty($_SESSION['flash']['class'])) {
+	//if (!empty($_SESSION['flash']['message']) && !empty($_SESSION['flash']['class'])) {
 		
-		$m = $_SESSION['flash']['message']; $c = $_SESSION['flash']['class'];
+		$m = @$_SESSION['flash']['message']; $c = @$_SESSION['flash']['class'];
 		
 		add_action('wp_footer', function() use($m, $c){ 
-			
+
 			echo "<div class='flash {$c}'><div>{$m}</div><a href='#'>ok</a></div>";
 		}, 200);
 		
-		add_action('wp_head', function() {
-			echo "
-				<script>
-					(function ($, root, undefined) {
-						$(function () {		
-							$('.flash').delay(10000).fadeOut(1000);	
-						});
-					})(jQuery, this);		
-					
-				</script>
-			";
-		}, 100);
-	}
+		
+	//}
 	
 	unset($_SESSION['flash']);
 }
-
 
 function package_format_features($string) {
 	$features = explode('|', $string);

@@ -10,7 +10,7 @@
 	var absolute = false;
 			
 	$(function () {
-		$('nav a[href^=#], .banner-button').on('click', function(e){
+		$('.nav a[href^=#], .banner-button').on('click', function(e){
 			e.preventDefault();
 			var location = $(this).attr('href');
 			$.scrollTo( location, 500, { 'axis':'y', offset: {top: -1 * parseInt($('.scrolled.reference').css('height')) } } );
@@ -29,7 +29,6 @@
 		
 		$('.flash a').on('click', function(e){
 			e.preventDefault();
-			console.log($(this).parent());
 			$(this).parent().css('display', 'none').fadeOut(1000);
 		});
 		
@@ -42,22 +41,24 @@
 	            data: $(this).serialize(),
 	            dataType: "json",
 	            success: function(data) {
-	                console.log($form.find('input[type=submit]'));
-	                
 	                console.log(data);
-
-	                $('form input[type=submit]').each(function(ele, i){
-	                	$(this)
-	                		.removeClass('cupid-green')
-	                		.addClass('clean-gray')
-	                		.attr('value', $(this).attr('data-package-title'))
-	                	;
-	                });
-	                
-	                selectPackage($form.find('input[type=submit]'));
+					
+					if (data.status == 'ok') {
+		                $('form input[type=submit]').each(function(ele, i){
+		                	$(this)
+		                		.removeClass('cupid-green')
+		                		.addClass('clean-gray')
+		                		.attr('value', $(this).attr('data-package-title'))
+		                	;
+		                });
+						                
+		                selectPackage($form.find('input[type=submit]'));
+	               	} else {
+	               		addFlash(data.flash.errorMessage, data.flash.errorClass);
+	               	}
 	            },
 	            error: function(){
-	                  console.log('error');
+	                 addFlash('There was a problem connecting to the server.<br><br>Please try again', 'warning');
 	            }
 	        });
 		})
@@ -83,7 +84,10 @@
 				setContentMargin();
 				scrollPoint = getScrollPoint(parseInt($(bannerEle).css('height')));
 				
-			});
+			})
+		;
+		
+		controlFlash();
 		
 	});
 	
@@ -112,3 +116,15 @@
 	
 })(jQuery, this);
 
+function addFlash(errorMessage, errorClass) {
+	jQuery('.flash').addClass(errorClass).find('div').html(errorMessage);
+	controlFlash();
+}
+
+function controlFlash() {
+	$('.flash').hide();
+	if ($('.flash > div').html().length > 0) { 
+		$('.flash').show().delay(10000).fadeOut(1000); 
+	}
+
+}
