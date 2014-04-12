@@ -17,8 +17,8 @@ try {
 	Stripe::setApiKey($secretKey);
 	
 	$token       = @$_POST['stripeToken'];
+	$postAmount  = @$_POST['stripeAmount'];
 	$packageId   = @$_SESSION['package_id'];
-
 
 	if (empty($packageId)) {
 		throw new MissingPackageId("You haven't selected a package");
@@ -26,11 +26,15 @@ try {
 	
 	$m = get_post_meta($packageId);
 	$amount = $m['package_price'][0] * 100;
-	$prettyAmount = money_format('$%i', $amount / 100);
+	$prettyAmount = money_format('$%i', $postAmount / 100);
 	$packageName = $_SESSION['package_name'];
 	
+	if (!($postAmount == $amount || $postAmount == $amount * .2)) {
+		throw new MismatchedChargeAmount("There was a problem calculating the charge Amount{$tryAgain}");
+	}
+
 	$charge = Stripe_Charge::create(array(
-	  "amount" => $amount,
+	  "amount" => $postAmount,
 	  "currency" => "usd",
 	  "card" => $token,
 	  "description" => $packageName,
@@ -44,6 +48,8 @@ try {
 } catch(Stripe_InvalidRequestError $e) {
 	addFlash("We had a problem processing your credit card.{$tryAgain}");
 } catch(MissingPackageId $e) {
+	addFlash($e->getMessage());
+} catch(MismatchedChargeAmount $e) {
 	addFlash($e->getMessage());
 }
 

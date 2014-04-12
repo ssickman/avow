@@ -150,6 +150,11 @@
 			$(this)
 				.html($(this).attr('data-button-text') + ' (' + amountPretty + ')')
 				.on('click', function(e){
+			    	$('button.pay').removeClass('chosen-payment-method');
+			    	$(this)
+			    		.addClass('chosen-payment-method')
+			    		.attr('data-stripe-amount', amountStripe);
+			    	;
 			    	
 					stripeHandler.open({
 						name: 'Avow',

@@ -115,7 +115,7 @@ Template Name: Homepage Template
 							key: '<?php echo get_stripe_key("stripe_{$siteEnvironment}_public_key") ?>',
 							image: '//avowpdx.com/wp-content/themes/avow/img/avow-stripe.jpg',
 							token: function(token, args) {
-								postForm('/charge', 'POST', { stripeToken: token.id });
+								postForm('/charge', 'POST', { stripeToken: token.id, stripeAmount: jQuery('button.chosen-payment-method').attr('data-stripe-amount') });
 								console.log(token);
 								console.log(args);
 							}

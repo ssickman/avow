@@ -16,6 +16,7 @@ require_once('stripe_settings.php');
 \*------------------------------------*/
 class MissingPackageId extends Exception{}
 class BadNonce extends Exception{}
+class MismatchedChargeAmount extends Exception{}
 
 /*------------------------------------*\
 	Theme Support
