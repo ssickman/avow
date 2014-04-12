@@ -81,13 +81,17 @@
 	        });
 		})
 		
-		setContentMargin();
+		
 		selectPackage($('.select-package.cupid-green'));
 		selectPackage($('form.reserve-date .cupid-green'));
 		bindPayment();
 		
 		var scrollPoint = getScrollPoint();
 		shrinkHeader(scrollPoint);
+		
+		$('#home-banner').on('load', function(){
+			setContentMargin();
+		});
 						
 		$( window )
 			.on('scroll', function(e) {

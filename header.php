@@ -25,6 +25,7 @@ conditionizr.config({
 		
 		<!--[if lt IE 9]>
 			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
 		

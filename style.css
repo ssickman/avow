@@ -118,7 +118,7 @@ a{
 .nav a:last-child{
 	width: 33.34%;
 } .nav a.home-scroll{
-	display: none;
+	display: none !important;
 }
 
 #checkout-steps{
@@ -264,12 +264,14 @@ section {
     margin: 0 auto;
     padding: 18px 0;
     text-align: center;
-    background: #f7f7f7;
+    /* background: #f7f7f7; */
     transition: all .3s ease-out;
 } section > h1:first-child:before, section > h1:first-child:after{
 	content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
 	text-decoration: line-through;
 	margin: 0 10px;
+} #content-wrap > section:nth-child(odd) {
+	background: #fafafa;
 }
 
 
@@ -309,7 +311,7 @@ section {
 } #package > ul > li, ul#payment-choices li{
     padding: 23px 0;
 } #package > ul > li:nth-child(odd){
-	background: white;
+	/* background: white; */
 } #package > ul > li > h2, #payment-choices > li > h2 {
     font-size: 23px;
     font-weight: bold;
@@ -702,7 +704,7 @@ main.homepage > section:nth-child(2) {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	a:not(.done):before {
+	#checkout-steps a:not(.done):before {
 		font-size: 67%;
 	}
 }
