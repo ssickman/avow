@@ -291,7 +291,9 @@ section {
 } #venue h2 {
 	margin-top: 0;
 } #venue div.img-container {
-	border: 25px solid #F7F7F7;
+	border: 25px solid #fff;
+	margin: 1px;
+    outline: 1px solid #EEEEEE;
 } #venue img{
 	width: 100%;
 	
