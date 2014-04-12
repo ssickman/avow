@@ -11,12 +11,9 @@
 			
 	$(function () {
 		$('.nav a[href^=#], .banner-button, #checkout-steps a').on('click', function(e){
-			e.preventDefault();
-			var location = $(this).attr('href');
-			var offset = -1 * ( parseInt($('.scrolled.reference').css('height')) /* + parseInt($('#checkout-steps').css('height')) */ );
-			$.scrollTo(location, 500, { axis: 'y', offset: {top:  offset} });
 			
-			ga('send', 'pageview', location.replace('#', '/'));
+			var location = $(this).attr('href');
+			scrollTo(location, e);
 		});
 		
 		$('.home-scroll').on('click', function(e){
@@ -38,7 +35,8 @@
 			var $form = $(this);
 			
 			//do not allow payment while options are changing
-			$('#checkout-steps > a.done + a.done + a').unbind();
+			//$('#checkout-steps > a.done + a.done + a').unbind();
+			$('#charge').addClass('hidden');
 			
 			$.ajax({
 	            type: "POST",
@@ -107,9 +105,70 @@
 	
 	function bindPayment()
 	{
-		$('#checkout-steps > a.done + a.done + a').bind('click', function(e){
-        	$('.stripe-button-el').trigger('click');
-        });
+		var $pay = $('#checkout-steps > a.done + a.done + a');
+		
+		if ($pay.length > 0){
+			
+			$pay.on('click', function(e){
+				scrollTo($(this).attr('href'), e);
+			});
+
+			
+			setupPaymentButtons();
+
+			/*
+		
+			$pay.on('click', function(e){
+		    	var $selectedPackage = $('input.select-package.cupid-green');
+				stripeHandler.open({
+					name: 'Avow',
+					description: $selectedPackage.attr('data-package-name'),
+					amount: $selectedPackage.parent().find('input[name=package_price]').val() * 100
+				});
+				e.preventDefault();
+		    });
+		*/
+		    
+		    $('#charge').removeClass('hidden');
+		} else {
+			$('#checkout-steps > a:last-child').off().on('click', function(e){
+				e.preventDefault();
+			});
+		}
+	}
+	
+	function setupPaymentButtons()
+	{
+		var $selectedPackage = $('input.select-package.cupid-green');
+		
+		$('#charge button.pay').each(function(i, ele){
+			var payPercent = $(this).attr('data-pay-percent');
+			var amount = $selectedPackage.parent().find('input[name=package_price]').val();
+			var amountStripe = amount * payPercent;
+			var amountPretty = '$' + (amount * payPercent / 100);
+			
+			$(this)
+				.html($(this).attr('data-button-text') + ' (' + amountPretty + ')')
+				.on('click', function(e){
+			    	
+					stripeHandler.open({
+						name: 'Avow',
+						description: $selectedPackage.attr('data-package-name'),
+						amount: amountStripe
+					});
+					e.preventDefault();
+			    });
+		})
+	}
+	
+	function scrollTo(location, e)
+	{
+		e.preventDefault();
+		
+		var offset = -1 * ( parseInt($('.scrolled.reference').css('height')) /* + parseInt($('#checkout-steps').css('height')) */ );
+		$.scrollTo(location, 500, { axis: 'y', offset: {top:  offset} });
+		
+		ga('send', 'pageview', location.replace('#', '/'));
 	}
 	
 	function shrinkHeader(scrollPoint)
@@ -149,6 +208,26 @@
 	}
 	
 })(jQuery, this);
+
+function postForm(action, method, input) {
+    "use strict";
+    var form;
+    form = jQuery('<form />', {
+        action: action,
+        method: method,
+        style: 'display: none;'
+    });
+    if (typeof input !== 'undefined') {
+        jQuery.each(input, function (name, value) {
+            jQuery('<input />', {
+                type: 'hidden',
+                name: name,
+                value: value
+            }).appendTo(form);
+        });
+    }
+    form.appendTo('body').submit();
+}
 
 function addFlash(errorMessage, errorClass) 
 {

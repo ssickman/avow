@@ -131,9 +131,6 @@ a{
     padding: 10px 0;
     transition: all .2s ease-out;
     overflow: hidden;
-} #checkout-steps.hidden {
-	height: 0 !important;
-	padding: 0 !important;
 } #checkout-steps a{
 	width: 100%;
 	text-align: center;
@@ -158,13 +155,18 @@ a{
 	color: #33aaff;
 }
 
-#payment{
-	display: none;
+#charge{
+	transition: all .3s ease-out;
 }
 
 #content-wrap > section:nth-child(even) {
 /* 	background: #f9f9f9; */
 }
+
+.hidden {
+	height: 0 !important;
+	padding: 0 !important;
+} 
 
 footer{
 	position:relative;
@@ -291,7 +293,7 @@ section {
 	
 }
 
-#reserve > div {
+#reserve > div, #charge1 > div {
 	margin-bottom: 50px;
 }
 
@@ -300,15 +302,13 @@ section {
 
 
 #package > ul{
-	
-	display:-webkit-flex;
-	display: flex;
+
 	display: block;
-} #package > ul > li{
+} #package > ul > li, ul#payment-choices li{
     padding: 23px 0;
 } #package > ul > li:nth-child(odd){
 	background: white;
-} #package > ul > li > h2 {
+} #package > ul > li > h2, #payment-choices > li > h2 {
     font-size: 23px;
     font-weight: bold;
     margin: 0 0 10px 0;
@@ -327,7 +327,7 @@ section {
 	top: -5px;
 	font-size: 71%;
 	margin-right: 2px;
-} #package > ul > li > p {
+} #package > ul > li > p, #payment-choices > li > p {
 	clear: both;
 	margin: 0 0 15px 0;
 	font-size: 15px;
@@ -335,6 +335,21 @@ section {
 	color: #777;
 	max-width: 80%;
     min-width: 285px;
+}
+
+ul#payment-choices li{
+	display: block;
+	width: 100%;
+}
+
+#payment-choices > li > h2 {
+	float: none;
+
+}
+
+button.pay{
+	margin: 20px 0 0;
+	display: block;
 }
 
 ul.features{
@@ -509,7 +524,7 @@ THE SOFTWARE.
 
 input.select-package{
 	margin-top: 20px;
-	font-family: Trocchi;
+	font-family: Oxygen, Trocchi;
 } input.select-package:before{
 	content: "";
 }
@@ -641,11 +656,11 @@ main.homepage > section:nth-child(2) {
 		width: 30%;
 	}
 	
-	#package > ul{		
+	#package > ul, ul#payment-choices{		
 		display:-webkit-flex;
 		display: flex;
 		margin: 50px 0;
-	} #package > ul > li.padding-standard{
+	} #package > ul > li.padding-standard, #payment-choices > li.padding-standard{
 		padding-left: 2% !important;
 		padding-right: 2% !important;
 	} #package > ul > li:nth-child(2) {
@@ -653,9 +668,21 @@ main.homepage > section:nth-child(2) {
 		padding-right: 0 !important;
 	}
 	
-	#package > ul > li > p {
+	#package > ul > li > p, #payment-choices > li > p {
 		max-width: 90%;
 		min-width: 0%;
+	}
+	
+	ul#payment-choices li {
+		position: relative;
+		padding-bottom: 50px;
+	}
+	
+	button.pay{
+		/* margin: 20px auto 0; */
+		position: absolute;
+		bottom: 0px;
+		left: 0;
 	}
 	
 	.flash{

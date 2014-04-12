@@ -104,6 +104,7 @@ function myStartSession() {
         session_start();
     } 
     
+    //print_r($_SESSION); die();
 	//$_SESSION = array();    
 }
 
@@ -153,6 +154,10 @@ function html5blank_header_scripts()
         wp_register_script('jquery-scrollTo', '//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js', array('jquery'), '1.4.11'); // Custom scripts
         wp_enqueue_script('jquery-scrollTo');
         
+        wp_register_script('stripe', 'https://checkout.stripe.com/checkout.js', array()); // Custom scripts
+        wp_enqueue_script('stripe');
+        
+        
         wp_deregister_script('comment-reply');
 
        /*
@@ -177,6 +182,9 @@ function html5blank_conditional_scripts()
 // Load HTML5 Blank styles
 function html5blank_styles()
 {	
+	wp_register_style('fonts', '//fonts.googleapis.com/css?family=Oxygen:400,700,300|Trocchi', array(), '1.0', 'all');
+    wp_enqueue_style('fonts');
+	
     wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
     wp_enqueue_style('html5blank');
 }

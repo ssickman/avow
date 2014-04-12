@@ -42,7 +42,7 @@ try {
   // The card has been declined
   echo __LINE__ . ' ' . $e->getMessage();
 } catch(Stripe_InvalidRequestError $e) {
-  addFlash("We had a problem processing your credit card.{$tryAgain}");
+	addFlash("We had a problem processing your credit card.{$tryAgain}");
 } catch(MissingPackageId $e) {
 	addFlash($e->getMessage());
 }
@@ -52,7 +52,8 @@ if ($success) {
 	
 	unset(
 		$_SESSION['package_id'], 
-		$_SESSION['package_name']
+		$_SESSION['package_name'],
+		$_SESSION['completed_steps']
 	);
 
 } else {
