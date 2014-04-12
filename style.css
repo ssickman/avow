@@ -699,5 +699,9 @@ main.homepage > section:nth-child(2) {
 	}
 }
 
-
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	a:not(.done):before {
+		font-size: 67%;
+	}
+}
 
