@@ -155,6 +155,15 @@ function html5blank_header_scripts()
         wp_register_script('jquery-scrollTo', '//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js', array('jquery'), '1.4.11'); // Custom scripts
         wp_enqueue_script('jquery-scrollTo');
         
+        wp_register_script('underscore', '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js', array('jquery'), '1.5.2'); // Custom scripts
+        wp_enqueue_script('underscore');
+        
+        //wp_register_script('moment', get_template_directory_uri() . '/js/moment.min.js', array('jquery', 'underscore'), '2.6.0'); // Custom scripts
+        //wp_enqueue_script('moment');
+        
+		wp_register_script('clndr', get_template_directory_uri() . '/js/moment-clndr.js', array('jquery', 'underscore',)); // Custom scripts
+        wp_enqueue_script('clndr');
+        
         wp_register_script('stripe', 'https://checkout.stripe.com/checkout.js', array()); // Custom scripts
         wp_enqueue_script('stripe');
         

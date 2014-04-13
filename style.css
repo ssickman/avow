@@ -293,7 +293,7 @@ section {
 } #venue div.img-container {
 	border: 25px solid #fff;
 	margin: 1px;
-    outline: 1px solid #EEEEEE;
+    outline: 1px solid #f5f5f5;
 } #venue img{
 	width: 100%;
 	
@@ -356,6 +356,7 @@ ul#payment-choices li{
 button.pay{
 	margin: 20px 0 0;
 	display: block;
+	font-size: 13px;
 }
 
 ul.features{
@@ -649,7 +650,7 @@ main.homepage > section:nth-child(2) {
 		margin-top: 75px;
 		text-align: left;
 	}   section h2.l{
-		text-align: right;
+		text-align: right !important;
 	}
 	
 	.l{
@@ -709,5 +710,93 @@ main.homepage > section:nth-child(2) {
 	#checkout-steps a:not(.done):before {
 		font-size: 67%;
 	}
+}
+
+#reserve > div {
+	margin: 0 0 50px !important;
+}
+
+.reserve-date{
+	clear: both;
+}
+
+#calendar{	
+	width: 315px;
+	margin: 0 auto;
+}  #calendar .days, #calendar .events{
+	width: 100%;
+	overflow: hidden;
+}
+
+#calendar .days-container, #calendar .clndr .header{
+	overflow: hidden;
+}
+
+#calendar .controls{
+	overflow: hidden;
+} 
+
+#calendar .controls .month, 
+#calendar .clndr-previous-button, 
+#calendar .clndr-next-button, 
+#calendar .day-header, #calendar .day,
+#calendar .events > h3, 
+#calendar .events .event{
+	float: left;
+	text-align: center;
+	background: #f5f5f5;
+	width: 33.33%;
+	height: 40px;
+	line-height: 40px;
+	color: #777;
+} #calendar .days{
+	background: #f5f5f5;
+} #calendar .day{
+	cursor: pointer;
+	transition: all .3s ease-out;
+}  #calendar .day:hover,  #calendar .day.clicked{
+	background: teal;
+	color: white;
+} #calendar .clndr-previous-button, #calendar .clndr-next-button, #calendar .controls .month{
+	background: teal;
+	color: white;
+} #calendar .clndr-previous-button, #calendar .clndr-next-button{
+	font-size: 35px;
+    line-height: 35px;
+    width: 25%;
+    cursor: pointer;
+} #calendar .clndr-previous-button span{
+	position: relative;
+	right: -16%;
+} #calendar .clndr-next-button span{
+	position: relative;
+	left: -16%;
+} #calendar .controls .month{
+	float: left;
+	width: 50%;
+/* 	font-size: 20px; */
+}
+
+
+#calendar .mon, #calendar .tue, #calendar .wed, #calendar .thu,
+#calendar .m, #calendar .t, #calendar .w, #calendar .t{
+	display: none;
+}
+
+
+
+#calendar  .events, .adjacent-month{
+	display: none;
+} #calendar .events .event{
+	display: none;
+} #calendar .events > h3, #calendar .events .event{
+	background: #f5f5f5;
+    /* font-size: 20px; */
+    padding: 7px;
+    width: 100%;
+    float: none;
+} #calendar .events > h3{
+	background: #008080;
+	color: #FFFFFF;
 }
 

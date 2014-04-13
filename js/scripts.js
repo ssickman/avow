@@ -106,6 +106,34 @@
 		
 		controlFlash();
 		
+		$('#calendar').clndr({
+			template: $('#clndr-template').html(),
+			weekOffset: 1,
+			daysOfTheWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			events: [
+				{ date: '2014-04-13 19:00', title: 'CLNDR GitHub Page Finished', url: 'http://github.com/kylestetz/CLNDR' }
+			],
+			clickEvents: {
+				click: function(target) {
+					console.log(target);
+					$('#calendar .day').removeClass('clicked');
+					var $ele = $(target.element);
+					$ele.addClass('clicked');
+					
+					var targetDate = $ele.attr('data-date');
+					var $targetEvents = $('.event-' + targetDate);
+					
+					$('.events').slideUp().find('.events .event').hide();
+	
+					if ($targetEvents.length > 0) {
+						$targetEvents.show();
+						$('.events').slideDown();
+					}
+	
+				}
+			}
+		});
+		
 	});
 	
 	function bindPayment()

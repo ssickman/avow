@@ -32,8 +32,41 @@ Template Name: Homepage Template
 				<h1>Availability</h1>
 				<div class="margin-standard">
 					<h2>Reserve Your Time Now</h2>
+					<div id="calendar"></div>
+					<script id="clndr-template" type="text/template">
+						<div class="controls">
+							<div class="clndr-previous-button"><span>&lsaquo;</span></div><div class="month"><%= month %>&nbsp;<%= year %></div><div class="clndr-next-button"><span>&rsaquo;</span></div>
+						</div>
+						
+						<div class="days-container">
+							<div class="days">
+								<div class="headers">
+									<% _.each(daysOfTheWeek, function(day) { %><div class="<%= day.toLowerCase() %>  day-header"><%= day %></div><% }); %>
+								</div>
+								<% _.each(days, function(day) { %>
+									<div 
+										data-day="<%= moment(day.date).format('dddd').toLowerCase() %>" 
+										data-date="<%= moment(day.date).format('YYYY-MM-DD') %>" 
+										class="<%= day.classes %> <%= moment(day.date).format('ddd').toLowerCase() %>" 
+										id="<%= day.id %>">
+											<%= day.day %>
+									</div><% }); 
+								%>
+							</div>
+							<div class="events">
+								<h3>Available Times</h3>
+								<div class="events-list">
+									<% _.each(eventsThisMonth, function(event) { %>
+										<div class="event event-<%= moment(event.date).format('YYYY-MM-DD') %>">
+											<%= moment(event.date).format('h:mm a') %>
+										</div>
+									<% }); %>
+								</div>
+							</div>
+						</div>						
+					</script>
 					<form method="post" action="/backend" class="reserve-date">
-						<input type="submit" name="reserve_date" value="Reserve Your Date" style="margin:0 auto; display:block;"
+						<input type="submit" name="reserve_date" value="Reserve Your Date" style="margin:20px auto; display:block;"
 							class="<?php echo stepCompleted('reserve') ? 'cupid-green' : 'clean-gray' ?>"
 							data-selected-title="Date Reserved" 
 							data-title="Reserve Your Date">
