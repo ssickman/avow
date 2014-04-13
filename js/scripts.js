@@ -318,11 +318,11 @@ function controlFlash() {
 
 function screenIs(className) 
 {
-	if (typeof(className) == 'string') {
+	if (arguments.length == 1) {
 		return jQuery('.' + className + '-screen').css('display') == 'block';
 	} else {
-		for (var i = 0, length = className.length; i < length; i++) {
-			if (jQuery('.' + className[i] + '-screen').css('display') == 'block') {
+		for (var i = 0, length = arguments.length; i < length; i++) {
+			if (jQuery('.' + arguments[i] + '-screen').css('display') == 'block') {
 				return true;
 			}
 		}
