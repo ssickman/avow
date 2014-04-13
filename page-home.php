@@ -55,7 +55,9 @@ Template Name: Homepage Template
 							<h3>Available Times</h3>
 							<div class="events-list">
 								<% _.each(eventsThisMonth, function(event) { %>
-									<div class="event event-<%= moment(event.date).format('YYYY-MM-DD') %> <%= event.status %>">
+									<div class="event event-<%= moment(event.date).format('YYYY-MM-DD') %> <%= event.status %>"
+										data-datetime="<%=  moment(event.date).format('YYYY-MM-DD HH:mm:00') %>"
+									>
 										<%= moment(event.date).format('h:mm a') %>
 									</div>
 								<% }); %>
@@ -96,7 +98,7 @@ Template Name: Homepage Template
 						<h3><?php echo $m['package_price'][0] ?></h3>
 						
 						<p>
-							Our standard package. Includes everything you need to ensure your special day is one to remember.
+							<?php echo $p->post_content ?>
 						</p>
 						
 						<ul class="features">
@@ -145,6 +147,8 @@ Template Name: Homepage Template
 							key: '<?php echo get_stripe_key("stripe_{$siteEnvironment}_public_key") ?>',
 							image: '//avowpdx.com/wp-content/themes/avow/img/avow-stripe.jpg',
 							token: function(token, args) {
+								document.body.style.cursor = 'wait';
+								
 								postForm('/charge', 'POST', { stripeToken: token.id, stripeAmount: jQuery('button.chosen-payment-method').attr('data-stripe-amount') });
 								console.log(token);
 								console.log(args);

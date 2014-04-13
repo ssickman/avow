@@ -107,10 +107,18 @@
 		controlFlash();
 		
 		var currentEventsDay = null;
-		$('#calendar').clndr({
+		var maxMonth     = '2014-09';
+		var currentMonth = new moment().format('YYYY-MM');
+		
+		var calendar = $('#calendar').clndr({
 			template: $('#clndr-template').html(),
 			weekOffset: 1,
 			daysOfTheWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			doneRendering: function(){
+				$('#calendar .events .event.available').on('click', function(e){
+					console.log($(this).attr('data-datetime'));
+				});
+			},
 			events: [
 				{ date: '2014-04-18 18:00', status: 'available' },
 				{ date: '2014-04-18 20:00', status: 'available' },
@@ -120,8 +128,26 @@
 				{ date: '2014-04-19 16:00', status: 'reserved' },
 				{ date: '2014-04-19 18:00', status: 'booked' },
 				{ date: '2014-04-19 20:00', status: 'available' },
+				{ date: '2014-05-17 20:00', status: 'available' },
+				{ date: '2014-05-17 20:00', status: 'available' },
+				{ date: '2014-05-17 20:00', status: 'available' },
+				{ date: '2014-05-17 20:00', status: 'available' },
+				{ date: '2014-05-17 20:00', status: 'available' },
+				{ date: '2014-05-17 20:00', status: 'available' },
 			],
 			clickEvents: {
+				nextMonth: function(month) {
+					if (currentMonth == maxMonth) {
+						
+					} else if (month.format('YYYY-MM') > maxMonth) {
+						this.back();
+					}
+				},
+				previousMonth: function(month) {
+					if (month.format('YYYY-MM') < currentMonth){
+						this.forward();
+					}
+				},
 				onMonthChange: function(month) {
 					currentEventsDay = null;
 				},
@@ -129,7 +155,7 @@
 					var $ele = $(target.element);
 					var targetDate = $ele.attr('data-date');
 					var $targetEvents = $('.event-' + targetDate);
-					var slideDuration = 150;
+					var slideDuration = 200;
 					
 					//don't hide/reshow the same day
 					if (currentEventsDay == targetDate) {
@@ -142,7 +168,7 @@
 					$ele.addClass('clicked');
 					
 					
-					if (screenIs(['small', 'medium'])) {  console.log('1');
+					if (screenIs('small', 'medium')) {
 						$('.events').slideUp(slideDuration, function(){
 							$('.events .event').css('display', 'none');
 							
@@ -165,6 +191,8 @@
 				}
 			}
 		});
+		
+		calendar.addEvents([{ date: '2014-04-27 18:00', status: 'available' }]);
 		
 	});
 	
