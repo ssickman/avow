@@ -80,8 +80,7 @@ a{
 	font-size: 15px;
 } header.scrolled + #checkout-steps{
 	top:30px;
-	background:#f0f0f0;
-	background: rgba(240,240,240, .85);
+	box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1)
 }
 
 .nav{
@@ -122,8 +121,7 @@ a{
 }
 
 #checkout-steps{
-	background: #f0f0f0;
-	background: rgba(240,240,240, 1);
+	background: white;
 	display:-webkit-flex;
 	display: flex;
     position: fixed;
@@ -133,6 +131,7 @@ a{
     padding: 10px 0;
     transition: all .2s ease-out;
     overflow: hidden;
+    border-top: 4px solid #fbfbfb;
 } #checkout-steps a{
 	width: 100%;
 	text-align: center;
@@ -202,7 +201,7 @@ main{
 
 #banner{
 	top:30px;
-	max-height: 500px;
+	max-height: 700px;
 	overflow: hidden;
 	background: url('img/homepage.jpg');
 	background-size: 100%;
@@ -558,12 +557,119 @@ input.select-package{
 	font-weight: 700;
 }
 
+#reserve > div {
+	margin: 0 0 50px !important;
+}
+
+.reserve-date{
+	clear: both;
+}
+
+#calendar{	
+	width: 315px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+}  #calendar .days, #calendar .events{
+	width: 100%;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#calendar .days-container, #calendar .clndr .header{
+	overflow: hidden;
+}
+
+#calendar .controls{
+	overflow: hidden;
+} 
+
+#calendar .controls .month, 
+#calendar .clndr-previous-button, 
+#calendar .clndr-next-button, 
+#calendar .day-header, #calendar .day,
+#calendar .events > h3, 
+#calendar .events .event{
+	float: left;
+	text-align: center;
+	background: #f5f5f5;
+	width: 33.33%;
+	height: 28px;
+	line-height: 28px;
+	color: #777;
+} #calendar .days{
+	background: #f5f5f5;
+} #calendar .day, #calendar .events .event{
+	cursor: pointer;
+	transition: all .3s ease-out;
+}  #calendar .day:hover,  #calendar .day.clicked, #calendar .events .event:hover, #calendar .events .event.clicked{
+	background: teal;
+	color: white;
+} #calendar .events .event.booked, #calendar .events .event.reserved{
+	cursor: default;
+	background: #f5f5f5;
+	color: #ddd;
+} 
+
+#calendar .clndr-previous-button, #calendar .clndr-next-button, #calendar .controls .month{
+	background: teal;
+	color: white;
+} #calendar .clndr-previous-button, #calendar .clndr-next-button{
+	font-size: 35px;
+    line-height: 23px;
+    width: 25%;
+    cursor: pointer;
+} #calendar .clndr-previous-button span{
+	position: relative;
+	right: -16%;
+} #calendar .clndr-next-button span{
+	position: relative;
+	left: -16%;
+} #calendar .controls .month{
+	float: left;
+	width: 50%;
+}
+
+
+#calendar .mon, #calendar .tue, #calendar .wed, #calendar .thu,
+#calendar .m, #calendar .t, #calendar .w, #calendar .t{
+	display: none;
+}
+
+
+
+#calendar  .events1, .adjacent-month{
+	display: none;
+} #calendar .events .event{
+	display: none;
+} #calendar .events > h3, #calendar .events .event{
+	background: #f5f5f5;
+    width: 100%;
+    float: none;
+} #calendar .events > h3{
+	background: #008080;
+	color: #FFFFFF;
+}
+
 main.homepage > section:nth-child(2) {
 	z-index: 10;
 	margin-top: 216px;
 }
 
+.screen-container{ display:none; }
+.small-screen{ display:block; }
+.medium-screen{ display:none; }
+.large-screen{ display:none; }
+.xlarge-screen{ display: none; }
+
 @media only screen and (min-width: 480px) {
+	.small-screen{ display:none; }
+	.medium-screen{ display:block; }
+	.large-screen{ display:none; }
+	.xlarge-screen{ display: none; }
+	
 	/* Wide mobile (480px+) styles go here */
 	main.homepage > section:nth-child(2){
 		margin-top: 275px;
@@ -600,9 +706,24 @@ main.homepage > section:nth-child(2) {
 	#checkout-steps a{
 		font-size: 17px;
 	}
+	
+	#calendar .controls .month, 
+	#calendar .clndr-previous-button, 
+	#calendar .clndr-next-button, 
+	#calendar .day-header, #calendar .day, 
+	#calendar .events > h3, 
+	#calendar .events .event {
+		height: 45px;
+		line-height: 45px;
+	}
 }
 
 @media only screen and (min-width: 768px) { 
+	.small-screen{ display:none; }
+	.medium-screen{ display:none; }
+	.large-screen{ display:block; }
+	.xlarge-screen{ display: none; }
+	
 	/* Tablets/netbooks (768px+) styles go here */
 	main.homepage > section:nth-child(2){
 		margin-top: 390px;
@@ -697,9 +818,40 @@ main.homepage > section:nth-child(2) {
 		left: 20%;
 		right: 20%;
 	}
+	
+	#calendar{
+		width: 650px;
+		height: 300px;
+		
+	} #calendar .days{
+		width: 315px;
+	} #calendar .events{
+		width: 0px;
+		transition: all .3s ease-out;
+	}
+	
+	#calendar .controls .month, 
+	#calendar .clndr-previous-button, 
+	#calendar .clndr-next-button, 
+	#calendar .day-header, #calendar .day, 
+	#calendar .events > h3, 
+	#calendar .events .event {
+		height: 50px;
+		line-height: 50px;
+	}  #calendar .events .event{
+		height: 41px;
+		line-height: 41px;
+	} #calendar .events-list{
+		border-bottom: 3px solid #f5f5f5;
+	}
 }
 
 @media only screen and (min-width: 1024px) { 
+	.small-screen{ display:none; }
+	.medium-screen{ display:none; }
+	.large-screen{ display:none; }
+	.xlarge-screen{ display: block; }
+	
 	/* Desktops (1024px+) styles go here */
 	main.homepage > section:nth-child(2){
 		margin-top: 530px;
@@ -711,92 +863,3 @@ main.homepage > section:nth-child(2) {
 		font-size: 67%;
 	}
 }
-
-#reserve > div {
-	margin: 0 0 50px !important;
-}
-
-.reserve-date{
-	clear: both;
-}
-
-#calendar{	
-	width: 315px;
-	margin: 0 auto;
-}  #calendar .days, #calendar .events{
-	width: 100%;
-	overflow: hidden;
-}
-
-#calendar .days-container, #calendar .clndr .header{
-	overflow: hidden;
-}
-
-#calendar .controls{
-	overflow: hidden;
-} 
-
-#calendar .controls .month, 
-#calendar .clndr-previous-button, 
-#calendar .clndr-next-button, 
-#calendar .day-header, #calendar .day,
-#calendar .events > h3, 
-#calendar .events .event{
-	float: left;
-	text-align: center;
-	background: #f5f5f5;
-	width: 33.33%;
-	height: 40px;
-	line-height: 40px;
-	color: #777;
-} #calendar .days{
-	background: #f5f5f5;
-} #calendar .day{
-	cursor: pointer;
-	transition: all .3s ease-out;
-}  #calendar .day:hover,  #calendar .day.clicked{
-	background: teal;
-	color: white;
-} #calendar .clndr-previous-button, #calendar .clndr-next-button, #calendar .controls .month{
-	background: teal;
-	color: white;
-} #calendar .clndr-previous-button, #calendar .clndr-next-button{
-	font-size: 35px;
-    line-height: 35px;
-    width: 25%;
-    cursor: pointer;
-} #calendar .clndr-previous-button span{
-	position: relative;
-	right: -16%;
-} #calendar .clndr-next-button span{
-	position: relative;
-	left: -16%;
-} #calendar .controls .month{
-	float: left;
-	width: 50%;
-/* 	font-size: 20px; */
-}
-
-
-#calendar .mon, #calendar .tue, #calendar .wed, #calendar .thu,
-#calendar .m, #calendar .t, #calendar .w, #calendar .t{
-	display: none;
-}
-
-
-
-#calendar  .events, .adjacent-month{
-	display: none;
-} #calendar .events .event{
-	display: none;
-} #calendar .events > h3, #calendar .events .event{
-	background: #f5f5f5;
-    /* font-size: 20px; */
-    padding: 7px;
-    width: 100%;
-    float: none;
-} #calendar .events > h3{
-	background: #008080;
-	color: #FFFFFF;
-}
-

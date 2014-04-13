@@ -23,6 +23,13 @@
 		ga('create', 'UA-47493736-1', {cookieDomain: window.location.hostname == 'local.avowpdx.com' ? 'none' : 'avowpdx.com'});
 		ga('send', 'pageview');
 		</script>
-
+	
+		<div class="screen-container">
+			<div class="small-screen"></div>
+			<div class="medium-screen"></div>
+			<div class="large-screen"></div>
+			<div class="xlarge-screen"></div>
+		</div>
+	
 	</body>
 </html>

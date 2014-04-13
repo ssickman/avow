@@ -106,30 +106,62 @@
 		
 		controlFlash();
 		
+		var currentEventsDay = null;
 		$('#calendar').clndr({
 			template: $('#clndr-template').html(),
 			weekOffset: 1,
 			daysOfTheWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 			events: [
-				{ date: '2014-04-13 19:00', title: 'CLNDR GitHub Page Finished', url: 'http://github.com/kylestetz/CLNDR' }
+				{ date: '2014-04-18 18:00', status: 'available' },
+				{ date: '2014-04-18 20:00', status: 'available' },
+				{ date: '2014-04-19 10:00', status: 'available' },
+				{ date: '2014-04-19 12:00', status: 'available' },
+				{ date: '2014-04-19 14:00', status: 'available' },
+				{ date: '2014-04-19 16:00', status: 'reserved' },
+				{ date: '2014-04-19 18:00', status: 'booked' },
+				{ date: '2014-04-19 20:00', status: 'available' },
 			],
 			clickEvents: {
+				onMonthChange: function(month) {
+					currentEventsDay = null;
+				},
 				click: function(target) {
-					console.log(target);
-					$('#calendar .day').removeClass('clicked');
 					var $ele = $(target.element);
-					$ele.addClass('clicked');
-					
 					var targetDate = $ele.attr('data-date');
 					var $targetEvents = $('.event-' + targetDate);
+					var slideDuration = 150;
 					
-					$('.events').slideUp().find('.events .event').hide();
-	
-					if ($targetEvents.length > 0) {
-						$targetEvents.show();
-						$('.events').slideDown();
+					//don't hide/reshow the same day
+					if (currentEventsDay == targetDate) {
+						return;
 					}
-	
+					
+					currentEventsDay = targetDate;
+					
+					$('#calendar .day').removeClass('clicked');
+					$ele.addClass('clicked');
+					
+					
+					if (screenIs(['small', 'medium'])) {  console.log('1');
+						$('.events').slideUp(slideDuration, function(){
+							$('.events .event').css('display', 'none');
+							
+							if ($targetEvents.length > 0) {
+								$targetEvents.show();
+								$('.events').slideDown(slideDuration, function(){
+									
+								}); 
+								scrollTo('#calendar');
+							}	
+						});
+					} else {
+						$('.events').css('width', '0px');
+						$('.events .event').css('display', 'none');
+						if ($targetEvents.length > 0) {
+							$targetEvents.show();
+							$('.events').css('width', '315px');
+						}
+					}
 				}
 			}
 		});
@@ -201,10 +233,12 @@
 	
 	function scrollTo(location, e)
 	{
-		e.preventDefault();
+		if ((e)) {
+			e.preventDefault();
+		}
 		
-		var offset = -1 * ( parseInt($('.scrolled.reference').css('height')) /* + parseInt($('#checkout-steps').css('height')) */ );
-		$.scrollTo(location, 500, { axis: 'y', offset: {top:  offset} });
+		var offset = -1 * ( parseInt($('.scrolled.reference').css('height'))  + parseInt($('#checkout-steps').outerHeight()) );
+		$.scrollTo(location, 400, { axis: 'y', offset: {top:  offset} });
 		
 		ga('send', 'pageview', location.replace('#', '/'));
 	}
@@ -247,7 +281,8 @@
 	
 })(jQuery, this);
 
-function postForm(action, method, input) {
+function postForm(action, method, input) 
+{
     "use strict";
     var form;
     form = jQuery('<form />', {
@@ -279,4 +314,17 @@ function controlFlash() {
 		$('.flash').show().delay(10000).fadeOut(1000); 
 	}
 
+}
+
+function screenIs(className) 
+{
+	if (typeof(className) == 'string') {
+		return jQuery('.' + className + '-screen').css('display') == 'block';
+	} else {
+		for (var i = 0, length = className.length; i < length; i++) {
+			if (jQuery('.' + className[i] + '-screen').css('display') == 'block') {
+				return true;
+			}
+		}
+	}
 }
