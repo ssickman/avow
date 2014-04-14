@@ -96,6 +96,58 @@ function package_format_features($string) {
 	return $out;
 }
 
+
+
+
+function getDesiredDatesForRange($desiredDays, $start, $end)
+{
+	$dates = array();
+    while ($start <= $end) {
+    	if (in_array(date('D', strtotime($start)), $desiredDays)) {
+    		$dates[] = $start;
+    	}
+    	
+    	$start = date('Y-m-d', strtotime('+1 day', strtotime($start)));
+    }
+    
+    asort($dates);
+	return array_slice($dates, 0);
+}
+
+function datesToEvents($dates, $json = false) 
+{
+	$events = array();
+	foreach ($dates as $d) {
+		for ($i = 10; $i <= 20; $i += 2) {
+			$datetime = "{$d} {$i}:00";
+			$events[] = array(
+				'date'   => $datetime,
+				'status' => rand(1, 100) > 50 ? 'available' : 'booked',
+				'day'    => date('D', strtotime($datetime)),
+			);
+		}
+	}
+	
+	if ($json) {
+		return json_encode($events);
+	}
+	
+	return $events;
+}
+$minMonth = $startMonth = null;
+function eventsForRange($desiredDays, $start, $end, $json = true) 
+{
+	global $startMonth;
+	global $minMonth;
+	
+	$dates = getDesiredDatesForRange($desiredDays, $start, $end);
+	$startMonth =  date('Y-m-01', strtotime($dates[0]));
+	$minMonth =  date('Y-m-01', strtotime('-1 month', strtotime($startMonth)));
+	
+	return datesToEvents($dates, $json);
+} 
+
+
 add_action('init', 'myStartSession', 1);
 add_action('wp_logout', 'myEndSession');
 add_action('wp_login', 'myEndSession');

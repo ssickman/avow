@@ -33,6 +33,89 @@ Template Name: Homepage Template
 				<div class="margin-standard">
 					<h2>Reserve Your Time Now</h2>
 					<div id="calendar"></div>
+					
+					<script>
+						(function ($, root, undefined) { $(function () {
+							
+							var currentEventsDay = null;
+							
+							calendar = $('#calendar').clndr({
+								template: $('#clndr-template').html(),
+								weekOffset: 1,
+								daysOfTheWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+								doneRendering: function(){
+									$('#calendar .day:visible:not(.adjacent-month)').eq(0).trigger('click')
+									$('#calendar .events .event.available').on('click', function(e){
+									});
+								},
+								events: <?php 
+									$start = date('Y-m-d', strtotime('+2 weeks')); 
+									$end   = '2014-08-31';
+									echo eventsForRange(array('Fri', 'Sat', 'Sun'), $start, $end) ?>,
+								startWithMonth: '<?php echo $startMonth ?>',
+								clickEvents: {
+									nextMonth: function(month) {
+										if (month.format('YYYY-MM') > '<?php echo $end ?>') {
+											this.back();
+										} else {
+											$('#calendar .day:visible:not(.adjacent-month)').eq(0).trigger('click')
+										}
+									},
+									previousMonth: function(month) {
+										if (month.format('YYYY-MM') < '<?php echo $minMonth ?>'){
+											this.forward();
+										} else {
+											$('#calendar .day:visible:not(.adjacent-month)').eq(0).trigger('click')
+										}
+									},
+									onMonthChange: function(month) {
+										//currentEventsDay = null;
+									},
+									click: function(target) {
+										var $ele = $(target.element);
+										var targetDate = $ele.attr('data-date');
+										var $targetEvents = $('.event-' + targetDate);
+										var slideDuration = 200;
+										
+										//don't hide/reshow the same day
+										if (currentEventsDay == targetDate) {
+											return;
+										}
+										
+										currentEventsDay = targetDate;
+										
+										$('#calendar .day').removeClass('clicked');
+										$ele.addClass('clicked');
+										
+										
+										if (screenIs('small', 'medium')) {
+											$('.events').slideUp(slideDuration, function(){
+												$('.events .event').css('display', 'none');
+												
+												if ($targetEvents.length > 0) {
+													$targetEvents.show();
+													$('.events').slideDown(slideDuration, function(){
+														
+													}); 
+													scrollTo('#calendar');
+												}	
+											});
+										} else {
+											$('.events').css('width', '0px');
+											$('.events .event').css('display', 'none');
+											if ($targetEvents.length > 0) {
+												$targetEvents.show();
+												$('.events').css('width', '315px');
+											}
+										}
+									}
+								}
+							});
+					
+							//calendar.addEvents(<?php echo eventsForRange(array('Fri', 'Sat', 'Sun'), date('Y-m-d', strtotime('+2 weeks')), '2014-08-31') ?>);
+						}) })(jQuery, this);
+					</script>
+					
 					<script id="clndr-template" type="text/template">						
 						<div class="days">
 							<div class="controls">
