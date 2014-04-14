@@ -101,7 +101,7 @@ Template Name: Homepage Template
 												}	
 											});
 										} else {
-											$('.events').css('width', '0px');
+											//$('.events').css('width', '0px');
 											$('.events .event').css('display', 'none');
 											if ($targetEvents.length > 0) {
 												$targetEvents.show();
