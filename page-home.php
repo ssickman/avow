@@ -36,7 +36,6 @@ Template Name: Homepage Template
 					
 					<script>
 						(function ($, root, undefined) { $(function () {
-							
 							var currentEventsDay = null;
 							
 							calendar = $('#calendar').clndr({
@@ -51,7 +50,8 @@ Template Name: Homepage Template
 								events: <?php 
 									$start = date('Y-m-d', strtotime('+2 weeks')); 
 									$end   = '2014-08-31';
-									echo eventsForRange(array('Fri', 'Sat', 'Sun'), $start, $end) ?>,
+									echo eventsForRange(array('Fri', 'Sat', 'Sun'), $start, $end) 
+								?>,
 								startWithMonth: '<?php echo $startMonth ?>',
 								clickEvents: {
 									nextMonth: function(month) {
@@ -68,14 +68,15 @@ Template Name: Homepage Template
 											$('#calendar .day:visible:not(.adjacent-month)').eq(0).trigger('click')
 										}
 									},
-									onMonthChange: function(month) {
-										//currentEventsDay = null;
-									},
 									click: function(target) {
 										var $ele = $(target.element);
+										
+										if ($ele.hasClass('adjacent-month')) {
+											return;
+										}
+										
 										var targetDate = $ele.attr('data-date');
 										var $targetEvents = $('.event-' + targetDate);
-										var slideDuration = 200;
 										
 										//don't hide/reshow the same day
 										if (currentEventsDay == targetDate) {
@@ -87,32 +88,11 @@ Template Name: Homepage Template
 										$('#calendar .day').removeClass('clicked');
 										$ele.addClass('clicked');
 										
-										
-										if (screenIs('small', 'medium')) {
-											$('.events').slideUp(slideDuration, function(){
-												$('.events .event').css('display', 'none');
-												
-												if ($targetEvents.length > 0) {
-													$targetEvents.show();
-													$('.events').slideDown(slideDuration, function(){
-														
-													}); 
-													scrollTo('#calendar');
-												}	
-											});
-										} else {
-											//$('.events').css('width', '0px');
-											$('.events .event').css('display', 'none');
-											if ($targetEvents.length > 0) {
-												$targetEvents.show();
-												$('.events').css('width', '315px');
-											}
-										}
+										$('.events .event').css('display', 'none');
+										$targetEvents.show();									
 									}
 								}
 							});
-					
-							//calendar.addEvents(<?php echo eventsForRange(array('Fri', 'Sat', 'Sun'), date('Y-m-d', strtotime('+2 weeks')), '2014-08-31') ?>);
 						}) })(jQuery, this);
 					</script>
 					

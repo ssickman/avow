@@ -579,9 +579,7 @@ input.select-package{
 	overflow: hidden;
 	display: inline-block;
 	vertical-align: top;
-} #calendar .events{
-	display: none;
-}
+} 
 
 #calendar .days-container, #calendar .clndr .header{
 	overflow: hidden;
@@ -836,8 +834,10 @@ main.homepage > section:nth-child(2) {
 	
 	#calendar{
 		width: 650px;
+		min-height: 385px;
 	} #calendar .days{
 		width: 315px;
+		
 	} #calendar .events{
 		width: 315px;
 		transition: all .3s ease-out;
