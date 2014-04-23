@@ -35,6 +35,16 @@ Template Name: Homepage Template
 					<div id="calendar"></div>
 					
 					<script>
+						function bindCalEvent()
+						{
+							$('#calendar .events .event.available').off().on('click', function(){
+								$ele = $(this);
+								
+								$('#calendar .events .event').removeClass('clicked');
+								$ele.addClass('clicked')
+							});
+						}
+						
 						(function ($, root, undefined) { $(function () {
 							var currentEventsDay = null;
 							
@@ -43,9 +53,8 @@ Template Name: Homepage Template
 								weekOffset: 1,
 								daysOfTheWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 								doneRendering: function(){
-									$('#calendar .day:visible:not(.adjacent-month)').eq(0).trigger('click')
-									$('#calendar .events .event.available').on('click', function(e){
-									});
+									$('#calendar .day:visible:not(.inactive, .adjacent-month)').eq(0).trigger('click')
+									bindCalEvent();
 								},
 								events: <?php 
 									$start = date('Y-m-d', strtotime('+2 weeks')); 
@@ -53,25 +62,25 @@ Template Name: Homepage Template
 									echo eventsForRange(array('Fri', 'Sat', 'Sun'), $start, $end) 
 								?>,
 								startWithMonth: '<?php echo $startMonth ?>',
+								constraints: {
+								    startDate: '<?php echo $start ?>',
+								    endDate: '<?php echo $end ?>'
+								},
 								clickEvents: {
+									onMonthChange: function(month) {
+									
+										
+									},
 									nextMonth: function(month) {
-										if (month.format('YYYY-MM') > '<?php echo $end ?>') {
-											this.back();
-										} else {
-											$('#calendar .day:visible:not(.adjacent-month)').eq(0).trigger('click')
-										}
+										$('#calendar .day:visible:not(.inactive, .adjacent-month)').eq(0).trigger('click')
 									},
 									previousMonth: function(month) {
-										if (month.format('YYYY-MM') < '<?php echo $minMonth ?>'){
-											this.forward();
-										} else {
-											$('#calendar .day:visible:not(.adjacent-month)').eq(0).trigger('click')
-										}
+										$('#calendar .day:visible:not(.inactive, .adjacent-month)').eq(0).trigger('click')
 									},
 									click: function(target) {
 										var $ele = $(target.element);
 										
-										if ($ele.hasClass('adjacent-month')) {
+										if ($ele.hasClass('adjacent-month') || $ele.hasClass('inactive')) {
 											return;
 										}
 										
@@ -118,7 +127,7 @@ Template Name: Homepage Template
 							<h3>Available Times</h3>
 							<div class="events-list">
 								<% _.each(eventsThisMonth, function(event) { %>
-									<div class="event event-<%= moment(event.date).format('YYYY-MM-DD') %> <%= event.status %>"
+									<div class="event event-<%= moment(event.date).format('YYYY-MM-DD') %> <%= event.day.toLowerCase() + moment(event.date).format('HH') %> <%= event.status %>"
 										data-datetime="<%=  moment(event.date).format('YYYY-MM-DD HH:mm:00') %>"
 									>
 										<%= moment(event.date).format('h:mm a') %>

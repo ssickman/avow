@@ -66,6 +66,8 @@
 		                			.val())
 		                			.addClass('done')
 		                ;
+		                
+		                scrollPoint = getScrollPoint();
 		               
 		                selectPackage($form.find('input[type=submit]'));
 		                
@@ -210,10 +212,9 @@
 	function getScrollPoint()
 	{	
 	
-		var offset = parseInt($('.scrolled.reference').css('height'));
-		offset = 0;
+		var offset = $('#checkout-steps').outerHeight(true);
 		
-		var position = parseInt($(bannerEle).css('height')) - offset;
+		var position = parseInt($(bannerEle).css('height')) - offset + 30;
 
 		return position;
 	}

@@ -161,9 +161,6 @@ a{
 	transition: all .3s ease-out;
 }
 
-#content-wrap > section:nth-child(even) {
-/* 	background: #f9f9f9; */
-}
 
 .hidden {
 	height: 0 !important;
@@ -263,16 +260,15 @@ section {
     font-family: "Trocchi",georgia,serif;
     font-size: 30px;
     margin: 0 auto;
-    padding: 18px 0;
+    padding: 50px 0 20px;
     text-align: center;
-    /* background: #f7f7f7; */
     transition: all .3s ease-out;
 } section > h1:first-child:before, section > h1:first-child:after{
 	content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
 	text-decoration: line-through;
 	margin: 0 10px;
 } #content-wrap > section:nth-child(odd) {
-	background: #fafafa;
+	background: #f7f7f7;
 }
 
 
@@ -313,8 +309,6 @@ section {
 	display: block;
 } #package > ul > li, ul#payment-choices li{
     padding: 23px 0;
-} #package > ul > li:nth-child(odd){
-	/* background: white; */
 } #package > ul > li > h2, #payment-choices > li > h2 {
     font-size: 23px;
     font-weight: bold;
@@ -398,38 +392,6 @@ ul.features{
     top: 4px;
 }
 
-.button-1 {
-	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
-	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
-	background-color:#ededed;
-	border-radius: 6px;
-	text-indent:0;
-	border:1px solid #dcdcdc;
-	display:inline-block;
-	color:#777777;
-	font-family:arial;
-	font-size:15px;
-	font-weight:bold;
-	font-style:normal;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:1px 1px 0px #ffffff;
-	padding: 10px;
-	cursor: pointer;
-}
-.button-1:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
-	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
-	background-color:#dfdfdf;
-}.button-1:active {
-	position:relative;
-	top:1px;
-}
 
 /*
 Copyright (c) 2011 Chad Mazzola
@@ -547,7 +509,6 @@ input.select-package{
     top: 17%;
     z-index: 999999;
     padding: 40px 20px;
-    /* box-shadow: 0px 0px 3px rgba(0,0,0,.4); */
     border: 10px solid #f0f0f0;
     font-size: 20px;
     font-weight: 700;
@@ -610,7 +571,7 @@ input.select-package{
 }  #calendar .day:hover,  #calendar .day.clicked, #calendar .events .event:hover, #calendar .events .event.clicked{
 	background: teal;
 	color: white;
-} #calendar .events .event.booked, #calendar .events .event.reserved{
+} #calendar .day.inactive, #calendar .events .event.booked, #calendar .events .event.reserved{
 	cursor: default;
 	background: #f5f5f5;
 	color: #ddd;
@@ -630,6 +591,8 @@ input.select-package{
 } #calendar .clndr-next-button span{
 	position: relative;
 	left: -16%;
+} #calendar .controls > div.inactive{
+	cursor: default;
 } #calendar .controls .month{
 	float: left;
 	width: 50%;
@@ -647,11 +610,26 @@ input.select-package{
 	display: none;
 } #calendar .events .event{
 	display: none;
-} #calendar .adjacent-month:nth-child(7), #calendar .adjacent-month:nth-child(8) {
+} 
+
+#calendar .adjacent-month:nth-child(7), #calendar .adjacent-month:nth-child(8),
+#calendar .events .event.fri10,
+#calendar .events .event.fri12,
+#calendar .events .event.fri14,
+#calendar .events .event.fri16
+ {
     display: block;
     opacity: 0;
     cursor: default;
 } 
+
+#calendar .events .event.fri10,
+#calendar .events .event.fri12,
+#calendar .events .event.fri14,
+#calendar .events .event.fri16{
+	opacity: 1;
+    text-indent: -9999px;
+}
 
 #calendar .events > h3, #calendar .events .event{
 	background: #f5f5f5;
@@ -751,7 +729,7 @@ main.homepage > section:nth-child(2) {
 	}
 	
 	.nav {
-		max-width: 350px;
+		max-width: 550px;
 	} .nav a, .nav a:last-child{
 		width: 25%;	
 	} .nav a.home-scroll{
@@ -820,7 +798,6 @@ main.homepage > section:nth-child(2) {
 	}
 	
 	button.pay{
-		/* margin: 20px auto 0; */
 		position: absolute;
 		bottom: 0px;
 		left: 0;
@@ -842,8 +819,7 @@ main.homepage > section:nth-child(2) {
 		width: 315px;
 		transition: all .3s ease-out;
 		display: inline-block !important;
-		background: blue;
-/* 		margin-left: 15px; */
+		background: #f5f5f5;
 	}
 	
 	#calendar .controls .month, 

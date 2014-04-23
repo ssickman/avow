@@ -23,7 +23,7 @@ function custom_post_type_package() {
 		'publicly_queryable' => true,
 		'show_ui' => true,
 		'query_var' => true,
-		'menu_icon' => get_stylesheet_directory_uri() . '/article16.png',
+		'menu_icon' => '',
 		'rewrite' => true,
 		'capability_type' => 'post',
 		'hierarchical' => false,
@@ -31,42 +31,7 @@ function custom_post_type_package() {
 		'supports' => array('title','editor','thumbnail')
 	  ); 
  
-	register_post_type( 'package' , $args );
-	
-	// Add new taxonomy, NOT hierarchical (like tags)
-	$labels = array(
-		'name'                       => _x( 'Features', 'taxonomy general name' ),
-		'singular_name'              => _x( 'Feature', 'taxonomy singular name' ),
-		'search_items'               => __( 'Search Features' ),
-		'popular_items'              => __( 'Popular Features' ),
-		'all_items'                  => __( 'All Features' ),
-		'parent_item'                => null,
-		'parent_item_colon'          => null,
-		'edit_item'                  => __( 'Edit Feature' ),
-		'update_item'                => __( 'Update Feature' ),
-		'add_new_item'               => __( 'Add New Feature' ),
-		'new_item_name'              => __( 'New Feature Name' ),
-		'separate_items_with_commas' => __( 'Separate Features with commas' ),
-		'add_or_remove_items'        => __( 'Add or remove Features' ),
-		'choose_from_most_used'      => __( 'Choose from the most used Features' ),
-		'not_found'                  => __( 'No Features found.' ),
-		'menu_name'                  => __( 'Features' ),
-	);
-
-	$args = array(
-		'hierarchical'          => false,
-		'labels'                => $labels,
-		'show_ui'               => true,
-		'show_admin_column'     => true,
-		'update_count_callback' => '_update_post_term_count',
-		'query_var'             => true,
-		'rewrite'               => array( 'slug' => 'Feature' ),
-	);
-	
-	register_taxonomy( 'feature', 'package', $args );
-	
-	
-	
+	register_post_type( 'package' , $args );	
 }
 
 $package_details = array(
@@ -122,3 +87,8 @@ function save_package_details() {
 }
 
 add_action('save_post', 'save_package_details');
+
+
+function add_menu_icons_styles(){
+	echo '<style>#adminmenu  .menu-icon-package div.wp-menu-image:before { content: "\f480"; }</style>'; 
+}
