@@ -98,28 +98,6 @@ function package_format_features($string) {
 	return $out;
 }
 
-function createEventsTable()
-{
-	global $wpdb;
-	global $avow_events_table;
-	
-	$sql =
-	 "CREATE TABLE $avow_events_table (
-date datetime NOT NULL,
-name1 varchar(255)  NOT NULL,
-name2 varchar(255)  NOT NULL,
-email varchar(100)  NOT NULL,
-phone varchar(15)   NOT NULL,
-status enum('available','booked','reserved') DEFAULT 'available',
-PRIMARY KEY  (date)
-	);";
-	
-	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	dbDelta($sql);
-}
-add_action('admin_init', 'createEventsTable');
-
-
 function getDesiredDatesForRange($desiredDays, $start, $end)
 {
 	$dates = array();

@@ -34,9 +34,34 @@ add_action('admin_menu', function(){
 		
 		<form action="" method="post">
 			<input type="hidden" name="test" value="blah">
-			<input type="submit" >
+			<input type="submit" class="button button-primary button-large" value="update events" >
 		</form>
 		
 		<?php
 	}, 'dashicons-calendar', '26.0001');
 });
+
+
+function createEventsTable()
+{
+	global $wpdb;
+	global $avow_events_table;
+	
+	$sql =
+	 "CREATE TABLE $avow_events_table (
+date datetime NOT NULL,
+name1 varchar(255)  NOT NULL,
+name2 varchar(255)  NOT NULL,
+email varchar(100)  NOT NULL,
+phone varchar(15)   NOT NULL,
+status enum('available','booked','reserved') DEFAULT 'available',
+package_name varchar(255) NOT NULL,
+payment_type enum('credit card','bitcoin','dogecoin') DEFAULT 'credit card',
+payment_amount enum('20%', '100%') NOT NULL,
+PRIMARY KEY  (date)
+	);";
+	
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	dbDelta($sql);
+}
+add_action('admin_init', 'createEventsTable');
