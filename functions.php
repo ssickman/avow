@@ -8,6 +8,7 @@
 /*------------------------------------*\
 	External Modules/Files
 \*------------------------------------*/
+$avow_events_table = $wpdb->prefix . "avow_events"; 
 require_once('custom_post_type_package.php');
 require_once('avow_events.php');
 require_once('stripe_settings.php');
@@ -96,8 +97,6 @@ function package_format_features($string) {
 	
 	return $out;
 }
-
-$avow_events_table = $wpdb->prefix . "avow_events"; 
 
 function createEventsTable()
 {
