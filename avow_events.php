@@ -1,4 +1,4 @@
-<?php
+<?php add_action('init', function(){ ob_start(); }, 0);
 add_action( 'admin_head', 'add_menu_icons_styles' );
 
 add_action('admin_menu', function(){
@@ -7,35 +7,67 @@ add_action('admin_menu', function(){
 		global $avow_events_table;
 		global $wpdb;
 		
+		if (!empty($_POST['data'])) {
+			foreach ($_POST['data'] as $p) {
+				if (!empty($p['date'])) {
+					$query = $wpdb->prepare("
+						UPDATE {$avow_events_table} 
+						SET 
+							name1 = '%s',
+							name2 = '%s',
+							phone = '%d',
+							email = '%s'
+						WHERE date = '%s'",
+						$p['name1'], $p['name2'], $p['phone'], $p['email'], $p['date']
+					);
+					$wpdb->query($query);
+				}
+			}
+			
+			header("Location: ".$_SERVER['REQUEST_URI']);
+		}
+		
+		echo "<link rel='stylesheet' href='/wp-content/themes/avow/avow-admin.css' type='text/css' media='all' >";
+		
+		
 		$eventsQuery = "SELECT a.*, IF(date > now(), 'current', 'past') as class from {$avow_events_table} a order by date asc";
 		$events = $wpdb->get_results($eventsQuery);
-		
-		if (!empty($_POST)) {
-			print_r($_POST);
-		}
 		
 		if (empty($events)) {
 			?>
 				<h2>No Events Booked</h2>
 			<?php
 			return;
+		} else {
+			?>
+				<h2>Booked Events</h2>
+			<?php				
 		}
 		
 		?>
-		<ul>
-		<?php
+		<ul class="events-list">
+		<form action="" method="post">
+		<?php $i = 0;
 		foreach ($events as $e):
 		?>
-			<li class="<?php echo $e->class ?>"><?php echo date('m/d/Y g a', strtotime($e->date)) ?> <?php echo "{$e->name1} &amp; {$e->name2}" ?> <?php echo $e->phone ?> <?php echo $e->email ?>
-		<?php
+			<li class="<?php echo $e->class ?>">
+				<span class="event-date"><?php echo date('m/d/Y g a', strtotime($e->date)) ?> </span>
+				<input type="text" name="data[<?php echo $i ?>][name1]" value="<?php echo $e->name1 ?>" >
+					&amp; 
+				<input type="text" name="data[<?php echo $i ?>][name2]" value="<?php echo $e->name2 ?>" >
+				<input type="text" name="data[<?php echo $i ?>][phone]" value="<?php echo $e->phone ?>" >
+				<input type="text" name="data[<?php echo $i ?>][email]" value="<?php echo $e->email ?>" >
+				<input type="hidden" name="data[<?php echo $i ?>][date]" value="<?php echo $e->date ?>" >
+				<input type="hidden" name="data[<?php echo $i ?>][update]" value="1" >
+			</li>
+		<?php $i++;
 		endforeach;
 		?>
 		</ul>
-		
-		<form action="" method="post">
-			<input type="hidden" name="test" value="blah">
 			<input type="submit" class="button button-primary button-large" value="update events" >
 		</form>
+
+		
 		
 		<?php
 	}, 'dashicons-calendar', '26.0001');
