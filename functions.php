@@ -25,11 +25,8 @@ class MismatchedChargeAmount extends Exception{}
 \*------------------------------------*/
 
 
-if (!isset($content_width))
-{
-    $content_width = 900;
-}
 $stripeSettings  = get_option('stripe_settings'); 
+$cookieData = getCookieData();
 
 $siteEnvironment = get_stripe_key('stripe_environment'); 
 $phone = '304.933.9016';
@@ -44,7 +41,9 @@ function get_stripe_key($stripeKeyIndex) {
 }
 
 function stepCompleted($step) {
-	return !empty($_SESSION['completed_steps'][$step]);
+	global $cookieData;
+	
+	return !empty($cookieData->$step);
 }
 
 function completeStep($step) {
@@ -52,7 +51,20 @@ function completeStep($step) {
 } 
 
 function showStepBar() { 
-	return !empty($_SESSION['completed_steps']);
+	global $cookieData;
+
+	return 
+		!empty($cookieData->reserve) ||
+		!empty($cookieData->package);
+}
+
+function getCookieData()
+{ 
+	if (isset($_COOKIE['avow-form-data'])) {
+		return json_decode(stripslashes($_COOKIE['avow-form-data']));
+	} else {
+		return array();
+	}
 }
 
 //add_action('init', function() { addFlash("You haven't selected a package"); }, 90);
@@ -115,13 +127,16 @@ function getDesiredDatesForRange($desiredDays, $start, $end)
 
 function datesToEvents($dates, $json = false) 
 {
+	$bookedDates = getBookedDates();
+
 	$events = array();
 	foreach ($dates as $d) {
 		for ($i = 10; $i <= 20; $i += 2) {
-			$datetime = "{$d} {$i}:00";
+			$datetime = "{$d} {$i}:00:00";
+			
 			$events[] = array(
 				'date'   => $datetime,
-				'status' => rand(1, 100) > 50 ? 'available' : 'booked',
+				'status' => in_array($datetime, $bookedDates) ? 'booked' : 'available',
 				'day'    => date('D', strtotime($datetime)),
 			);
 		}

@@ -352,6 +352,7 @@ button.pay{
 	margin: 20px 0 0;
 	display: block;
 	font-size: 13px;
+	padding: 15px;
 }
 
 ul.features{
@@ -775,7 +776,7 @@ main.homepage > section:nth-child(2) {
 		width: 30%;
 	}
 	
-	#package > ul, ul#payment-choices{		
+	#package > ul, ul#payment-choices {
 		display:-webkit-flex;
 		display: flex;
 		margin: 50px 0;
@@ -787,20 +788,35 @@ main.homepage > section:nth-child(2) {
 		padding-right: 0 !important;
 	}
 	
-	#package > ul > li > p, #payment-choices > li > p {
+	#package > ul > li > p{
 		max-width: 90%;
 		min-width: 0%;
 	}
 	
+	ul#payment-choices{		
+		margin-top: 0px;
+	}
 	ul#payment-choices li {
 		position: relative;
 		padding-bottom: 50px;
+	} ul#payment-choices li h2 {
+		text-align: center;
+	} ul#payment-choices > li > p {
+		max-width: 350px;
+		text-align: center;
+		margin: 0 auto 15px;
 	}
 	
-	button.pay{
+	.button-wrap{
 		position: absolute;
-		bottom: 0px;
-		left: 0;
+		left: 50%;
+		bottom: 0;
+	}
+	button.pay{
+		position: relative;
+		left: -50%;
+	} button.pay.full {
+		min-width: 210px;
 	}
 	
 	.flash{

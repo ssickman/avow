@@ -73,6 +73,24 @@ add_action('admin_menu', function(){
 	}, 'dashicons-calendar', '26.0001');
 });
 
+function getBookedDates($after = null) 
+{
+	if (is_null($after)) {
+		$after = date('Y-m-d 00:00:00', strtotime('+13 days'));
+	}
+	
+	global $wpdb;
+	global $avow_events_table;
+
+	$events = $wpdb->get_results($wpdb->prepare("SELECT date from {$avow_events_table} WHERE date > '%s' and status = 'booked'", $after));
+	
+	$unavailable = array();
+	foreach ($events as $e) {
+		$unavailable[] = $e->date;
+	}
+	
+	return $unavailable;
+}
 
 function createEventsTable()
 {

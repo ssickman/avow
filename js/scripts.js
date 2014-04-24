@@ -33,54 +33,43 @@
 		
 		$('form.select-package, form.reserve-date').on('submit', function(e){
 			e.preventDefault();
+			
 			var $form = $(this);
+			var formAction = $form.attr('data-action');
 			
-			//do not allow payment while options are changing
-			//$('#checkout-steps > a.done + a.done + a').unbind();
-			$('#charge').addClass('hidden');
+			if (formAction == 'reserve') {
+				$('#reserve-date').val($ele.attr('data-datetime'));
+			}
 			
-			$.ajax({
-	            type: "POST",
-	            url: $(this).attr('action'),
-	            data: $(this).serialize(),
-	            dataType: "json",
-	            success: function(data) {
-	                console.log(data);
-					
-					if (data.status == 'ok') {
-		                
-		                if ($form.hasClass('select-package')) {
-			                $('form.select-package input[type=submit]').each(function(ele, i){
-			                	$(this)
-			                		.removeClass('cupid-green')
-			                		.addClass('clean-gray')
-			                		.attr('value', $(this).attr('data-title'))
-			                	;
-			                });
-		                }
-		                
-		                $('#checkout-steps')
-		                	.removeClass('hidden')
-		                	.slideDown(700)
-		                		.find('a.' + $form.find('input[name=action]')
-		                			.val())
-		                			.addClass('done')
-		                ;
-		                
-		                scrollPoint = getScrollPoint();
-		               
-		                selectPackage($form.find('input[type=submit]'));
-		                
-		                bindPayment();
-		                
-	               	} else {
-	               		addFlash(data.flash.errorMessage, data.flash.errorClass);
-	               	}
-	            },
-	            error: function(){
-	                 addFlash('There was a problem connecting to the server.<br><br>Please try again', 'warning');
-	            }
-	        });
+			//revert all the packages
+			if ($form.hasClass('select-package')) {
+                $('form.select-package input[type=submit]').each(function(i, ele){
+                	$(this)
+                		.removeClass('cupid-green')
+                		.addClass('clean-gray')
+                		.attr('value', $(this).attr('data-title'))
+                	; 
+                });
+            }
+            
+            //now select new package
+            selectPackage($form.find('input[type=submit]'));
+            
+            formData = JSON.parse(readCookie('avow-form-data', "{}"));
+
+            formData[formAction] = $form.serializeObject();
+            createCookie('avow-form-data', JSON.stringify(formData), .042);
+                       
+            $('#checkout-steps')
+            	.removeClass('hidden')
+            	.slideDown(700)
+            		.find('a.' + formAction)
+            			.addClass('done')
+            ;
+            
+            bindPayment();
+
+            scrollPoint = getScrollPoint();
 		})
 		
 		
@@ -121,19 +110,6 @@
 
 			
 			setupPaymentButtons();
-
-			/*
-		
-			$pay.on('click', function(e){
-		    	var $selectedPackage = $('input.select-package.cupid-green');
-				stripeHandler.open({
-					name: 'Avow',
-					description: $selectedPackage.attr('data-package-name'),
-					amount: $selectedPackage.parent().find('input[name=package_price]').val() * 100
-				});
-				e.preventDefault();
-		    });
-		*/
 		    
 		    $('#charge').removeClass('hidden');
 		} else {
@@ -268,3 +244,38 @@ function screenIs(className)
 		}
 	}
 }
+
+function createCookie(name, value, days) {
+    var expires;
+
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+}
+
+function readCookie(name, defaultValue) {
+    var nameEQ = escape(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return unescape(c.substring(nameEQ.length, c.length));
+    }
+    
+    if (typeof(defaultValue) != 'undefined') {
+	    return defaultValue;
+    }
+    
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
+}
+
+var formData = JSON.parse(readCookie('avow-form-data', "{}"));

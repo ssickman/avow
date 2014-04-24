@@ -5,7 +5,7 @@
 .events-list{
 	
 } .events-list li{
-	padding: 13px;
+	padding: 10px;
 	border-bottom: 2px solid #dadada;
 	border-right: 1px solid #E5E5E5;
 	border-left: 1px solid #E5E5E5;
@@ -21,12 +21,13 @@
 }
 
 .event-date, .events-list li input{
-	font-weight: bold;
-	font-size: 16px;
+/* 	font-weight: bold; */
+	font-size: 14px;
 	color: #aaa;
 	padding: 7px;
 } .event-date{
 	color: #777;
+	font-weight: bold;
 } .events-list li input[name=name1], .events-list li input[name=name2] {
 	
 }

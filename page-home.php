@@ -42,6 +42,13 @@ Template Name: Homepage Template
 								
 								$('#calendar .events .event').removeClass('clicked');
 								$ele.addClass('clicked')
+								
+								$('#reserve-button')								
+									.removeClass('cupid-green')
+									.addClass('clean-gray')
+			                		.attr('value', $('#reserve-button').attr('data-title'))
+			                	;
+
 							});
 						}
 						
@@ -136,13 +143,14 @@ Template Name: Homepage Template
 							</div>
 						</div>						
 					</script>
-					<form method="post" action="/backend" class="reserve-date">
-						<input type="submit" name="reserve_date" value="Reserve Your Date" style="margin:20px auto; display:block;"
+					<form method="post" action="/backend" class="reserve-date" data-action="reserve">
+						<input type="submit" name="reserve_date" value="Select Your Date" style="margin:20px auto; display:block;"
+							id="reserve-button"
 							class="<?php echo stepCompleted('reserve') ? 'cupid-green' : 'clean-gray' ?>"
-							data-selected-title="Date Reserved" 
-							data-title="Reserve Your Date">
+							data-selected-title="Date Selected" 
+							data-title="Select Your Date">
 							
-						<input type="hidden" name="date" value="2014-05-28 19:00:00" >
+						<input type="hidden" name="date" value="" id="reserve-date">
 						<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('reserve') ?>" >
 						<input type="hidden" name="action" value="reserve" >
 					</form>	
@@ -163,7 +171,7 @@ Template Name: Homepage Template
 				<ul id="">
 				<?php 
 					foreach ($packages as $p): 
-					$m = get_post_meta($p->ID); //print_r($meta); die();
+					$m = get_post_meta($p->ID);
 				?>
 					<li class="padding-standard">
 						<h2><?php echo $p->post_title ?></h2>
@@ -176,9 +184,9 @@ Template Name: Homepage Template
 						<ul class="features">
 							<?php echo package_format_features($m['package_features'][0]) ?>
 						</ul>
-						<form method="post" action="/backend" class="select-package">
+						<form method="post" action="/backend" class="select-package" data-action="package">
 							<input type="submit" name="package_title" value="Choose <?php echo $p->post_title ?>" 
-								class="select-package <?php echo $_SESSION['package_name'] == $p->post_title ? 'cupid-green' : 'clean-gray' ?>"
+								class="select-package <?php echo @$cookieData->package->package_name == $p->post_title ? 'cupid-green' : 'clean-gray' ?>"
 								data-selected-title="<?php echo $p->post_title ?> Selected" 
 								data-title="Choose <?php echo $p->post_title ?>"
 								data-package-name="<?php echo $p->post_title ?>">
@@ -204,14 +212,14 @@ Template Name: Homepage Template
 							<p>
 								Pay the full amount today and only worry about how good you're gonna look on your special day.
 							</p>
-							<button class="pay full cupid-green" data-pay-percent="100" data-button-text="Pay Full Amount">Pay Full Amount</button>
+							<div class="button-wrap"><button class="pay full cupid-green" data-pay-percent="100" data-button-text="Pay Full Amount">Pay Full Amount</button></div>
 						</li>
 						<li>
 							<h2>Reservation Payment</h2>
 							<p>
 								Reserve your date with a payment of 20%. The full amount will be due when you arrive.
 							</p>
-							<button class="pay down-payment clean-gray" data-pay-percent="20" data-button-text="Pay 20%">Pay 20%</button>
+							<div class="button-wrap"><button class="pay down-payment clean-gray" data-pay-percent="20" data-button-text="Pay 20%">Pay 20%</button></div>
 						</li>
 					</ul>
 					<script>
