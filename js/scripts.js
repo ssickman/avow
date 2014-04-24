@@ -38,7 +38,7 @@
 			var formAction = $form.attr('data-action');
 			
 			if (formAction == 'reserve') {
-				$('#reserve-date').val($ele.attr('data-datetime'));
+				$('#reserve-date').val($('.events-list .event.clicked').attr('data-datetime'));
 			}
 			
 			//revert all the packages
