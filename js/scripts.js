@@ -130,6 +130,7 @@
 			var amountPretty = '$' + (amount * payPercent / 100);
 			
 			$(this)
+				.off()
 				.html($(this).attr('data-button-text') + ' (' + amountPretty + ')')
 				.on('click', function(e){
 			    	$('button.pay').removeClass('chosen-payment-method');

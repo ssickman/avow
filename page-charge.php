@@ -18,7 +18,7 @@ try {
 	
 	$token       = @$_POST['stripeToken'];
 	$postAmount  = @$_POST['stripeAmount'];
-	$packageId   = @$_SESSION['package_id'];
+	$packageId   = @$cookieData->package->package_id;
 
 	if (empty($packageId)) {
 		throw new MissingPackageId("You haven't selected a package");
@@ -27,7 +27,7 @@ try {
 	$m = get_post_meta($packageId);
 	$amount = $m['package_price'][0] * 100;
 	$prettyAmount = money_format('$%i', $postAmount / 100);
-	$packageName = $_SESSION['package_name'];
+	$packageName = $cookieData->package->package_name;
 	
 	if (!($postAmount == $amount || $postAmount == $amount * .2)) {
 		throw new MismatchedChargeAmount("There was a problem calculating the charge Amount{$tryAgain}");
@@ -56,11 +56,7 @@ try {
 if ($success) {
 	echo "Successfully charged {$prettyAmount} for {$packageName}";
 	
-	unset(
-		$_SESSION['package_id'], 
-		$_SESSION['package_name'],
-		$_SESSION['completed_steps']
-	);
+	setcookie('avow-form-data', "", -1);
 
 } else {
 	header('Location: /');
