@@ -546,7 +546,7 @@ input.select-package{
 }
 
 form.reserve-date{
-
+	overflow: visible;
 }
 
 form.reserve-date input{
@@ -567,6 +567,26 @@ form.reserve-date input{
 
 #reserve-button:focus{
 	outline: 0 !important;
+}
+
+#reserve-button{
+	position: relative;
+    z-index: 2;
+    margin-bottom: 0;
+}
+#current-reservation{
+	bottom: 40px;
+    color: #888888;
+    font-size: 14px;
+    font-weight: normal;
+    padding-top: 20px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    transition: all .2s ease-out;
+} #current-reservation.show{
+	bottom: 10px;
+    transition: all .2s ease-out;
 }
 
 .required-visual{
@@ -717,6 +737,7 @@ main.homepage > section:nth-child(2) {
 	} #package > ul > li.padding-standard, #payment-choices > li.padding-standard{
 		padding-left: 2% !important;
 		padding-right: 2% !important;
+		width: 100%;
 	} #package > ul > li:nth-child(2) {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
@@ -725,6 +746,7 @@ main.homepage > section:nth-child(2) {
 	#package > ul > li > p{
 		max-width: 90%;
 		min-width: 0%;
+		height: 65px;
 	}
 	
 	ul#payment-choices{		
@@ -793,10 +815,16 @@ main.homepage > section:nth-child(2) {
 	} #reserve-button{
 		clear: both;
 	    display: block;
-	    margin: 25px auto 20px;
-	    width: 200px;
+	    margin: 25px auto 0px;
+	    width: 300px;
 	    position: relative;
 	    top: 25px;
+	} 
+	#current-reservation {
+		bottom: 30px;
+	}
+	#current-reservation.show{
+		bottom: -13px;
 	}
 	
 	#calendar .controls .month, 

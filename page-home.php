@@ -53,6 +53,8 @@ Template Name: Homepage Template
 									.addClass('clean-gray')
 			                		.attr('value', $('#reserve-button').attr('data-title'))
 			                	;
+			                	
+			                	$('#current-reservation').addClass('show');
 
 							});
 						}
@@ -67,6 +69,14 @@ Template Name: Homepage Template
 								doneRendering: function(){
 									$('#calendar .day:visible:not(.inactive, .adjacent-month)').eq(0).trigger('click')
 									bindCalEvent();
+									
+									if (typeof(formData.reserve.date) == 'string') {
+										$('.events-list .event[data-datetime="' + formData.reserve.date + '"]').addClass('clicked');
+										
+										var buttonText = moment(formData.reserve.date).format('ddd, MMM Do [at] h:mm a');
+										$('#reserve-button').attr('data-selected-title', buttonText).val(buttonText + ' Selected');
+										$('#current-reservation').html('Current Reservation: ' + buttonText);
+									}
 								},
 								events: <?php 
 									$start = date('Y-m-d', strtotime('+2 weeks')); 
@@ -160,6 +170,8 @@ Template Name: Homepage Template
 							class="<?php echo stepCompleted('reserve') ? 'cupid-green' : 'clean-gray' ?>"
 							data-selected-title="Date Selected" 
 							data-title="Select Your Date">
+						
+						<div id="current-reservation"></div>
 							
 						<input type="hidden" name="date" class="required" value="" id="reserve-date">
 						<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('reserve') ?>" >

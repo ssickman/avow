@@ -105,6 +105,10 @@
 					return;
 				}
 				
+				var buttonText = moment($('.events-list .event.clicked').attr('data-datetime')).format('ddd, MMM Do [at] h:mm a');
+				$('#reserve-button').attr('data-selected-title', buttonText + ' Selected');
+				$('#current-reservation').html('Current Reservation: ' + buttonText).removeClass('show');
+				
 			}
 			
 			//revert all the packages
