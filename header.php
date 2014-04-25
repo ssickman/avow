@@ -55,7 +55,7 @@ conditionizr.config({
 					<!-- /nav -->
 			</header>
 			<nav id="checkout-steps" class="<?php echo !showStepBar() ? 'hidden' : '' ?>">
-			<?php foreach (array('package' => 'package', 'reserve' => 'date', 'charge' => 'pay') as $action => $stepName): ?>
+			<?php foreach (array('reserve' => 'date', 'package' => 'package', 'charge' => 'pay') as $action => $stepName): ?>
 				<a href="#<?php echo $action ?>" class="<?php echo $action ?> <?php echo stepCompleted($action) ? 'done' : '' ?>"><?php echo ucfirst($stepName) ?></a>
 			<?php endforeach; ?>
 			</nav>

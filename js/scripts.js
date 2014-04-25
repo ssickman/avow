@@ -28,8 +28,33 @@
 		
 		$('.flash a').on('click', function(e){
 			e.preventDefault();
+			$('.flash').stop();
+			
 			$(this).parent().css('display', 'none').fadeOut(1000);
 		});
+		
+			
+		$('form.reserve-date input').not('input[type=submit]')
+			.on('focus', function(e){
+				var $this = $(this);
+				if ($this.val() == $this.attr('data-ghost')) {
+					$this.val('');
+				}
+
+				$this.removeClass('ghost').removeClass('required-visual');
+			})
+			.on('blur', function(e){
+				var $this = $(this);
+				if ($this.val().trim().length === 0) {
+					$this.val($this.attr('data-ghost')).addClass('ghost');
+				}
+			})
+			.each(function(i, ele){
+				var $this = $(ele);
+				if ($this.val() != $this.attr('data-ghost')) {
+					$this.removeClass('ghost');
+				}
+			});
 		
 		$('form.select-package, form.reserve-date').on('submit', function(e){
 			e.preventDefault();
@@ -39,6 +64,47 @@
 			
 			if (formAction == 'reserve') {
 				$('#reserve-date').val($('.events-list .event.clicked').attr('data-datetime'));
+				
+				$('.flash').stop();
+				
+				var validForm = true;
+				
+				$('form.reserve-date input.required').each(function(i, ele){
+					var $this = $(ele);
+					if ($this.val().trim().length < 2 || $this.val() == $this.attr('data-ghost')) {
+						
+						//scroll to the first blank (and visible) field 
+						if (validForm) {
+
+							//flash the error if the date hasn't been selected
+							if ($this.attr('name') == 'date') {
+								addFlash('Please choose a date &amp; time', 2000);
+							} else {
+								if (jQuery(window).scrollTop() > $this.offset().top - 40) {
+									$.scrollTo($this, 200, { 'axis':'y', offset: {top: -60}});
+								}
+							}
+						}						
+						
+						//shake the text label
+						$this
+							.stop()
+							.delay(400)
+							.animate({ paddingLeft: '20px' }, 100)
+							.animate({ paddingLeft: '06px' }, 100)
+							.animate({ paddingLeft: '20px' }, 100)
+							.animate({ paddingLeft: '06px' }, 100)
+							.addClass('required-visual')
+						;
+						
+						validForm = false;
+					}
+				});
+				
+				if (!validForm) {
+					return;
+				}
+				
 			}
 			
 			//revert all the packages
@@ -219,16 +285,23 @@ function postForm(action, method, input)
     form.appendTo('body').submit();
 }
 
-function addFlash(errorMessage, errorClass) 
+function addFlash(errorMessage, delay) 
 {
-	jQuery('.flash').addClass(errorClass).find('div').html(errorMessage);
-	controlFlash();
+	jQuery('.flash')/* .addClass(errorClass) */.find('div').html(errorMessage);
+	controlFlash(delay);
 }
 
-function controlFlash() {
-	$('.flash').hide();
+function controlFlash(delay) {
+	delay = delay || 10000;
+	
+	$('.flash').stop().hide();
+	
 	if ($('.flash > div').html().length > 0) { 
-		$('.flash').show().delay(10000).fadeOut(1000); 
+		$('.flash')
+			.fadeIn(200, function(){
+				$('.flash > a').focus();
+			})
+			.delay(delay).fadeOut(1000); 
 	}
 
 }

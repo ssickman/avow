@@ -18,11 +18,16 @@ Template Name: Homepage Template
 				<h1>The Venue</h1>
 				<div class="margin-standard">
 					<div class="row">
-						<h2 class="half r">Portland's Premier Micro Wedding Venue</h2>
+						<div class="half text r">
+							<h2>Portland's Premier Micro Wedding Venue</h2>
+						</div>
+						
 						<div class="img-container half l"><img class="" src="wp-content/themes/avow/img/venue-1.jpg"></div>
 					</div>
 					<div class="row">					
-						<h2 class="half l">Elegant Design for Your Special Day</h2>
+						<div class="half text l">
+							<h2>Elegant Design for Your Special Day</h2>
+						</div>
 						<div class="img-container half r"><img class="" src="wp-content/themes/avow/img/venue-2.jpg"></div>
 					</div>
 				</div>
@@ -144,13 +149,19 @@ Template Name: Homepage Template
 						</div>						
 					</script>
 					<form method="post" action="/backend" class="reserve-date" data-action="reserve">
-						<input type="submit" name="reserve_date" value="Select Your Date" style="margin:20px auto; display:block;"
+						<input name="name1" class="name1 ghost required" data-ghost="You" value="You" type="text">
+						<input name="name2" class="name2 ghost required" data-ghost="Your Partner" value="Your Partner" type="text">
+						<input name="phone" class="phone ghost required" data-ghost="Phone" value="Phone" type="tel">
+						<input name="email" class="email ghost required" data-ghost="Email" value="Email" type="text">
+						
+						
+						<input type="submit" name="reserve_date" value="Select Your Date"
 							id="reserve-button"
 							class="<?php echo stepCompleted('reserve') ? 'cupid-green' : 'clean-gray' ?>"
 							data-selected-title="Date Selected" 
 							data-title="Select Your Date">
 							
-						<input type="hidden" name="date" value="" id="reserve-date">
+						<input type="hidden" name="date" class="required" value="" id="reserve-date">
 						<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('reserve') ?>" >
 						<input type="hidden" name="action" value="reserve" >
 					</form>	
