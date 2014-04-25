@@ -86,14 +86,20 @@
 							}
 						}						
 						
+					
 						//shake the text label
+						var shakeTime = 75;
 						$this
 							.stop()
-							.delay(400)
-							.animate({ paddingLeft: '20px' }, 100)
-							.animate({ paddingLeft: '06px' }, 100)
-							.animate({ paddingLeft: '20px' }, 100)
-							.animate({ paddingLeft: '06px' }, 100)
+							.delay(250)
+							.animate({ paddingLeft: '20px' }, shakeTime)
+							.animate({ paddingLeft: '06px' }, shakeTime)
+							.animate({ paddingLeft: '20px' }, shakeTime)
+							.animate({ paddingLeft: '06px' }, shakeTime)
+							.animate({ paddingLeft: '20px' }, shakeTime)
+							.animate({ paddingLeft: '06px' }, shakeTime)
+							//.animate({ paddingLeft: '20px' }, shakeTime)
+							//.animate({ paddingLeft: '06px' }, shakeTime)
 							.addClass('required-visual')
 						;
 						

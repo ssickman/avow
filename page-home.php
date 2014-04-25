@@ -11,7 +11,7 @@ Template Name: Homepage Template
 				<span>Get hitched on the quick</span>
 				<a class="button banner-button button-shadow" href="#reserve">book now ></a>
 			</h3>
-			<img id="home-banner" src="wp-content/themes/avow/img/homepage.jpg">
+			<img id="home-banner" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABXgAAAMxCAMAAABmUiubAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0iMDE5RTVBOUY3NTlFOUEwNzJFRDkxM0ZDRTE2MTU3ODUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzA2RTgzNzdDMzZEMTFFM0EyMENFNjVFNERDQ0JBRkYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzA2RTgzNzZDMzZEMTFFM0EyMENFNjVFNERDQ0JBRkYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIExpZ2h0cm9vbSAzLjYgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTc5N0JGMjZCNkVBMTFFM0IyNDBBRTgzNkVCRDU3QjYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTc5N0JGMjdCNkVBMTFFM0IyNDBBRTgzNkVCRDU3QjYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4QIpjfAAAABlBMVEX///8AAABVwtN+AAAEcElEQVR42uzBMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAziaAAAMAeCgAASkgQLUAAAAASUVORK5CYII=">
 		</section>
 		<section id="content-wrap">
 			<section id="venue">
@@ -54,13 +54,16 @@ Template Name: Homepage Template
 			                		.attr('value', $('#reserve-button').attr('data-title'))
 			                	;
 			                	
-			                	$('#current-reservation').addClass('show');
+			                	if ($('#current-reservation').html().trim().length > 5) {
+				                	$('#current-reservation').addClass('show');
+				                }
 
 							});
 						}
 						
 						(function ($, root, undefined) { $(function () {
 							var currentEventsDay = null;
+							var initialCalClick = true;
 							
 							calendar = $('#calendar').clndr({
 								template: $('#clndr-template').html(),
@@ -70,10 +73,11 @@ Template Name: Homepage Template
 									$('#calendar .day:visible:not(.inactive, .adjacent-month)').eq(0).trigger('click')
 									bindCalEvent();
 									
-									if (typeof(formData.reserve.date) == 'string') {
+									if (typeof(formData.reserve) != 'undefined' && typeof(formData.reserve.date) == 'string') {
 										$('.events-list .event[data-datetime="' + formData.reserve.date + '"]').addClass('clicked');
 										
 										var buttonText = moment(formData.reserve.date).format('ddd, MMM Do [at] h:mm a');
+
 										$('#reserve-button').attr('data-selected-title', buttonText).val(buttonText + ' Selected');
 										$('#current-reservation').html('Current Reservation: ' + buttonText);
 									}
@@ -117,6 +121,19 @@ Template Name: Homepage Template
 										currentEventsDay = targetDate;
 										
 										$('#calendar .day').removeClass('clicked');
+			
+										if (!initialCalClick) {
+											$('#reserve-button')								
+												.removeClass('cupid-green')
+												.addClass('clean-gray')
+						                		.attr('value', $('#reserve-button').attr('data-title'))
+						                	;
+						                		
+						                	$('#current-reservation').addClass('show');
+							                
+											
+										} initialCalClick = false;
+										
 										$ele.addClass('clicked');
 										
 										$('.events .event').css('display', 'none');
@@ -124,6 +141,7 @@ Template Name: Homepage Template
 									}
 								}
 							});
+							
 						}) })(jQuery, this);
 					</script>
 					
