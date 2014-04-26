@@ -218,7 +218,8 @@
 					stripeHandler.open({
 						name: 'Avow',
 						description: $selectedPackage.attr('data-package-name'),
-						amount: amountStripe
+						amount: amountStripe,
+						email: $('form.reserve-date input.email').val()
 					});
 					e.preventDefault();
 			    });
