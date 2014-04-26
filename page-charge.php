@@ -74,7 +74,7 @@ try {
 if ($success) {
 	echo "Successfully charged {$prettyAmount} for {$packageName}";
 	
-	book($cookieData)
+	book($cookieData);
 	
 	if (!$testing) {
 		setcookie('avow-form-data', "", -1);

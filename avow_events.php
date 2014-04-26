@@ -92,6 +92,11 @@ function getBookedDates($after = null)
 	return $unavailable;
 }
 
+function book($data) {
+	
+}
+
+
 function createEventsTable()
 {
 	global $wpdb;
