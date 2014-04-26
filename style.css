@@ -423,6 +423,7 @@ input.select-package{
 } .flash a {
 	color: teal;
 	font-weight: 700;
+	outline: 0;
 }
 
 #reserve > div {
@@ -610,11 +611,13 @@ main.homepage > section:nth-child(2) {
 @media only screen and (min-width: 320px) {
 	#banner{
 		background: url('img/homepage-small.jpg');
+		background-size: 100%;
 	}
 }
 @media only screen and (min-width: 480px) {
 	#banner{
 		background: url('img/homepage-medium.jpg');
+		background-size: 100%;
 	}
 	.small-screen{ display:none; }
 	.medium-screen{ display:block; }
@@ -676,6 +679,7 @@ main.homepage > section:nth-child(2) {
 @media only screen and (min-width: 768px) { 
 	#banner{
 		background: url('img/homepage-medium.jpg');
+		background-size: 100%;
 	}
 	.small-screen{ display:none; }
 	.medium-screen{ display:none; }
@@ -705,6 +709,7 @@ main.homepage > section:nth-child(2) {
 	
 	#checkout-steps a{
 		font-size: 19px;
+		outline: 0;
 	}
 		
 	.scrolled{
@@ -865,6 +870,7 @@ main.homepage > section:nth-child(2) {
 @media only screen and (min-width: 1024px) { 
 	#banner{
 		background: url('img/homepage-large.jpg');
+		background-size: 100%;
 	}
 	.small-screen{ display:none; }
 	.medium-screen{ display:none; }

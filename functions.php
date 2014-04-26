@@ -24,11 +24,9 @@ class MismatchedChargeAmount extends Exception{}
 	Theme Support
 \*------------------------------------*/
 
-
-$stripeSettings  = get_option('stripe_settings'); 
 $cookieData = getCookieData();
+$stripeSettings  = get_option('stripe_settings'); 
 
-$siteEnvironment = get_stripe_key('stripe_environment'); 
 $phone = '304.933.9016';
 $email = 'info@avowpdx.com';
 $tryAgain = "<br><br>Please try again or give us a call at {$phone}";
@@ -148,7 +146,7 @@ function datesToEvents($dates, $json = false)
 	
 	return $events;
 }
-$minMonth = $startMonth = null;
+
 function eventsForRange($desiredDays, $start, $end, $json = true) 
 {
 	global $startMonth;
@@ -160,6 +158,8 @@ function eventsForRange($desiredDays, $start, $end, $json = true)
 	
 	return datesToEvents($dates, $json);
 } 
+
+
 
 
 add_action('init', 'myStartSession', 1);
@@ -216,43 +216,26 @@ function html5blank_header_scripts()
 		
 		wp_deregister_script('jquery');
         wp_register_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', array(), null); // Custom scripts
-        wp_enqueue_script('jquery');
+        wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', '', '', true);
         
         wp_register_script('jquery-scrollTo', '//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js', array('jquery'), null); // Custom scripts
-        wp_enqueue_script('jquery-scrollTo');
+        wp_enqueue_script('jquery-scrollTo', '//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js', '', '', true);
         
         wp_deregister_script('underscore');
         wp_register_script('underscore', '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js', array('jquery'), null); // Custom scripts
-        wp_enqueue_script('underscore');
-        
-        //wp_register_script('moment', get_template_directory_uri() . '/js/moment.min.js', array('jquery', 'underscore'), '2.6.0'); // Custom scripts
-        //wp_enqueue_script('moment');
+        wp_enqueue_script('underscore', '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js', '', '', true);
         
 		wp_register_script('moment-clndr', get_template_directory_uri() . '/js/moment-clndr.js', array('jquery', 'underscore',), null); // Custom scripts
-        wp_enqueue_script('moment-clndr');
+        wp_enqueue_script('moment-clndr', get_template_directory_uri() . '/js/moment-clndr.js', '', '', true);
         
         wp_register_script('stripe', 'https://checkout.stripe.com/checkout.js', array()); // Custom scripts
-        wp_enqueue_script('stripe');
+        wp_enqueue_script('stripe', 'https://checkout.stripe.com/checkout.js', '', '', true);
         
         
         wp_deregister_script('comment-reply');
 
-       /*
-        wp_register_script('bootstrap', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', array(), '3.1.1'); // Custom scripts
-        wp_enqueue_script('bootstrap');
-		*/ 
-
         wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), null); // Custom scripts
-        wp_enqueue_script('html5blankscripts');
-    }
-}
-
-// Load HTML5 Blank conditional scripts
-function html5blank_conditional_scripts()
-{
-    if (is_page('pagenamehere')) {
-        wp_register_script('scriptname', get_template_directory_uri() . '/js/scriptname.js', array('jquery'), '1.0.0'); // Conditional script(s)
-        wp_enqueue_script('scriptname');
+        wp_enqueue_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', '', '', true);
     }
 }
 
@@ -558,7 +541,6 @@ function html5blankcomments($comment, $args, $depth)
 
 // Add Actions
 add_action('init', 'html5blank_header_scripts'); // Add Custom Scripts to wp_head
-add_action('wp_print_scripts', 'html5blank_conditional_scripts'); // Add Conditional Page Scripts
 add_action('get_header', 'enable_threaded_comments'); // Enable Threaded Comments
 add_action('wp_enqueue_scripts', 'html5blank_styles'); // Add Theme Stylesheet
 add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu

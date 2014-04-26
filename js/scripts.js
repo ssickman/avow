@@ -156,9 +156,9 @@
 		var scrollPoint = getScrollPoint();
 		shrinkHeader(scrollPoint);
 		
-		$('#home-banner').on('load', function(){
-			setContentMargin();
-		});
+
+		setContentMargin();
+
 						
 		$( window )
 			.on('scroll', function(e) {
