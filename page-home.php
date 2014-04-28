@@ -105,11 +105,12 @@ Template Name: Homepage Template
 				
 				<ul id="">
 				<?php 
+					$packageCount = 0;
 					foreach ($packages as $p): 
 					$m = get_post_meta($p->ID);
 				?>
-					<li class="padding-standard">
-						<h2><?php echo $p->post_title ?></h2>
+					<li class="padding-standard <?php echo strtolower(str_replace(' ', '-', $p->post_title)) ?> package-<?php echo ++$packageCount ?>">
+						<h2><?php echo $p->post_title ?></h2> 
 						<h3><?php echo $m['package_price'][0] ?></h3>
 						
 						<p>

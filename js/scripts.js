@@ -258,9 +258,31 @@
 	    ;
 	}
 	
+	var $highest = 0;
 	function setContentMargin()
 	{
 		$('main.homepage > section:nth-child(2)').css('marginTop', (parseInt($(bannerEle).css('height')) + parseInt($(bannerEle).css('top'))) + 'px');
+		
+		//and also set package heights
+		if (screenIs('large', 'xlarge')) {
+			var $topRow = $('.package-1, .package-2, .package-3');
+			var hi = 0;
+			
+			if (!$highest) {
+				$topRow.not('.chosen').each(function(){
+				  var h = $(this).height();
+				  if(h > hi){
+				     hi = h;
+				     $highest = $(this);  
+				  }    
+				});
+			}
+			
+			$topRow.not($highest).css('height', $highest.height());
+			
+			
+			
+		}
 	}
 	
 	function getScrollPoint()
