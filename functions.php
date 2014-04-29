@@ -19,6 +19,7 @@ require_once('stripe_settings.php');
 class MissingPackageId extends Exception{}
 class BadNonce extends Exception{}
 class MismatchedChargeAmount extends Exception{}
+class UnavailableDate extends Exception{}
 
 /*------------------------------------*\
 	Theme Support
@@ -41,7 +42,13 @@ function get_stripe_key($stripeKeyIndex) {
 function stepCompleted($step) {
 	global $cookieData;
 	
-	return !empty($cookieData->$step);
+	if ($step == 'reserve') {
+		$key = 'date';
+	} elseif ($step == 'package') {
+		$key = 'package_id';
+	}
+	
+	return !empty($cookieData->$step->$key);
 }
 
 function completeStep($step) {
@@ -63,6 +70,12 @@ function getCookieData()
 	} else {
 		return array();
 	}
+}
+
+function reserveFormValue($key, $default)
+{
+	global $cookieData;
+	return isset($cookieData->reserve->$key) ? $cookieData->reserve->$key : $default;
 }
 
 //add_action('init', function() { addFlash("You haven't selected a package"); }, 90);

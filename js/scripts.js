@@ -200,14 +200,15 @@
 		var $selectedPackage = $('input.select-package.cupid-green');
 		
 		$('#charge button.pay').each(function(i, ele){
-			var payPercent = $(this).attr('data-pay-percent');
+			var $this = $(this);
+			var payType = $this.attr('data-pay-type');
 			var amount = $selectedPackage.parent().find('input[name=package_price]').val();
-			var amountStripe = amount * payPercent;
-			var amountPretty = '$' + (amount * payPercent / 100);
-			
-			$(this)
+			var amountStripe = payType == 'full' ? amount * 100 : 20000;
+			var buttonText = $this.attr('data-button-text') + (payType == 'full' ? ' $' + amount : '');
+			console.log(buttonText);
+			$this
 				.off()
-				.html($(this).attr('data-button-text') + ' (' + amountPretty + ')')
+				.html(buttonText)
 				.on('click', function(e){
 			    	$('button.pay').removeClass('chosen-payment-method');
 			    	$(this)

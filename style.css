@@ -313,6 +313,9 @@ section {
 	display: block;
 } #package > ul > li, ul#payment-choices li{
     padding: 23px 0;
+    border-bottom: 3px solid #f0f0f0;
+} #package > ul > li:last-child, ul#payment-choices li:last-child{
+	border-bottom: 0;
 } #package > ul > li > h2, #payment-choices > li > h2 {
     font-size: 23px;
     font-weight: bold;
@@ -355,10 +358,12 @@ ul#payment-choices li{
 }
 
 button.pay{
-	margin: 20px 0 0;
+	/*
+margin: 20px 0 0;
 	display: block;
 	font-size: 13px;
 	padding: 15px;
+*/
 	min-width: 180px;
 }
 
@@ -776,12 +781,13 @@ display:-webkit-flex;
 		vertical-align: top;
 		background: none repeat scroll 0 0 #FCFCFC;
 	    border: 1px solid #F0F0F0;	
-	    padding-bottom: 90px;
+	    padding-bottom: 100px;
 	    position: relative;
+	    border: 0;
 	} #package > ul > li.package-4, #package > ul > li.package-5{
-		width: 40%;
+		width: 30%;
 	} #package > ul > li {
-		margin-bottom: 20px;
+		margin-bottom: 3px;
 		
 	} 
 	
@@ -827,7 +833,7 @@ display:-webkit-flex;
 	.button-wrap{
 		position: absolute;
 		left: 50%;
-		bottom: 0;
+		bottom: 20px;
 	}
 	button.pay{
 		position: relative;
@@ -837,6 +843,7 @@ display:-webkit-flex;
 	}
 	
 	.flash{
+		display: none;
 		font-size: 22px;
 		left: 20%;
 		right: 20%;
@@ -938,102 +945,38 @@ display:-webkit-flex;
 	}
 }
 
+.clean-gray, form.reserve-date input.clean-gray,
+.cupid-green, form.reserve-date input.cupid-green {	
+	color: #fff;
+	font-family: "Oxygen", sans-serif;
+	font-size: 14px;
+	padding: 7px 10px ;
+	text-align: center;
+	border-radius: 2px;
+	/* text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); */
+	outline: 0;
+	border: 0;
+	cursor: pointer;
+}
 
-/*
-Copyright (c) 2011 Chad Mazzola
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
-/* clean gray
-*******************************************************************************/
 .clean-gray, form.reserve-date input.clean-gray {
-  background-color: #eeeeee;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #cccccc));
-  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: linear-gradient(top, #eeeeee, #cccccc);
-  border: 1px solid #ccc;
-  border-bottom: 1px solid #bbb;
-  border-radius: 3px;
-  color: #333;
-  font: bold 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-  padding: 8px 12px;
-  text-align: center;
-  text-shadow: 0 1px 0 #eee;
-  outline: 0;
-  /* width: 150px;  */
+	background: #e5e5e5;
+	color: #666;
+	border: 3px solid #e0e0e0;
+	padding: 6px 12px;
 } .clean-gray:hover, form.reserve-date input.clean-gray:hover {
-    background-color: #dddddd;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #bbbbbb));
-    background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
-    background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
-    background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
-    background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
-    background-image: linear-gradient(top, #dddddd, #bbbbbb);
-    border: 1px solid #bbb;
-    border-bottom: 1px solid #999;
-    cursor: pointer;
-    text-shadow: 0 1px 0 #ddd; }
-  .clean-gray:active, form.reserve-date input.clean-gray:active {
-    border: 1px solid #aaa;
-    border-bottom: 1px solid #888;
-    -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
-    box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee; }
+	background: #eee;
+	border-color: #eee;
+	color: #aaa;
+}  .clean-gray:active, form.reserve-date input.clean-gray:active {
 
-/* cupid green (inspired by okcupid.com)
-*******************************************************************************/
+}
 .cupid-green, form.reserve-date input.cupid-green {
-  background-color: #7fbf4d;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7fbf4d), color-stop(100%, #63a62f));
-  background-image: -webkit-linear-gradient(top, #7fbf4d, #63a62f);
-  background-image: -moz-linear-gradient(top, #7fbf4d, #63a62f);
-  background-image: -ms-linear-gradient(top, #7fbf4d, #63a62f);
-  background-image: -o-linear-gradient(top, #7fbf4d, #63a62f);
-  background-image: linear-gradient(top, #7fbf4d, #63a62f);
-  border: 1px solid #63a62f;
-  border-bottom: 1px solid #5b992b;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 0 0 #96ca6d;
-  box-shadow: inset 0 1px 0 0 #96ca6d;
-  color: #fff;
-  font: bold 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-  padding: 7px 12px 8px ;
-  text-align: center;
-  text-shadow: 0 -1px 0 #4c9021;
-  outline: 0;
- /*  width: 150px;  */
+	background: #2ECC71;
+	border-bottom: 3px solid #1D914D;
 } .cupid-green:hover, form.reserve-date input.cupid-green:hover {
-    background-color: #76b347;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #76b347), color-stop(100%, #5e9e2e));
-    background-image: -webkit-linear-gradient(top, #76b347, #5e9e2e);
-    background-image: -moz-linear-gradient(top, #76b347, #5e9e2e);
-    background-image: -ms-linear-gradient(top, #76b347, #5e9e2e);
-    background-image: -o-linear-gradient(top, #76b347, #5e9e2e);
-    background-image: linear-gradient(top, #76b347, #5e9e2e);
-    -webkit-box-shadow: inset 0 1px 0 0 #8dbf67;
-    box-shadow: inset 0 1px 0 0 #8dbf67;
-    cursor: pointer; }
-  .cupid-green:active, form.reserve-date input.cupid-green:active {
-    border: 1px solid #5b992b;
-    border-bottom: 1px solid #538c27;
-    -webkit-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
-    box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee; 
+	background: #36E27E;
+	border-color: #2ECC71;
+} .cupid-green:active, form.reserve-date input.cupid-green:active {
+
 }

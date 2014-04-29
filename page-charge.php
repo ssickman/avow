@@ -22,9 +22,9 @@ try {
 	$token       = @$_POST['stripeToken'];
 	$postAmount  = @$_POST['stripeAmount'];
 	$packageId   = @$cookieData->package->package_id;
-	
+
 	$testing = false;
-	if ($_GET['testing']) {
+	if (isset($_GET['testing']) && $_GET['testing'] && $siteEnvironment == 'test') {
 		$token = json_decode(Stripe_Token::create(array(
 		  "card" => array(
 		    "number" => "4242424242424242",
@@ -34,9 +34,9 @@ try {
 		  )
 		)))->id;
 		$testing = true;
-		$postAmount = 90000;
+		$postAmount = 150000;
 	}
-	
+
 	if (empty($packageId)) {
 		throw new MissingPackageId("You haven't selected a package");
 	}
@@ -44,9 +44,14 @@ try {
 	$m = get_post_meta($packageId);
 	$amount = $m['package_price'][0] * 100;
 	$prettyAmount = money_format('$%i', $postAmount / 100);
+
 	$packageName = $cookieData->package->package_name;
 
-	if (!($postAmount == $amount || $postAmount == $amount * .2)) {
+	if ($postAmount == $amount) {
+		$payAmount = 'full';
+	} elseif ($postAmount == 200) {
+		$payAmount = '$200';
+	} else {
 		throw new MismatchedChargeAmount("There was a problem calculating the charge amount{$tryAgain}");
 	}
 
@@ -57,24 +62,32 @@ try {
 	  "description" => $packageName,
 	));
 	
+	book($cookieData, $payAmount);
+	
 	$success = true;
 	
-} catch(Stripe_CardError $e) {
+} catch (Stripe_CardError $e) {
 	// The card has been declined
 	//echo __LINE__ . ' ' . $e->getMessage();
 	addFlash("We had a problem processing your credit card.{$tryAgain}");
-} catch(Stripe_InvalidRequestError $e) {
+} catch (Stripe_InvalidRequestError $e) {
 	addFlash("We had a problem processing your credit card.{$tryAgain}");
-} catch(MissingPackageId $e) {
+} catch (MissingPackageId $e) {
 	addFlash($e->getMessage());
-} catch(MismatchedChargeAmount $e) {
+} catch (MismatchedChargeAmount $e) {
 	addFlash($e->getMessage());
+} catch(UnavailableDate $e) {
+	unset($cookieData->reserve->date);
+	
+	setCookie('avow-form-data', json_encode($cookieData), time()+60*30, '/');
+	
+	addFlash("We're sorry. The date you chose is unavailable.{$tryAgain}");
 }
 
 if ($success) {
 	echo "Successfully charged {$prettyAmount} for {$packageName}";
 	
-	book($cookieData);
+	
 	
 	if (!$testing) {
 		setcookie('avow-form-data', "", -1);

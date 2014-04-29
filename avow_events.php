@@ -92,8 +92,36 @@ function getBookedDates($after = null)
 	return $unavailable;
 }
 
-function book($data) {
+function checkAvowDate($date)
+{
+	global $wpdb;
+	global $avow_events_table;
+
+	$dateCheck = $wpdb->get_results($wpdb->prepare("SELECT 1 from {$avow_events_table} WHERE date = '%s' and status IN ('booked', 'unavailable', 'reserved')", $date));
+
+	return empty($dateCheck);
+
+}
+
+function book($data, $paymentType) 
+{
+	global $wpdb;
+	global $avow_events_table;
 	
+	if (checkAvowDate($data->reserve->date)) {
+		$wpdb->insert($avow_events_table, array(
+			'name1'  => $data->reserve->name1,
+			'name2'  => $data->reserve->name2,
+			'phone'  => $data->reserve->phone,
+			'email'  => $data->reserve->email,
+			'date'   => $data->reserve->date,
+			'status' => 'booked',
+			'payment_amount' => $paymentType,
+			'package_name'   => $data->package->package_name,
+		));
+	} else {
+		throw new UnavailableDate();
+	}
 }
 
 
@@ -109,10 +137,10 @@ name1 varchar(255)  NOT NULL,
 name2 varchar(255)  NOT NULL,
 email varchar(100)  NOT NULL,
 phone varchar(15)   NOT NULL,
-status enum('available','booked','reserved') DEFAULT 'available',
+status enum('available','booked','unavailable','reserved') DEFAULT 'available',
 package_name varchar(255) NOT NULL,
 payment_type enum('credit card','bitcoin','dogecoin') DEFAULT 'credit card',
-payment_amount enum('20%', '100%') NOT NULL,
+payment_amount enum('$200', 'full') NOT NULL,
 PRIMARY KEY  (date)
 	);";
 	

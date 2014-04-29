@@ -71,10 +71,10 @@ Template Name: Homepage Template
 						</div>						
 					</script>
 					<form method="post" action="/backend" class="reserve-date" data-action="reserve">
-						<input name="name1" class="name1 ghost required" data-ghost="You" value="You" type="text">
-						<input name="name2" class="name2 ghost required" data-ghost="Your Partner" value="Your Partner" type="text">
-						<input name="phone" class="phone ghost required" data-ghost="Phone" value="Phone" type="tel">
-						<input name="email" class="email ghost required" data-ghost="Email" value="Email" type="text">
+						<input name="name1" class="name1 ghost required" data-ghost="You" value="<?php echo reserveFormValue('name1', 'You') ?>" type="text">
+						<input name="name2" class="name2 ghost required" data-ghost="Your Partner" value="<?php echo reserveFormValue('name2', 'Your Partner') ?>" type="text">
+						<input name="phone" class="phone ghost required" data-ghost="Phone" value="<?php echo reserveFormValue('phone', 'Phone') ?>" type="tel">
+						<input name="email" class="email ghost required" data-ghost="Email" value="<?php echo reserveFormValue('email', 'Email') ?>" type="text">
 						
 						
 						<input type="submit" name="reserve_date" value="Select Your Date"
@@ -141,21 +141,21 @@ Template Name: Homepage Template
 			<section id="charge" class="<?php echo !(showStepBar() && stepCompleted('reserve') && stepCompleted('package')) ? 'hidden' : '' ?>">
 				<h1>Payment</h1>
 				<?php //wp_stripe_form(); ?>
-				<div class="margin-standard">					
+				<div>					
 					<ul id="payment-choices">
-						<li>
+						<li class="padding-standard">
 							<h2>Full Amount</h2>
 							<p>
 								Pay the full amount today and only worry about how good you're gonna look on your special day.
 							</p>
-							<div class="button-wrap"><button class="pay full cupid-green" data-pay-percent="100" data-button-text="Pay Full Amount">Pay Full Amount</button></div>
+							<div class="button-wrap"><button class="pay full cupid-green" data-pay-type="full" data-button-text="Pay Full Amount">Pay Full Amount</button></div>
 						</li>
-						<li>
+						<li class="padding-standard">
 							<h2>Reservation Payment</h2>
 							<p>
-								Reserve your date with a payment of 20%. The full amount will be due when you arrive.
+								Reserve your date with a payment of $200. The full amount will be due when you arrive.
 							</p>
-							<div class="button-wrap"><button class="pay down-payment clean-gray" data-pay-percent="20" data-button-text="Pay 20%">Pay 20%</button></div>
+							<div class="button-wrap"><button class="pay down-payment clean-gray" data-pay-type="partial" data-button-text="Pay $200">Pay $200</button></div>
 						</li>
 					</ul>
 					
