@@ -18,11 +18,11 @@ try {
 	$secretKey = get_stripe_key($stripeKeyIndex);
 	Stripe::setApiKey($secretKey);
 	
-	
+	//grap the data we passed from the stripe callback and 
 	$token       = @$_POST['stripeToken'];
 	$postAmount  = @$_POST['stripeAmount'];
-	$packageId   = @$cookieData->package->package_id;
-
+	
+	//setup test data if the wordpress enviornment is 'test' and we are passing ?testing=1
 	$testing = false;
 	if (isset($_GET['testing']) && $_GET['testing'] && $siteEnvironment == 'test') {
 		$token = json_decode(Stripe_Token::create(array(
@@ -34,35 +34,51 @@ try {
 		  )
 		)))->id;
 		$testing = true;
-		$postAmount = 150000;
+		$postAmount = 45000;
+		
+		$cookieData = new stdClass();
+		$cookieData->reserve = $cookieData->package = new stdClass();
+		
+		$cookieData->package->package_id = 12;
+		$cookieData->package->package_name = 'The Marquam';
+		
+		$cookieData->reserve->name1 = 'Steve';
+		$cookieData->reserve->name2 = 'Andrea';
+		$cookieData->reserve->phone = '3049339016';
+		$cookieData->reserve->email = 'sickman+'.(rand(1,100)).'@gmail.com';
+		$cookieData->reserve->date  = date('Y-m-d H:i:s'); 
+		
+		//print_r($cookieData); 
 	}
 
-	if (empty($packageId)) {
+	if (empty($cookieData->package->package_id)) {
 		throw new MissingPackageId("You haven't selected a package");
 	}
 	
-	$m = get_post_meta($packageId);
+	$m = get_post_meta($cookieData->package->package_id);
 	$amount = $m['package_price'][0] * 100;
 	$prettyAmount = money_format('$%i', $postAmount / 100);
 
-	$packageName = $cookieData->package->package_name;
-
 	if ($postAmount == $amount) {
-		$payAmount = 'full';
+		$paymentType = 'full';
 	} elseif ($postAmount == 200) {
-		$payAmount = '$200';
+		$paymentType = '$200';
 	} else {
 		throw new MismatchedChargeAmount("There was a problem calculating the charge amount{$tryAgain}");
 	}
-
+	
 	$charge = Stripe_Charge::create(array(
 	  "amount" => $postAmount,
 	  "currency" => "usd",
 	  "card" => $token,
-	  "description" => $packageName,
+	  "description" => $cookieData->package->package_name,
 	));
 	
-	book($cookieData, $payAmount);
+	$transactionId = $charge->id;
+	
+	book($cookieData, $paymentType, $transactionId);
+	
+	sendConfirmationEmail($cookieData->reserve->date);
 	
 	$success = true;
 	
@@ -85,7 +101,7 @@ try {
 }
 
 if ($success) {
-	echo "Successfully charged {$prettyAmount} for {$packageName}";
+	echo "Successfully charged {$prettyAmount} for {$cookieData->package->package_name}";
 	
 	
 	

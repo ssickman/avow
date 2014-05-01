@@ -8,10 +8,13 @@
 /*------------------------------------*\
 	External Modules/Files
 \*------------------------------------*/
+add_action('init', function(){ date_default_timezone_set('America/Los_Angeles'); }, 0);
+
 $avow_events_table = $wpdb->prefix . "avow_events"; 
 require_once('custom_post_type_package.php');
 require_once('avow_events.php');
 require_once('stripe_settings.php');
+require_once('email_settings.php');
 
 /*------------------------------------*\
 	External Modules/Files
@@ -172,7 +175,26 @@ function eventsForRange($desiredDays, $start, $end, $json = true)
 	return datesToEvents($dates, $json);
 } 
 
+function getMailer()
+{
+	$emailSettings = get_option('email_settings', '');
 
+	require_once(dirname(__FILE__).'/swift-5.1.0/swift_required.php');
+	$transporter = Swift_SmtpTransport::newInstance($emailSettings['email_smtp_server'], $emailSettings['email_smtp_port'], strtolower($emailSettings['email_smtp_protocol']))
+		->setUsername($emailSettings['email_from'])
+		->setPassword($emailSettings['email_password']);
+			
+	$mailer = Swift_Mailer::newInstance($transporter);
+	
+	$message = Swift_Message::newInstance('')
+		->setFrom(array($emailSettings['email_from'] => 'Avow'))
+		->setReplyTo($emailSettings['email_replyto'])
+	;
+	
+	return array($mailer, $message,);
+	
+	//$mailer->send($message);
+}
 
 
 add_action('init', 'myStartSession', 1);

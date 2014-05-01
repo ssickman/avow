@@ -103,7 +103,7 @@ function checkAvowDate($date)
 
 }
 
-function book($data, $paymentType) 
+function book($data, $paymentType, $transactionId) 
 {
 	global $wpdb;
 	global $avow_events_table;
@@ -117,13 +117,44 @@ function book($data, $paymentType)
 			'date'   => $data->reserve->date,
 			'status' => 'booked',
 			'payment_amount' => $paymentType,
+			'package_id'     => $data->package->package_id,
 			'package_name'   => $data->package->package_name,
+			'transaction_id' => $transactionId,
 		));
 	} else {
 		throw new UnavailableDate();
 	}
 }
 
+function sendConfirmationEmail($date)
+{
+	$event = getEvent($date);
+	$package = $packages = array_pop(get_posts(array('post_id' => $event->package_id,)));
+	$m = get_post_meta($event->package_id);
+	
+	//print_r($package); print_r($m); print_r($event); 
+	
+	
+	list($mailer, $message) = getMailer();
+	
+	$message
+		->setSubject('Your Wedding Date Confirmation')
+		->setBody('blhaala lsjf;aslj fks')
+		->setTo(array('info@avowpdx.com', $event->email));
+	;
+	
+	$mailer->send($message);
+	
+	return true;
+}
+
+function getEvent($date)
+{
+	global $avow_events_table;
+	global $wpdb;
+	
+	return array_pop($wpdb->get_results($wpdb->prepare("SELECT * from {$avow_events_table} WHERE date = '%s' LIMIT 1", $date)));
+}
 
 function createEventsTable()
 {
@@ -138,7 +169,9 @@ name2 varchar(255)  NOT NULL,
 email varchar(100)  NOT NULL,
 phone varchar(15)   NOT NULL,
 status enum('available','booked','unavailable','reserved') DEFAULT 'available',
+package_id mediumint(9),
 package_name varchar(255) NOT NULL,
+transaction_id varchar(50),
 payment_type enum('credit card','bitcoin','dogecoin') DEFAULT 'credit card',
 payment_amount enum('$200', 'full') NOT NULL,
 PRIMARY KEY  (date)

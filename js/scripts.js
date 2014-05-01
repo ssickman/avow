@@ -49,6 +49,13 @@
 					$this.val($this.attr('data-ghost')).addClass('ghost');
 				}
 			})
+			.on('keydown', function(e){
+				 formData = JSON.parse(readCookie('avow-form-data', "{}"));
+
+	            formData['reserve'] = $('form.reserve-date').serializeObject();
+	            createCookie('avow-form-data', JSON.stringify(formData), .042);
+	
+			})
 			.each(function(i, ele){
 				var $this = $(ele);
 				if ($this.val() != $this.attr('data-ghost')) {
@@ -265,8 +272,9 @@
 		$('main.homepage > section:nth-child(2)').css('marginTop', (parseInt($(bannerEle).css('height')) + parseInt($(bannerEle).css('top'))) + 'px');
 		
 		//and also set package heights
+		var $topRow = $('.package-1, .package-2, .package-3');
 		if (screenIs('large', 'xlarge')) {
-			var $topRow = $('.package-1, .package-2, .package-3');
+			
 			var hi = 0;
 			
 			if (!$highest) {
@@ -279,10 +287,9 @@
 				});
 			}
 			
-			$topRow.not($highest).css('height', $highest.height());
-			
-			
-			
+			$topRow.not($highest).css('height', $highest.height());	
+		} else if (screenIs('small', 'medium')) {
+			$topRow.attr('style', '');
 		}
 	}
 	

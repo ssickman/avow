@@ -57,7 +57,7 @@
 						$('#calendar .day:visible:not(.inactive, .adjacent-month)').eq(0).trigger('click')
 						bindCalEvent();
 						
-						if (typeof(formData.reserve) != 'undefined' && typeof(formData.reserve.date) == 'string') {
+						if (formData.hasOwnProperty('reserve') && formData.reserve != null) {
 							$('.events-list .event[data-datetime="' + formData.reserve.date + '"]').addClass('clicked');
 							
 							var buttonText = moment(formData.reserve.date).format('ddd, MMM Do [at] h:mm a');
