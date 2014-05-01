@@ -140,7 +140,7 @@ function sendConfirmationEmail($date)
 	$message
 		->setSubject('Your Wedding Date Confirmation')
 		->setBody('blhaala lsjf;aslj fks')
-		->setTo(array('info@avowpdx.com', $event->email));
+		->setTo(array($event->email,));
 	;
 	
 	$mailer->send($message);

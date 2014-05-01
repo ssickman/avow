@@ -188,6 +188,7 @@ function getMailer()
 	
 	$message = Swift_Message::newInstance('')
 		->setFrom(array($emailSettings['email_from'] => 'Avow'))
+		->setBcc($emailSettings['email_replyto'])
 		->setReplyTo($emailSettings['email_replyto'])
 	;
 	
