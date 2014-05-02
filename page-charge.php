@@ -78,7 +78,11 @@ try {
 	
 	book($cookieData, $paymentType, $transactionId);
 	
-	sendConfirmationEmail($cookieData->reserve->date);
+	sendConfirmationEmail($cookieData->reserve->date); 
+	
+	if ($testing) {
+		exit('sent confirmation');
+	}
 	
 	$success = true;
 	

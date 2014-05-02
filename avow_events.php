@@ -136,10 +136,15 @@ function sendConfirmationEmail($date)
 	
 	
 	list($mailer, $message) = getMailer();
+
+	$host = (strpos($_SERVER['HTTP_HOST'], 'local') === false ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'];
+	$confirmUrl = $host.'/confirm?date='.urlencode($event->date).'&email='.urlencode($event->email);
 	
+	$confirmContents = file_get_contents($confirmUrl);
+
 	$message
 		->setSubject('Your Wedding Date Confirmation')
-		->setBody('blhaala lsjf;aslj fks')
+		->setBody($confirmContents, 'text/html')
 		->setTo(array($event->email,));
 	;
 	
@@ -148,12 +153,18 @@ function sendConfirmationEmail($date)
 	return true;
 }
 
-function getEvent($date)
+function getEvent($date, $email = null)
 {
 	global $avow_events_table;
 	global $wpdb;
 	
-	return array_pop($wpdb->get_results($wpdb->prepare("SELECT * from {$avow_events_table} WHERE date = '%s' LIMIT 1", $date)));
+	if (is_null($email)) {
+		$query = $wpdb->prepare("SELECT * from {$avow_events_table} WHERE date = '%s' LIMIT 1", $date);
+	} else {
+		$query = $wpdb->prepare("SELECT * from {$avow_events_table} WHERE date = '%s' AND email = '%s' LIMIT 1", $date, $email);
+	}
+
+	return array_pop($wpdb->get_results($query));
 }
 
 function createEventsTable()

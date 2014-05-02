@@ -197,6 +197,13 @@ function getMailer()
 	//$mailer->send($message);
 }
 
+function remainingBalance($event, $package, $m) {
+	if ($event->payment_amount == '$200') {
+		$remaining = $m['package_price'][0] - 200;
+	}
+	
+	return "\${$remaining}";
+}
 
 add_action('init', 'myStartSession', 1);
 add_action('wp_logout', 'myEndSession');
